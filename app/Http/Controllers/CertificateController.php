@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Intervention\Image\ImageManager;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class CertificateController extends Controller
