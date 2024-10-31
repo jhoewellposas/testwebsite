@@ -28,7 +28,7 @@ class CertificateController extends Controller
         // Step 4: Extract relevant information using regex patterns
         $typePattern = "/certificate of (completion|attendance|participation)/i";
         $namePattern = "/(?:to|that)\s+([A-Z\s]+?)\s+(?:has|for)/i";
-        $titlePattern = "/completed\s(.+?)\s\(|on\s(.+?)\./i";
+        $titlePattern = "/(?:completed|participation on|completed the)\s+(.+?)(?:\s@\s|\s\(|\.)/i";
         $datePattern = "/(?:date completed|given this|valid until|given on)[:\s]+([0-9\/\-]+)/i";
 
         preg_match($typePattern, $text, $typeMatch);
@@ -45,6 +45,7 @@ class CertificateController extends Controller
         ];
 
         // Return the extracted data as JSON response
-        return response()->json($data);
+       // return response()->json($data);
+        return view('home', ['data' => $data]);
     }
 }
