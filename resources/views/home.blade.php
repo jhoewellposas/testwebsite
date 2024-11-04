@@ -495,19 +495,16 @@
         </thead>
         <tbody>
             <tr>
-                <td>Type</td>
+                <td>Certificate Type:</td>
+                <td>Name of Reciever:</td>
+                <td>Certificate Title:</td>
+                <td>Date:</td>
+                <td>Points:</td>
+            </tr>
+            <tr>
                 <td>{{ $data['type'] }}</td>
-            </tr>
-            <tr>
-                <td>Name</td>
                 <td>{{ $data['name'] }}</td>
-            </tr>
-            <tr>
-                <td>Title</td>
                 <td>{{ $data['title'] }}</td>
-            </tr>
-            <tr>
-                <td>Date</td>
                 <td>{{ $data['date'] }}</td>
             </tr>
         </tbody>
