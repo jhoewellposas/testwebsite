@@ -11,7 +11,7 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('/upload-certificate-form', function () {
+Route::get('/upload', function () {
     return view('upload'); // This view contains your HTML form
 });
 
@@ -21,3 +21,4 @@ Route::post('/extract', [CertificateController::class, 'extractCertificateData']
 Route::get('/summary', function () {
     return view('summary');
 });
+

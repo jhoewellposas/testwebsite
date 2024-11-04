@@ -486,21 +486,18 @@
 
   <div class="container">
     <h1>Extracted Certificate Data</h1>
-    <table class="table">
+    <form action="">
+    <table class="table" border="1">
         <thead>
             <tr>
-                <th>Field</th>
-                <th>Data</th>
+                <th>Type:</th>
+                <th>Name:</th>
+                <th>Title:</th>
+                <th>Date:</th>
+                <th>Points:</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Certificate Type:</td>
-                <td>Name of Reciever:</td>
-                <td>Certificate Title:</td>
-                <td>Date:</td>
-                <td>Points:</td>
-            </tr>
             <tr>
                 <td>{{ $data['type'] }}</td>
                 <td>{{ $data['name'] }}</td>
@@ -509,6 +506,7 @@
             </tr>
         </tbody>
     </table>
+  </form>
 </div>
 
 </body>
