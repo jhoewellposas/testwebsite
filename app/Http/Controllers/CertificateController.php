@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use thiagoalessio\TesseractOCR\TesseractOCR;
+use App\Models\Certificate;
 
 class CertificateController extends Controller
 {
@@ -46,6 +47,33 @@ class CertificateController extends Controller
 
         // Return the extracted data as JSON response
        // return response()->json($data);
-        return view('home', ['data' => $data]);
+       // return view('home', ['data' => $data]);
+
+        $certificate = Certificate::create($data);
+
+        return redirect()->route('home');
     }
+
+    public function showCertificates()
+    {
+        $allCertificates = Certificate::all();
+        return view('home', ['allCertificates' => $allCertificates]);
+    }
+
+    public function updateCertificate(Request $request, $id)
+    {
+        $certificate = Certificate::findOrFail($id);
+        $certificate->update($request->only('type', 'name', 'title', 'date'));
+
+        return redirect()->route('home');
+    }
+
+    public function deleteCertificate($id)
+    {
+        $certificate = Certificate::findOrFail($id);
+        $certificate->delete();
+
+        return redirect()->route('home');
+    }
+
 }

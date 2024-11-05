@@ -486,8 +486,7 @@
 
   <div class="container">
     <h1>Extracted Certificate Data</h1>
-    <form action="">
-    <table class="table" border="1">
+        <table class="table" border="1">
         <thead>
             <tr>
                 <th>Type:</th>
@@ -498,15 +497,28 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>{{ $data['type'] }}</td>
-                <td>{{ $data['name'] }}</td>
-                <td>{{ $data['title'] }}</td>
-                <td>{{ $data['date'] }}</td>
-            </tr>
+          @foreach ($allCertificates as $certificate)
+          <tr>
+              <form action="{{ route('certificate.update', $certificate->id) }}" method="POST">
+                  @csrf
+                  <td><input type="text" name="type" value="{{ $certificate->type }}"></td>
+                  <td><input type="text" name="name" value="{{ $certificate->name }}"></td>
+                  <td><input type="text" name="title" value="{{ $certificate->title }}"></td>
+                  <td><input type="text" name="date" value="{{ $certificate->date }}"></td>
+                  <td><input type="text" name="points"></td>
+                  <td>
+                      <button type="submit">Update</button>
+                  </form>
+                  <form action="{{ route('certificate.delete', $certificate->id) }}" method="POST" style="display:inline;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit">Delete</button>
+                  </form>
+                  </td>
+          </tr>
+          @endforeach
         </tbody>
     </table>
-  </form>
 </div>
 
 </body>
