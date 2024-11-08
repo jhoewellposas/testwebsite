@@ -11,6 +11,10 @@
     <h1>SY 2024-2025</h1>
     <h1>SUMMARY</h1></div>  
 
+    <div class="mb-4">
+        <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
+      </div>
+
     <div>
     <h2>A. Academic Attainment:</h2>
     <h3>1. attaintment and growth here</h3>

@@ -13,6 +13,8 @@ class Certificate extends Model
     'type',
     'name',
     'title',
-    'date'
+    'date',
+    'raw_text',
+    'points'
     ];
 }

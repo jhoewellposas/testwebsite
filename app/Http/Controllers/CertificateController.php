@@ -8,7 +8,6 @@ use App\Models\Certificate;
 
 class CertificateController extends Controller
 {
-
     public function extractCertificateData(Request $request)
     {
         // Step 1: Validate and save the uploaded file
@@ -19,9 +18,7 @@ class CertificateController extends Controller
         $image = $request->file('certificate');
         $path = $image->store('certificates', 'public');
         $processedImagePath = storage_path("app/public/{$path}");
-
         
-
         // Step 3: Perform OCR on the processed image
         $tesseract = new TesseractOCR($processedImagePath);
         $text = $tesseract->run();
@@ -42,28 +39,39 @@ class CertificateController extends Controller
             'type' => $typeMatch[1] ?? 'Unknown',
             'name' => $nameMatch[1] ?? 'Unknown',
             'title' => $titleMatch[1] ?? 'Unknown',
-            'date' => $dateMatch[1] ?? 'Unknown'
+            'date' => $dateMatch[1] ?? 'Unknown',
+            'raw_text' => $text,
         ];
-
-        // Return the extracted data as JSON response
-       // return response()->json($data);
-       // return view('home', ['data' => $data]);
 
         $certificate = Certificate::create($data);
 
         return redirect()->route('home');
     }
 
-    public function showCertificates()
+    public function showCertificates(Request $request)
     {
+    $query = $request->input('query');
+
+    if ($query) {
+        // Search by type, name, title, or date using LIKE to allow partial matches
+        $allCertificates = Certificate::where('type', 'like', "%{$query}%")
+            ->orWhere('name', 'like', "%{$query}%")
+            ->orWhere('title', 'like', "%{$query}%")
+            ->orWhere('date', 'like', "%{$query}%")
+            ->orWhere('raw_text', 'like', "%{$query}%")
+            ->orWhere('points', 'like', "%{$query}%")
+            ->get();
+    } else {
         $allCertificates = Certificate::all();
-        return view('home', ['allCertificates' => $allCertificates]);
+    }
+
+    return view('home', ['allCertificates' => $allCertificates, 'query' => $query]);
     }
 
     public function updateCertificate(Request $request, $id)
     {
         $certificate = Certificate::findOrFail($id);
-        $certificate->update($request->only('type', 'name', 'title', 'date'));
+        $certificate->update($request->only('type', 'name', 'title', 'date', 'points'));
 
         return redirect()->route('home');
     }
@@ -75,5 +83,4 @@ class CertificateController extends Controller
 
         return redirect()->route('home');
     }
-
 }

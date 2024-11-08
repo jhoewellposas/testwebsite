@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('title');
             $table->string('date');
+            $table->text('raw_text');
+            $table->float('points')->default(0);
             $table->timestamps();
         });
     }
