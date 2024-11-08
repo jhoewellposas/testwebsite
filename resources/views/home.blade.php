@@ -25,6 +25,7 @@
         <table class="table" border="1">
         <thead>
             <tr>
+                <th>Document Number:</th>
                 <th>Type:</th>
                 <th>Name:</th>
                 <th>Title:</th>
@@ -39,6 +40,7 @@
           <tr>
               <form action="{{ route('certificate.update', $certificate->id) }}" method="POST">
                   @csrf
+                  <td><input type="text" name="id" value="{{ $certificate->id }}"></td>
                   <td><input type="text" name="type" value="{{ $certificate->type }}"></td>
                   <td><input type="text" name="name" value="{{ $certificate->name }}"></td>
                   <td><input type="text" name="title" value="{{ $certificate->title }}"></td>

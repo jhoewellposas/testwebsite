@@ -54,7 +54,8 @@ class CertificateController extends Controller
 
     if ($query) {
         // Search by type, name, title, or date using LIKE to allow partial matches
-        $allCertificates = Certificate::where('type', 'like', "%{$query}%")
+        $allCertificates = Certificate::where('id', 'like', "%{$query}%")
+            ->orWhere('type', 'like', "%{$query}%")
             ->orWhere('name', 'like', "%{$query}%")
             ->orWhere('title', 'like', "%{$query}%")
             ->orWhere('date', 'like', "%{$query}%")
