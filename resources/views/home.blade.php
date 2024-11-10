@@ -7,7 +7,38 @@
     <title>Home</title>
 </head>
 <body>
+
   <div class="container">
+    <h1>Ranking</h1>
+    <form action="{{ route('teachers.create') }}" method="POST">
+        @csrf
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{$latestTeacher ? $latestTeacher->name : ''}}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="acad_attainment" class="form-label">Academic Attainment</label>
+            <input type="text" class="form-control" id="acad_attainment" name="acad_attainment" value="{{$latestTeacher ? $latestTeacher->acad_attainment : ''}}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="performance" class="form-label">Performance</label>
+            <input type="text" step="0.1" class="form-control" id="performance" name="performance" value=" {{ $latestTeacher ? $latestTeacher->performance : '' }}" placeholder="Enter performance score (default 0)">
+        </div>
+
+        <div class="mb-3">
+            <label for="experience" class="form-label">Experience</label>
+            <input type="text" class="form-control" id="experience" name="experience" value="{{ $latestTeacher ? $latestTeacher->experience : '' }}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Teacher</button>
+    </form>
+
+
+
+
     <h1>Extracted Certificate Data</h1>
 
     <!-- Upload Button -->
