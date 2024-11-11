@@ -7,39 +7,67 @@
     <title>Home</title>
 </head>
 <body>
+    
+<form action="{{ route('teachers.create') }}" method="POST">
+    @csrf
 
-  <div class="container">
-    <h1>Ranking</h1>
-    <form action="{{ route('teachers.create') }}" method="POST">
-        @csrf
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ $selectedTeacher ? $selectedTeacher->name : '' }}" required>
+    </div>
 
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{$latestTeacher ? $latestTeacher->name : ''}}" required>
-        </div>
+    <div class="mb-3">
+        <label for="acad_attainment" class="form-label">A. Academic Attainment and Growth</label>
+        <input type="text" class="form-control" id="acad_attainment" name="acad_attainment" value="{{ $selectedTeacher ? $selectedTeacher->acad_attainment : '' }}" required>
+    </div>
 
-        <div class="mb-3">
-            <label for="acad_attainment" class="form-label">Academic Attainment</label>
-            <input type="text" class="form-control" id="acad_attainment" name="acad_attainment" value="{{$latestTeacher ? $latestTeacher->acad_attainment : ''}}" required>
-        </div>
+    <div class="mb-3">
+        <label for="performance" class="form-label">B. Performance</label>
+        <input type="text" step="0.1" class="form-control" id="performance" name="performance" value="{{ $selectedTeacher ? $selectedTeacher->performance : '' }}" placeholder="Enter performance score (default 0)">
+    </div>
 
-        <div class="mb-3">
-            <label for="performance" class="form-label">Performance</label>
-            <input type="text" step="0.1" class="form-control" id="performance" name="performance" value=" {{ $latestTeacher ? $latestTeacher->performance : '' }}" placeholder="Enter performance score (default 0)">
-        </div>
+    <div class="mb-3">
+        <label for="experience" class="form-label">D. Experience</label>
+        <input type="text" class="form-control" id="experience" name="experience" value="{{ $selectedTeacher ? $selectedTeacher->experience : '' }}" required>
+    </div>
 
-        <div class="mb-3">
-            <label for="experience" class="form-label">Experience</label>
-            <input type="text" class="form-control" id="experience" name="experience" value="{{ $latestTeacher ? $latestTeacher->experience : '' }}" required>
-        </div>
+    <button type="submit" class="btn btn-primary">Add Teacher</button>
+</form>
 
-        <button type="submit" class="btn btn-primary">Add Teacher</button>
-    </form>
+<!-- Teacher Selection Dropdown for Populating Form -->
+<form action="{{ route('home') }}" method="GET" class="mb-4">
+    <label for="teacher_id">Select Teacher:</label>
+    <select name="teacher_id" id="teacher_id" class="form-control" onchange="this.form.submit()">
+        <option value="">-- Select a Teacher --</option>
+        @foreach($allTeachers as $teacher)
+            <option value="{{ $teacher->id }}" {{ request('teacher_id') == $teacher->id ? 'selected' : '' }}>
+                {{ $teacher->name }}
+            </option>
+        @endforeach
+    </select>
+</form>
 
 
 
 
-    <h1>Extracted Certificate Data</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h1>Certificates Table:</h1>
 
     <!-- Upload Button -->
     <div class="mb-4">
@@ -57,6 +85,7 @@
         <thead>
             <tr>
                 <th>Document Number:</th>
+                <th>Category</th>
                 <th>Type:</th>
                 <th>Name:</th>
                 <th>Title:</th>
@@ -72,6 +101,17 @@
               <form action="{{ route('certificate.update', $certificate->id) }}" method="POST">
                   @csrf
                   <td><input type="text" name="id" value="{{ $certificate->id }}"></td>
+                  <td><select name="category" id="category">
+                    <option value="seminar" {{ $certificate->category == 'seminar' ? 'selected' : '' }}>Seminar</option>
+                    <option value="honors_awards" {{ $certificate->category == 'honors_awards' ? 'selected' : '' }}>Honors and Awards</option>
+                    <option value="membership" {{ $certificate->category == 'membership' ? 'selected' : '' }}>Membership</option>
+                    <option value="scholarship_activities" {{ $certificate->category == 'scholarship_activities' ? 'selected' : '' }}>Scholarship Activities and Creative Efforts</option>
+                    <option value="service_students" {{ $certificate->category == 'service_students' ? 'selected' : '' }}>Service to Students</option>
+                    <option value="service_department" {{ $certificate->category == 'service_department' ? 'selected' : '' }}>Service to Department</option>
+                    <option value="service_institution" {{ $certificate->category == 'service_institution' ? 'selected' : '' }}>Service to Institution</option>
+                    <option value="participation_organizations" {{ $certificate->category == 'participation_organizations' ? 'selected' : '' }}>Active Participation in Different Organizations</option>
+                    <option value="involvement_department" {{ $certificate->category == 'involvement_department' ? 'selected' : '' }}>Active Involvement in Department/School Sponsored CES</option>
+                </select></td>
                   <td><input type="text" name="type" value="{{ $certificate->type }}"></td>
                   <td><input type="text" name="name" value="{{ $certificate->name }}"></td>
                   <td><input type="text" name="title" value="{{ $certificate->title }}"></td>

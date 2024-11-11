@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('teacher_id'); // Add this line for the relationship
+            $table->string('category')->nullable();
             $table->string('type');
             $table->string('name');
             $table->string('title');

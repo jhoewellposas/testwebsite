@@ -54,6 +54,49 @@ class CertificateController extends Controller
     }
 
     public function showCertificates(Request $request)
+{
+    $query = $request->input('query');
+    $teacherId = $request->input('teacher_id');
+
+    $allCertificates = Certificate::query();
+
+    // Filter by search query if provided
+    if ($query) {
+        $allCertificates->where(function ($q) use ($query) {
+            $q->where('id', 'like', "%{$query}%")
+              ->orWhere('type', 'like', "%{$query}%")
+              ->orWhere('name', 'like', "%{$query}%")
+              ->orWhere('title', 'like', "%{$query}%")
+              ->orWhere('date', 'like', "%{$query}%")
+              ->orWhere('raw_text', 'like', "%{$query}%")
+              ->orWhere('points', 'like', "%{$query}%");
+        });
+    }
+
+    // Filter by teacher_id if a teacher is selected
+    if ($teacherId) {
+        $allCertificates->where('teacher_id', $teacherId);
+        $selectedTeacher = Teacher::find($teacherId);
+    } else {
+        $selectedTeacher = null;
+    }
+    
+    $allCertificates = $allCertificates->get();
+
+    // Retrieve all teachers for the dropdown
+    $allTeachers = Teacher::all();
+
+    return view('home', [
+        'allCertificates' => $allCertificates,
+        'allTeachers' => $allTeachers,
+        'selectedTeacher' => $selectedTeacher,
+        'query' => $query,
+        'teacher_id' => $teacherId,
+    ]);
+}
+
+
+/*    public function showCertificates(Request $request)
     {
     $query = $request->input('query');
 
@@ -79,12 +122,12 @@ class CertificateController extends Controller
         'allTeachers' => $allTeachers,
         'latestTeacher' => $latestTeacher,
         'query' => $query]);
-    }
+    }*/
 
     public function updateCertificate(Request $request, $id)
     {
         $certificate = Certificate::findOrFail($id);
-        $certificate->update($request->only('type', 'name', 'title', 'date', 'points'));
+        $certificate->update($request->only('category','type', 'name', 'title', 'date', 'points'));
 
         return redirect()->route('home');
     }
@@ -122,12 +165,12 @@ class CertificateController extends Controller
     return view('upload', ['allTeachers' => $allTeachers]);
     }
 
-  /*  public function debugExtract(Request $request)
-{
-    if ($request->hasFile('certificate')) {
-        return response()->json(['message' => 'File uploaded successfully', 'data' => $request->all()]);
-    } else {
-        return response()->json(['message' => 'File not uploaded', 'data' => $request->all()]);
-    }
-}*/
+
+
+
+
+
+
+
+
 }
