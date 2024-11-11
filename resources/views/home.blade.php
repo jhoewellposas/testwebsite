@@ -84,11 +84,14 @@
         <table class="table" border="1">
         <thead>
             <tr>
-                <th>Document Number:</th>
+                <th>Cerificate ID:</th>
                 <th>Category</th>
                 <th>Type:</th>
                 <th>Name:</th>
                 <th>Title:</th>
+                <th>Organization:</th>
+                <th>Designation:</th>
+                <th>Sponsor:</th>
                 <th>Date:</th>
                 <th>OCR Output:</th>
                 <th>Points:</th>
@@ -115,6 +118,9 @@
                   <td><input type="text" name="type" value="{{ $certificate->type }}"></td>
                   <td><input type="text" name="name" value="{{ $certificate->name }}"></td>
                   <td><input type="text" name="title" value="{{ $certificate->title }}"></td>
+                  <td><input type="text" name="organization" value="{{ $certificate->organization }}"></td>
+                  <td><input type="text" name="designation" value="{{ $certificate->designation }}"></td>
+                  <td><input type="text" name="sponsor" value="{{ $certificate->sponsor }}"></td>
                   <td><input type="text" name="date" value="{{ $certificate->date }}"></td>
                   <td><textarea name="raw_text">{{ $certificate->raw_text }}</textarea></td>
                   <td><input type="text" name="points" value="{{ $certificate->points }}"></td>

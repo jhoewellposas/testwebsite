@@ -67,6 +67,9 @@ class CertificateController extends Controller
               ->orWhere('type', 'like', "%{$query}%")
               ->orWhere('name', 'like', "%{$query}%")
               ->orWhere('title', 'like', "%{$query}%")
+              ->orWhere('organization', 'like', "%{$query}%")
+              ->orWhere('designation', 'like', "%{$query}%")
+              ->orWhere('sponsor', 'like', "%{$query}%")
               ->orWhere('date', 'like', "%{$query}%")
               ->orWhere('raw_text', 'like', "%{$query}%")
               ->orWhere('points', 'like', "%{$query}%");
@@ -127,7 +130,7 @@ class CertificateController extends Controller
     public function updateCertificate(Request $request, $id)
     {
         $certificate = Certificate::findOrFail($id);
-        $certificate->update($request->only('category','type', 'name', 'title', 'date', 'points'));
+        $certificate->update($request->only('category', 'type', 'name', 'title', 'organization', 'designation', 'sponsor', 'date', 'points'));
 
         return redirect()->route('home');
     }
@@ -164,13 +167,4 @@ class CertificateController extends Controller
     $allTeachers = Teacher::all(); // Retrieve all teachers for the dropdown
     return view('upload', ['allTeachers' => $allTeachers]);
     }
-
-
-
-
-
-
-
-
-
 }
