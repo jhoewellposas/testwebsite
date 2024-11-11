@@ -8,50 +8,46 @@
 </head>
 <body>
     <div class="header">
-    <h1>SY 2024-2025</h1>
     <h1>SUMMARY</h1></div>  
 
     <div class="mb-4">
         <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
       </div>
 
-    <div>
-    <h2>A. Academic Attainment:</h2>
-    <h3>1. attaintment and growth here</h3>
-  </div>
+      <div class="table-content">
+        <table class="R-C-table" border="1">
+            <thead>
+                <tr>
+                    <th>Ranking Criteria</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Performance</td>
+                    <td>{{ $performance }}</td>
+                </tr>
+                <tr>
+                    <td>Productive Scholarship</td>
+                    <td>{{ $productiveScholarshipPoints }}</td>
+                </tr>
+                <tr>
+                    <td>Experience</td>
+                    <td>{{ $experience }}</td>
+                </tr>
+                <tr>
+                    <td>Community Extension Services</td>
+                    <td>{{ $communityExtensionPoints }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>{{ $totalPoints }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-  <div>
-    <h2>Years of experience:</h2>
-  </div>
 
-  <div class="table-content">
-    <table class="R-C-table">
-        <tr>
-            <th>Ranking Criteria</th>
-            <th>Points</th>
-        </tr>
-        <tr>
-            <td>A. Efficiency Rating</td>
-            <td>0.0</td>
-        </tr>
-        <tr>
-            <td>B. Productive Scholarship</td>
-            <td>0.0</td>
-        </tr>
-        <tr>
-            <td>C. Experience</td>
-            <td>0.0</td>
-        </tr>
-        <tr>
-            <td>Community Extension Services</td>
-            <td>0.0</td>
-        </tr>
-        <tr>
-            <td>Total (Maximum of 70 points)</td>
-            <td>0.0</td>
-        </tr>
-    </table>
-  </div>
 
   <div class="signature-form">
     <h2>Rank:</h2>

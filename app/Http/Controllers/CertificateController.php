@@ -167,4 +167,41 @@ class CertificateController extends Controller
     $allTeachers = Teacher::all(); // Retrieve all teachers for the dropdown
     return view('upload', ['allTeachers' => $allTeachers]);
     }
+
+    public function showSummary()
+{
+    // Sum points for Productive Scholarship categories
+    $productiveScholarshipPoints = Certificate::whereIn('category', [
+        'seminar',
+        'honors_awards',
+        'membership',
+        'scholarship_activities'
+    ])->sum('points');
+
+    // Sum points for Community Extension Services categories
+    $communityExtensionPoints = Certificate::whereIn('category', [
+        'service_students',
+        'service_department',
+        'service_institution',
+        'participation_organizations',
+        'involvement_department'
+    ])->sum('points');
+
+    // Retrieve values for Performance and Experience from the Teacher model
+    $performance = Teacher::sum('performance'); // Sum all teachers' performance points
+    $experience = Teacher::sum('experience');   // Sum all teachers' experience points
+
+    // Calculate the Total
+    $totalPoints = $performance + $productiveScholarshipPoints + $experience + $communityExtensionPoints;
+
+    // Pass data to the view
+    return view('summary', [
+        'performance' => $performance,
+        'productiveScholarshipPoints' => $productiveScholarshipPoints,
+        'experience' => $experience,
+        'communityExtensionPoints' => $communityExtensionPoints,
+        'totalPoints' => $totalPoints,
+    ]);
+}
+
 }

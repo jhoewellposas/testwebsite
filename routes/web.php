@@ -35,6 +35,9 @@ Route::delete('/certificate/delete/{id}', [CertificateController::class, 'delete
 Route::get('/home', [CertificateController::class, 'showCertificates'])->name('home');
 
 //summary
-Route::get('/summary', function () {
+/*Route::get('/summary', function () {
     return view('summary');
 });
+*/
+
+Route::get('/summary', [CertificateController::class, 'showSummary'])->name('summary');
