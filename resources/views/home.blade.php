@@ -18,7 +18,7 @@
 
     <div class="mb-3">
         <label for="acad_attainment" class="form-label">A. Academic Attainment and Growth</label>
-        <input type="text" class="form-control" id="acad_attainment" name="acad_attainment" value="{{ $selectedTeacher ? $selectedTeacher->acad_attainment : '' }}" required>
+        <input type="text" class="form-control" id="acad_attainment" name="acad_attainment" value="{{ $selectedTeacher ? $selectedTeacher->acad_attainment : '' }}">
     </div>
 
     <div class="mb-3">
@@ -28,7 +28,7 @@
 
     <div class="mb-3">
         <label for="experience" class="form-label">D. Experience</label>
-        <input type="text" class="form-control" id="experience" name="experience" value="{{ $selectedTeacher ? $selectedTeacher->experience : '' }}" required>
+        <input type="text" class="form-control" id="experience" name="experience" value="{{ $selectedTeacher ? $selectedTeacher->experience : '' }}">
     </div>
 
     <button type="submit" class="btn btn-primary">Add Teacher</button>
@@ -46,24 +46,6 @@
         @endforeach
     </select>
 </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -140,9 +122,8 @@
 </div>
 
 <div class="mb-4">
-  <a href="{{ url('/summary') }}" class="btn btn-success">Ranking Summary</a>
-</div>
-</div>
+    <a href="{{ route('summary', ['teacherId' => $teacher->id]) }}">View Summary</a>
 
+  </div>
 </body>
 </html>

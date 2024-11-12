@@ -167,7 +167,7 @@ class CertificateController extends Controller
     $allTeachers = Teacher::all(); // Retrieve all teachers for the dropdown
     return view('upload', ['allTeachers' => $allTeachers]);
     }
-
+/*
     public function showSummary()
 {
     // Sum points for Productive Scholarship categories
@@ -203,5 +203,84 @@ class CertificateController extends Controller
         'totalPoints' => $totalPoints,
     ]);
 }
+*/
+/*
+public function showSummary($teacherId)
+{
+    // Retrieve the teacher's details
+    $teacher = Teacher::with('certificates')->findOrFail($teacherId);
+
+    // Calculate points for Productive Scholarship categories
+    $productiveScholarshipPoints = $teacher->certificates
+        ->whereIn('category', ['seminar', 'honors_awards', 'membership', 'scholarship_activities'])
+        ->sum('points');
+
+    // Calculate points for Community Extension Services categories
+    $communityExtensionPoints = $teacher->certificates
+        ->whereIn('category', ['service_students', 'service_department', 'service_institution', 'participation_organizations', 'involvement_department'])
+        ->sum('points');
+
+    // Use teacher's individual performance and experience
+    $performance = $teacher->performance;
+    $experience = $teacher->experience;
+
+    // Calculate the total points
+    $totalPoints = $performance + $productiveScholarshipPoints + $experience + $communityExtensionPoints;
+
+    // Pass data to the view
+    return view('summary', [
+        'teacher' => $teacher,
+        'performance' => $performance,
+        'productiveScholarshipPoints' => $productiveScholarshipPoints,
+        'experience' => $experience,
+        'communityExtensionPoints' => $communityExtensionPoints,
+        'totalPoints' => $totalPoints,
+    ]);
+}
+*/
+
+public function showSummary($teacherId = null)
+{
+    // Load all teachers for the dropdown
+    $allTeachers = Teacher::all();
+
+    // Retrieve the selected teacher or the first teacher if no ID is provided
+    $teacher = $teacherId ? Teacher::with('certificates')->findOrFail($teacherId) : $allTeachers->first();
+
+    if (!$teacher) {
+        return redirect()->route('home')->with('error', 'No teachers found.');
+    }
+
+    // Calculate points for Productive Scholarship categories
+    $productiveScholarshipPoints = $teacher->certificates
+        ->whereIn('category', ['seminar', 'honors_awards', 'membership', 'scholarship_activities'])
+        ->sum('points');
+
+    // Calculate points for Community Extension Services categories
+    $communityExtensionPoints = $teacher->certificates
+        ->whereIn('category', ['service_students', 'service_department', 'service_institution', 'participation_organizations', 'involvement_department'])
+        ->sum('points');
+
+    // Use teacher's individual performance and experience
+    $performance = $teacher->performance;
+    $experience = $teacher->experience;
+
+    // Calculate the total points
+    $totalPoints = $performance + $productiveScholarshipPoints + $experience + $communityExtensionPoints;
+
+    // Pass data to the view
+    return view('summary', [
+        'teacher' => $teacher,
+        'allTeachers' => $allTeachers,
+        'performance' => $performance,
+        'productiveScholarshipPoints' => $productiveScholarshipPoints,
+        'experience' => $experience,
+        'communityExtensionPoints' => $communityExtensionPoints,
+        'totalPoints' => $totalPoints,
+    ]);
+}
+
+
+
 
 }

@@ -8,13 +8,33 @@
 </head>
 <body>
     <div class="header">
-    <h1>SUMMARY</h1></div>  
+    <h1>RANKING SUMMARY</h1></div>  
 
     <div class="mb-4">
         <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
       </div>
 
-      <div class="table-content">
+      <!-- Teacher Selection Dropdown -->
+    <form action="{{ route('summary') }}" method="GET">
+        <label for="teacher_id">Select Teacher:</label>
+        <select name="teacherId" id="teacher_id" onchange="this.form.submit()">
+            @foreach($allTeachers as $teacherOption)
+                <option value="{{ $teacherOption->id }}" {{ $teacherOption->id == $teacher->id ? 'selected' : '' }}>
+                    {{ $teacherOption->name }}
+                </option>
+            @endforeach
+        </select>
+    </form>
+
+    <!-- Display Selected Teacher's Information -->
+    <div class="teacher-info">
+        <p><strong>Name:</strong> {{ $teacher->name }}</p>
+        <p><strong>Academic Attainment:</strong> {{ $teacher->acad_attainment }}</p>
+        <p><strong>Experience:</strong> {{ $experience }}</p>
+    </div>
+
+    <!-- Table for Ranking Criteria and Points -->
+    <div class="table-content">
         <table class="R-C-table" border="1">
             <thead>
                 <tr>

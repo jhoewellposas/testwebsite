@@ -40,4 +40,6 @@ Route::get('/home', [CertificateController::class, 'showCertificates'])->name('h
 });
 */
 
-Route::get('/summary', [CertificateController::class, 'showSummary'])->name('summary');
+//Route::get('/summary', [CertificateController::class, 'showSummary'])->name('summary');
+//Route::get('/summary/{teacherId}', [CertificateController::class, 'showSummary'])->name('summary');
+Route::get('/summary/{teacherId?}', [CertificateController::class, 'showSummary'])->name('summary');
