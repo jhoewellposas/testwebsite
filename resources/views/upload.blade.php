@@ -17,7 +17,7 @@
           <!-- Teacher Selection Dropdown -->
           <label for="teacher_id">Select Teacher:</label>
           <select name="teacher_id" id="teacher_id" required>
-              <option value="">-- Select a Teacher --</option>
+              <option value="">Select a Teacher</option>
               @foreach($allTeachers as $teacher)
                   <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
               @endforeach
