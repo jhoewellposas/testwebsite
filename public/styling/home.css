@@ -7,7 +7,6 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     padding: 20px;
-    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -43,9 +42,6 @@ form {
     margin-bottom: 15px;
 }
 
-.mb-4 {
-    margin-bottom: 25px;
-}
 
 .form-label {
     font-weight: bold;
@@ -76,7 +72,7 @@ form {
     background-color: #218838;
 }
 
-/* Table Styles */
+/* Table Container with Upload and Search */
 .table-container {
     overflow-x: auto;
     max-width: 100%;
@@ -90,11 +86,52 @@ form {
     grid-row: 5;
 }
 
+/* Container for Upload Button and Search Bar */
+.upload-search-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    justify-content: space-between;
+    width: 1400%; /* Match width with table-container */
+    max-width: 1400px; /* Ensure max width consistency with table-container */
+    margin: 0 auto 0 20px; /* Center horizontally with consistent margin */
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* Same shadow as table-container */
+}
+
+/* Upload Button on the Left */
+.upload-button {
+    justify-self: start;
+}
+
+/* Input Group for Search on the Right */
+.input-group {
+    display: flex;
+    justify-self: end;
+}
+
+.input-group .form-control {
+    width: 200px; /* Adjust width as needed */
+    height: 38px;
+    border-radius: 5px 0 0 5px;
+}
+
+.input-group .btn {
+    height: 38px;
+    border-radius: 0 5px 5px 0;
+}
+
+/* Table Styles */
 .table {
     min-width: 1200px; /* Adjust this width based on your table content */
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px; /* Space between the upload-search container and the table */
 }
 
 .table th,
@@ -134,20 +171,7 @@ form {
     min-height: 30px; /* Minimum height for better readability */
 }
 
-/* Additional Styles */
-.input-group {
-    display: flex;
-    align-items: center;
-}
 
-.input-group .form-control {
-    flex: 1;
-    border-radius: 5px 0 0 5px;
-}
-
-.input-group .btn {
-    border-radius: 0 5px 5px 0;
-}
 
 #teacher_id, .form-control {
     width: 100%;
@@ -227,4 +251,26 @@ form[action="{{ route('home') }}"].mb-4 {
     grid-column: 1 / -1;
     grid-row: 4;
     text-align: center;
+}
+
+.view-summary {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    grid-row: 6;
+}
+
+/* Button Styling */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
 }

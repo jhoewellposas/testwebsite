@@ -57,10 +57,11 @@
     </div>
 
     <h1>Certificates Table:</h1>
-    
 
-    <!-- Upload -->
-    <div class="mb-4">
+    <div class="upload-search-container">
+
+        <!-- Upload -->
+    <div class="upload-button">
         <a href="{{ url('/upload') }}" class="btn btn-success">Upload New Certificate</a>
     </div>
 
@@ -71,6 +72,8 @@
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>
+</div>
+    
 
     <!-- Certificates Table Container with Scroll -->
     <div class="table-container">
@@ -135,8 +138,8 @@
         </table>
     </div>
 
-    <div class="mb-4">
-        <a href="{{ route('summary', ['teacherId' => $teacher->id]) }}">View Summary</a>
+    <div class="mb-4 view-summary">
+        <a href="{{ route('summary', ['teacherId' => $teacher->id]) }}" class="btn btn-secondary">View Summary</a>
     </div>
 
     <!-- JavaScript for Auto-Sizing Table Inputs -->
