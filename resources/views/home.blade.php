@@ -23,22 +23,23 @@
 
     <div class="mb-3">
         <label for="performance" class="form-label">B. Performance</label>
-        <input type="text" step="0.1" class="form-control" id="performance" name="performance" value="{{ $selectedTeacher ? $selectedTeacher->performance : '' }}" placeholder="Enter performance score (default 0)">
+        <input type="text" step="0.1" class="form-control" id="performance" name="performance" value="{{ $selectedTeacher ? $selectedTeacher->performance : '' }}" placeholder="Enter performance score">
     </div>
 
     <div class="mb-3">
         <label for="experience" class="form-label">D. Experience</label>
-        <input type="text" class="form-control" id="experience" name="experience" value="{{ $selectedTeacher ? $selectedTeacher->experience : '' }}">
+        <input type="text" class="form-control" id="experience" name="experience" value="{{ $selectedTeacher ? $selectedTeacher->experience : '' }}" placeholder="Enter experience score">
     </div>
 
     <button type="submit" class="btn btn-primary">Add Teacher</button>
 </form>
 
 <!-- Teacher Selection Dropdown for Populating Form -->
+<div>
 <form action="{{ route('home') }}" method="GET" class="mb-4">
     <label for="teacher_id">Select Teacher:</label>
     <select name="teacher_id" id="teacher_id" class="form-control" onchange="this.form.submit()">
-        <option value="">-- Select a Teacher --</option>
+        <option value="">Select a Teacher</option>
         @foreach($allTeachers as $teacher)
             <option value="{{ $teacher->id }}" {{ request('teacher_id') == $teacher->id ? 'selected' : '' }}>
                 {{ $teacher->name }}
@@ -46,16 +47,16 @@
         @endforeach
     </select>
 </form>
-
-
+</div>
 
     <h1>Certificates Table:</h1>
 
-    <!-- Upload Button -->
+    <!-- Upload -->
     <div class="mb-4">
       <a href="{{ url('/upload') }}" class="btn btn-success">Upload New Certificate</a>
     </div>
 
+    <!-- Home -->
     <form action="{{ route('home') }}" method="GET" class="mb-4">
       <div class="input-group">
           <input type="text" name="query" class="form-control" placeholder="Search..." value="{{ request('query') }}">
@@ -63,6 +64,7 @@
       </div>
     </form>
 
+    <div>
         <table class="table" border="1">
         <thead>
             <tr>
@@ -85,8 +87,9 @@
           <tr>
               <form action="{{ route('certificate.update', $certificate->id) }}" method="POST">
                   @csrf
-                  <td><input type="text" name="id" value="{{ $certificate->id }}"></td>
+                  <td>{{ $certificate->id }}</td>
                   <td><select name="category" id="category">
+                    <option value="">Select a Category</option>
                     <option value="seminar" {{ $certificate->category == 'seminar' ? 'selected' : '' }}>Seminar</option>
                     <option value="honors_awards" {{ $certificate->category == 'honors_awards' ? 'selected' : '' }}>Honors and Awards</option>
                     <option value="membership" {{ $certificate->category == 'membership' ? 'selected' : '' }}>Membership</option>
@@ -118,12 +121,12 @@
           </tr>
           @endforeach
         </tbody>
-    </table>
+        </table>
+    </div>
 </div>
 
 <div class="mb-4">
     <a href="{{ route('summary', ['teacherId' => $teacher->id]) }}">View Summary</a>
-
-  </div>
+</div>
 </body>
 </html>

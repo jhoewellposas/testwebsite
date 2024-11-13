@@ -280,7 +280,4 @@ public function showSummary($teacherId = null)
     ]);
 }
 
-
-
-
 }
