@@ -7,6 +7,15 @@
     <title>Summary</title>
 </head>
 <body>
+
+    <div class="header">
+        <header class="site-header">
+            <img src="{{ asset('FSUU Logo/fsuu2_1.png')}}" alt="University Logo" class="logo">
+            <h2 class="site-title">Father Saturnino Urios University</h2>
+        </header>
+    </div>
+
+
     <div class="header">
     <h1>RANKING SUMMARY</h1></div>  
 
