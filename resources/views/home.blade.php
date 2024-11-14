@@ -8,13 +8,17 @@
 </head>
 <body>
     
-    <div class="header">
+
+
+    <div class="fsuu-logo-container">
         <header class="site-header">
             <img src="{{ asset('FSUU Logo/fsuu2_1.png') }}" alt="University Logo" class="logo">
             <h2 class="site-title">Father Saturnino Urios University</h2>
         </header>
     </div>
 
+
+    <div class="create-teacher-container">
     <form action="{{ route('teachers.create') }}" method="POST">
         @csrf
 
@@ -40,9 +44,11 @@
 
         <button type="submit" class="btn btn-primary">Add Teacher</button>
     </form>
+    </div>
+
 
     <!-- Teacher Selection Dropdown for Populating Form -->
-    <div>
+    <div class="teacher-choices-container">
         <form action="{{ route('home') }}" method="GET" class="mb-4">
             <label for="teacher_id">Select Teacher:</label>
             <select name="teacher_id" id="teacher_id" class="form-control" onchange="this.form.submit()">
@@ -56,23 +62,22 @@
         </form>
     </div>
 
-    <h1>Certificates Table:</h1>
 
-    <div class="upload-search-container">
-
-        <!-- Upload -->
-    <div class="upload-button">
-        <a href="{{ url('/upload') }}" class="btn btn-success">Upload New Certificate</a>
-    </div>
-
-    <!-- Home -->
-    <form action="{{ route('home') }}" method="GET" class="mb-4">
-        <div class="input-group">
-            <input type="text" name="query" class="form-control" placeholder="Search..." value="{{ request('query') }}">
-            <button type="submit" class="btn btn-primary">Search</button>
+    <div class="text-upload-search-container">
+            <h1>Certificates Table:</h1>
+            <!-- Upload -->
+        <div class="upload-button">
+            <a href="{{ url('/upload') }}" class="btn btn-success">Upload New Certificate</a>
         </div>
-    </form>
-</div>
+
+            <!-- Home -->
+        <form action="{{ route('home') }}" method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="query" class="form-control" placeholder="Search..." value="{{ request('query') }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
     
 
     <!-- Certificates Table Container with Scroll -->

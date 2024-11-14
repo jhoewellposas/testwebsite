@@ -1,7 +1,7 @@
 /* General Styles */
 body {
     display: grid;
-    grid-template-rows: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto;
     grid-template-columns: 2fr 1fr;
     gap: 20px;
     font-family: Arial, sans-serif;
@@ -10,128 +10,136 @@ body {
     margin: 0 auto;
 }
 
-.header {
-    background-color: #003366;
-    padding: 10px;
+/* Logo Container */
+.fsuu-logo-container {
     grid-column: 1 / -1;
-    grid-row: 1;
+    display: flex;
+    align-items: center; /* Vertically centers items */
+    justify-content: center; /* Centers the content horizontally */
+    padding: 15px 0; /* Adjust padding for vertical alignment */
+    background-color: #007bff; /* Bright blue background */
+    color: white;
 }
 
-.site-header {
+/* Logo Styling */
+.fsuu-logo-container .logo {
+    height: 40px; /* Adjust logo height */
+    margin-right: 10px; /* Space between logo and title */
+    display: inline-block; /* Keeps logo and title on the same line */
+    vertical-align: middle; /* Aligns logo to middle of the text */
+}
+
+/* Title Styling */
+.fsuu-logo-container .site-title {
+    font-size: 1.5em; /* Adjust font size */
+    font-weight: bold;
+    margin: 0;
+    display: inline-block; /* Ensures the title aligns with logo */
+    vertical-align: middle; /* Aligns text to the middle of the logo */
+}
+
+/* Create Teacher Form Container */
+.create-teacher-container {
+    grid-column: 1 / 2;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+/* Teacher Choices Container */
+.teacher-choices-container {
+    grid-column: 2 / 3;
+    padding: 20px;
+    background-color: #17a2b8;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Text, Upload, and Search Bar Container */
+.text-upload-search-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+}
+
+.text-upload-search-container h1 {
+    font-size: 1.5em;
+    color: #333;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Styling for Upload Button */
+.upload-button {
+    margin-right: 10px;
+}
+
+.upload-button .btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.upload-button .btn-success:hover {
+    background-color: #218838;
+}
+
+/* Input Group for Search Bar */
+.input-group {
     display: flex;
     align-items: center;
 }
 
-.site-header .logo {
-    height: 60px;
-    margin-right: 15px;
+.input-group .form-control {
+    width: 200px;
+    height: 38px;
+    border-radius: 5px 0 0 5px;
 }
 
-.site-header .site-title {
+.input-group .btn-primary {
+    height: 38px;
+    border-radius: 0 5px 5px 0;
+    background-color: #007bff;
     color: white;
-    font-size: 1.5em;
+    border: none;
 }
 
-form {
-    margin: 20px auto;
-    width: 80%;
-    max-width: 800px;
-}
-
-.mb-3 {
-    margin-bottom: 15px;
-}
-
-
-.form-label {
-    font-weight: bold;
-}
-
-.btn {
-    border-radius: 5px;
-    padding: 10px 15px;
-}
-
-.btn-primary {
+.input-group .btn-primary:hover {
     background-color: #0056b3;
-    color: white;
-    border: none;
 }
 
-.btn-primary:hover {
-    background-color: #004494;
-}
-
-.btn-success {
-    background-color: #28a745;
-    color: white;
-    border: none;
-}
-
-.btn-success:hover {
-    background-color: #218838;
-}
-
-/* Table Container with Upload and Search */
+/* Table Container */
 .table-container {
+    grid-column: 1 / -1;
     overflow-x: auto;
     max-width: 100%;
     padding: 20px;
     background-color: white;
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    width: 90%;
-    grid-column: 1 / -1;
-    grid-row: 5;
-}
-
-/* Container for Upload Button and Search Bar */
-.upload-search-container {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    justify-content: space-between;
-    width: 1400%; /* Match width with table-container */
-    max-width: 1400px; /* Ensure max width consistency with table-container */
-    margin: 0 auto 0 20px; /* Center horizontally with consistent margin */
-    padding: 10px;
-    background-color: white;
-    border-radius: 5px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* Same shadow as table-container */
-}
-
-/* Upload Button on the Left */
-.upload-button {
-    justify-self: start;
-}
-
-/* Input Group for Search on the Right */
-.input-group {
-    display: flex;
-    justify-self: end;
-}
-
-.input-group .form-control {
-    width: 200px; /* Adjust width as needed */
-    height: 38px;
-    border-radius: 5px 0 0 5px;
-}
-
-.input-group .btn {
-    height: 38px;
-    border-radius: 0 5px 5px 0;
+    width: 97.5%;
+    margin: auto;
 }
 
 /* Table Styles */
 .table {
-    min-width: 1200px; /* Adjust this width based on your table content */
+    min-width: 1200px;
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px; /* Space between the upload-search container and the table */
 }
 
 .table th,
@@ -151,8 +159,8 @@ form {
 .table input[type="text"],
 .table textarea {
     width: auto;
-    min-width: 100px; /* Ensures dropdowns and text inputs don't get too small */
-    max-width: 100%; /* Prevents elements from exceeding table cell width */
+    min-width: 100px;
+    max-width: 100%;
     padding: 4px;
     border: 1px solid #ced4da;
     border-radius: 4px;
@@ -160,18 +168,15 @@ form {
 }
 
 .table select {
-    white-space: nowrap; /* Keeps dropdown text from wrapping */
-    field-sizing: content;
+    white-space: nowrap;
 }
 
 .table textarea {
-    resize: both; /* Allows resizing of the textarea */
+    resize: both;
     overflow: auto;
     height: auto;
-    min-height: 30px; /* Minimum height for better readability */
+    min-height: 30px;
 }
-
-
 
 #teacher_id, .form-control {
     width: 100%;
@@ -179,15 +184,6 @@ form {
     margin-top: 5px;
     border: 1px solid #ced4da;
     border-radius: 5px;
-}
-
-#teacher_id {
-    background-color: #17a2b8;
-    color: white;
-}
-
-#teacher_id option {
-    color: black;
 }
 
 button[type="submit"] {
@@ -203,14 +199,6 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-h1 {
-    font-size: 1.5em;
-    color: #333;
-    margin-left: 20px;
-    grid-column: 1 / -1;
-    grid-row: 3;
-}
-
 a {
     text-decoration: none;
 }
@@ -221,44 +209,11 @@ a[href*="summary"] {
     background-color: #6c757d;
     color: white;
     border-radius: 5px;
-    margin: 20px;
     text-align: center;
 }
 
 a[href*="summary"]:hover {
     background-color: #5a6268;
-}
-
-form[action="{{ route('teachers.create') }}"] {
-    grid-column: 1 / 2;
-    grid-row: 2;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-}
-
-form[action="{{ route('home') }}"].mb-4 {
-    grid-column: 2 / 3;
-    grid-row: 2;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-}
-
-.mb-4:first-of-type {
-    grid-column: 1 / -1;
-    grid-row: 4;
-    text-align: center;
-}
-
-.view-summary {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-    grid-row: 6;
 }
 
 /* Button Styling */
