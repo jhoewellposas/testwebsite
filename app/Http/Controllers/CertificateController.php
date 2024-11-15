@@ -27,11 +27,21 @@ class CertificateController extends Controller
         $tesseract = new TesseractOCR($processedImagePath);
         $text = $tesseract->run();
 
-        // Step 4: Extract relevant information using regex patterns
-        $typePattern = "/certificate of (completion|attendance|participation)/i";
+       
+         // Step 4: Extract relevant information using regex patterns
+        
+        $typePattern = "/certificate of (achievement|completion|attendance|participation|appreciation|recognition)/i";
         $namePattern = "/(?:to|that)\s+([A-Z\s]+?)\s+(?:has|for)/i";
-        $titlePattern = "/(?:completed|participation on|completed the)\s+(.+?)(?:\s@\s|\s\(|\.)/i";
-        $datePattern = "/(?:date completed|given this|valid until|given on)[:\s]+([0-9\/\-]+)/i";
+        $titlePattern = "/(?:completed|participation on|completed the|attended)\s+(.+?)(?:\s@\s|\s\(|\.)/i";
+        $datePattern = "/(?:date completed|given this|valid until|given on|completed on)[:\s]+([0-9\/\-]+)/i";
+        
+        /*
+        // Improved regex patterns
+        $typePattern = "/certificate of (achievement|completion|attendance|participation|appreciation|recognition)/i";
+        $namePattern = "/(?:presented to|is given to|to certify that|certifies that)\s+([A-Z\s\.]+?)(?=\s+for|\s+has|\s+on|\s+participated|\s+completed|\s+attended|\s+)/i";
+        $titlePattern = "/(?:completed|participation in|attended|for|on|the)\s+(.+?)(?=\,|\.|\s+given|\s+conducted|\s+by|\s+at|\s+\()?/i";
+        $datePattern = "/(?:date completed|given this|valid until|on|dated|given on|completed on|this\s+\d{1,2}\w{2}\s+day\s+of\s+)\s+(\d{1,2}\w{0,2}\s+\w+\s+\d{4})/i";
+        */
 
         preg_match($typePattern, $text, $typeMatch);
         preg_match($namePattern, $text, $nameMatch);
@@ -42,7 +52,7 @@ class CertificateController extends Controller
         $data = [
             'type' => $typeMatch[1] ?? 'Unknown',
             'name' => $nameMatch[1] ?? 'Unknown',
-            'title' => $titleMatch[1] ?? 'Unknown',
+            'title' => $titleMatch[1]?? 'Unknown',
             'date' => $dateMatch[1] ?? 'Unknown',
             'raw_text' => $text,
             'teacher_id' => $request->input('teacher_id'),//
@@ -52,6 +62,10 @@ class CertificateController extends Controller
 
         return redirect()->route('home');
     }
+
+
+
+
 
     public function showCertificates(Request $request)
 {
@@ -82,7 +96,7 @@ class CertificateController extends Controller
         $selectedTeacher = Teacher::find($teacherId);
     } else {
         $selectedTeacher = null;
-    }
+    } 
     
     $allCertificates = $allCertificates->get();
 
