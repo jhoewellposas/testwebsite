@@ -16,7 +16,6 @@
         </header>
     </div>
 
-
     <h1>Upload Certificate for Text Extraction</h1>
 
     <form action="{{ route('extractCertificateData') }}" method="post" enctype="multipart/form-data">
@@ -24,14 +23,8 @@
         <label for="certificate">Upload Certificate Image:</label>
         <input type="file" name="certificate" id="certificate" accept="image/*" required>
 
-          <!-- Teacher Selection Dropdown -->
-          <label for="teacher_id">Select Teacher:</label>
-          <select name="teacher_id" id="teacher_id" required>
-              <option value="">Select a Teacher</option>
-              @foreach($allTeachers as $teacher)
-                  <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
-              @endforeach
-          </select>
+         <!-- Hidden input for teacher_id -->
+        <input type="hidden" name="teacher_id" value="{{ $teacher_id }}">
 
         <button type="submit">Extract Data</button>
     </form>

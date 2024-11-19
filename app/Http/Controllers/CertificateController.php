@@ -12,7 +12,6 @@ class CertificateController extends Controller
 {
     public function extractCertificateData(Request $request)
     {
-        //dd($request->all);
         // Step 1: Validate and save the uploaded file
         $request->validate([
             'certificate' => 'required|image|mimes:jpeg,png,jpg|max:2048',
@@ -28,20 +27,11 @@ class CertificateController extends Controller
         $text = $tesseract->run();
 
        
-         // Step 4: Extract relevant information using regex patterns
-        
+        // Step 4: Extract relevant information using regex patterns
         $typePattern = "/certificate of (achievement|completion|attendance|participation|appreciation|recognition)/i";
         $namePattern = "/(?:to|that)\s+([A-Z\s]+?)\s+(?:has|for)/i";
         $titlePattern = "/(?:completed|participation on|completed the|attended)\s+(.+?)(?:\s@\s|\s\(|\.)/i";
         $datePattern = "/(?:date completed|given this|valid until|given on|completed on)[:\s]+([0-9\/\-]+)/i";
-        
-        /*
-        // Improved regex patterns
-        $typePattern = "/certificate of (achievement|completion|attendance|participation|appreciation|recognition)/i";
-        $namePattern = "/(?:presented to|is given to|to certify that|certifies that)\s+([A-Z\s\.]+?)(?=\s+for|\s+has|\s+on|\s+participated|\s+completed|\s+attended|\s+)/i";
-        $titlePattern = "/(?:completed|participation in|attended|for|on|the)\s+(.+?)(?=\,|\.|\s+given|\s+conducted|\s+by|\s+at|\s+\()?/i";
-        $datePattern = "/(?:date completed|given this|valid until|on|dated|given on|completed on|this\s+\d{1,2}\w{2}\s+day\s+of\s+)\s+(\d{1,2}\w{0,2}\s+\w+\s+\d{4})/i";
-        */
 
         preg_match($typePattern, $text, $typeMatch);
         preg_match($namePattern, $text, $nameMatch);
@@ -60,15 +50,108 @@ class CertificateController extends Controller
 
         $certificate = Certificate::create($data);
 
-        return redirect()->route('home');
+        //return redirect()->route('profile');
+        return redirect()->route('profile', ['teacher_id' => $request->input('teacher_id')])
+        ->with('success', 'Certificate uploaded and processed successfully.');
     }
-
-
-
-
 
     public function showCertificates(Request $request)
 {
+    $query = $request->input('query');
+    $teacherId = $request->input('teacher_id');
+
+    // Initialize the certificate query
+    $certificateQuery = Certificate::query();
+
+    // Filter by search query if provided
+    if ($query) {
+        $certificateQuery->where(function ($q) use ($query) {
+            $q->where('id', 'like', "%{$query}%")
+              ->orWhere('type', 'like', "%{$query}%")
+              ->orWhere('name', 'like', "%{$query}%")
+              ->orWhere('title', 'like', "%{$query}%")
+              ->orWhere('organization', 'like', "%{$query}%")
+              ->orWhere('designation', 'like', "%{$query}%")
+              ->orWhere('sponsor', 'like', "%{$query}%")
+              ->orWhere('date', 'like', "%{$query}%")
+              ->orWhere('raw_text', 'like', "%{$query}%")
+              ->orWhere('points', 'like', "%{$query}%");
+        });
+    }
+
+    // Filter by teacher_id if a teacher is selected
+    if ($teacherId) {
+        $certificateQuery->where('teacher_id', $teacherId);
+        $selectedTeacher = Teacher::findOrFail($teacherId); // Get the teacher's details
+    } else {
+        $selectedTeacher = null;
+    }
+
+    // Get certificates
+    $allCertificates = $certificateQuery->get();
+
+    // Retrieve all teachers for the dropdown
+    $allTeachers = Teacher::all();
+
+    return view('profile', [
+        'allCertificates' => $allCertificates,
+        'allTeachers' => $allTeachers,
+        'selectedTeacher' => $selectedTeacher, // Pass selected teacher's details
+        'query' => $query,
+        'teacher_id' => $teacherId, // Pass teacher_id for default selection
+    ]);
+}
+
+    /*
+    public function showCertificates(Request $request)
+{
+    $query = $request->input('query');
+    $teacherId = $request->input('teacher_id');
+
+    // Initialize the certificate query
+    $certificateQuery = Certificate::query();
+
+    // Filter by search query if provided
+    if ($query) {
+        $certificateQuery->where(function ($q) use ($query) {
+            $q->where('id', 'like', "%{$query}%")
+              ->orWhere('type', 'like', "%{$query}%")
+              ->orWhere('name', 'like', "%{$query}%")
+              ->orWhere('title', 'like', "%{$query}%")
+              ->orWhere('organization', 'like', "%{$query}%")
+              ->orWhere('designation', 'like', "%{$query}%")
+              ->orWhere('sponsor', 'like', "%{$query}%")
+              ->orWhere('date', 'like', "%{$query}%")
+              ->orWhere('raw_text', 'like', "%{$query}%")
+              ->orWhere('points', 'like', "%{$query}%");
+        });
+    }
+
+    // Filter by teacher_id if a teacher is selected
+    if ($teacherId) {
+        $certificateQuery->where('teacher_id', $teacherId);
+    }
+
+    // Get certificates
+    $allCertificates = $certificateQuery->get();
+
+    // Retrieve all teachers for the dropdown
+    $allTeachers = Teacher::all();
+
+    return view('profile', [
+        'allCertificates' => $allCertificates,
+        'allTeachers' => $allTeachers,
+        'query' => $query,
+        'teacher_id' => $teacherId, // Pass teacher_id for default selection
+    ]);
+}
+    */
+
+
+
+/*
+    public function showCertificates(Request $request)
+    {
     $query = $request->input('query');
     $teacherId = $request->input('teacher_id');
 
@@ -89,7 +172,7 @@ class CertificateController extends Controller
               ->orWhere('points', 'like', "%{$query}%");
         });
     }
-
+/*
     // Filter by teacher_id if a teacher is selected
     if ($teacherId) {
         $allCertificates->where('teacher_id', $teacherId);
@@ -103,59 +186,78 @@ class CertificateController extends Controller
     // Retrieve all teachers for the dropdown
     $allTeachers = Teacher::all();
 
-    return view('home', [
+    return view('profile', [
         'allCertificates' => $allCertificates,
         'allTeachers' => $allTeachers,
         'selectedTeacher' => $selectedTeacher,
         'query' => $query,
         'teacher_id' => $teacherId,
     ]);
+  
+
+//
+     // Filter by teacher_id if a teacher is selected
+     if ($teacherId) {
+        $allCertificates->where('teacher_id', $teacherId);
+    }
+
+    $allCertificates = $allCertificates->get();
+
+    // Retrieve all teachers for the dropdown
+    $allTeachers = Teacher::all();
+
+    return view('profile', [
+        'allCertificates' => $allCertificates,
+        'allTeachers' => $allTeachers,
+        'query' => $query,
+        'teacher_id' => $teacherId,
+    ]);
+    }
+
+*/
+public function updateCertificate(Request $request, $id)
+{
+    $certificate = Certificate::findOrFail($id);
+    $certificate->update($request->only('category', 'type', 'name', 'title', 'organization', 'designation', 'sponsor', 'date', 'points'));
+
+    // Redirect back to the profile page with the teacher_id
+    return redirect()->route('profile', ['teacher_id' => $certificate->teacher_id])
+                     ->with('success', 'Certificate updated successfully.');
 }
 
 
-/*    public function showCertificates(Request $request)
-    {
-    $query = $request->input('query');
-
-    if ($query) {
-        // Search by type, name, title, or date using LIKE to allow partial matches
-        $allCertificates = Certificate::where('id', 'like', "%{$query}%")
-            ->orWhere('type', 'like', "%{$query}%")
-            ->orWhere('name', 'like', "%{$query}%")
-            ->orWhere('title', 'like', "%{$query}%")
-            ->orWhere('date', 'like', "%{$query}%")
-            ->orWhere('raw_text', 'like', "%{$query}%")
-            ->orWhere('points', 'like', "%{$query}%")
-            ->get();
-    } else {
-        $allCertificates = Certificate::all();
-    }
-
-    //teacher
-    $allTeachers = Teacher::all();
-    $latestTeacher = Teacher::latest()->first(); // Retrieve the latest teacher
-
-    return view('home', ['allCertificates' => $allCertificates,
-        'allTeachers' => $allTeachers,
-        'latestTeacher' => $latestTeacher,
-        'query' => $query]);
-    }*/
-
+/*
     public function updateCertificate(Request $request, $id)
     {
         $certificate = Certificate::findOrFail($id);
         $certificate->update($request->only('category', 'type', 'name', 'title', 'organization', 'designation', 'sponsor', 'date', 'points'));
 
-        return redirect()->route('home');
+        return redirect()->route('profile');
     }
+*/
 
+public function deleteCertificate($id)
+{
+    $certificate = Certificate::findOrFail($id);
+    $teacherId = $certificate->teacher_id;
+    $certificate->delete();
+
+    // Redirect back to the profile page with the teacher_id
+    return redirect()->route('profile', ['teacher_id' => $teacherId])
+                     ->with('success', 'Certificate deleted successfully.');
+}
+
+/*
     public function deleteCertificate($id)
     {
         $certificate = Certificate::findOrFail($id);
         $certificate->delete();
 
-        return redirect()->route('home');
+        return redirect()->route('profile');
     }
+*/
+
+
 
     public function createTeacher(Request $request)
     {
@@ -176,52 +278,27 @@ class CertificateController extends Controller
         return redirect()->route('home')->with('teacher', $teacher);
     }
 
-    public function showUploadForm()
+    /*public function showUploadForm()
     {
     $allTeachers = Teacher::all(); // Retrieve all teachers for the dropdown
     return view('upload', ['allTeachers' => $allTeachers]);
+    }*/
+
+    public function showUploadForm(Request $request)
+    {
+    $teacherId = $request->input('teacher_id');
+
+    if (!$teacherId) {
+        return redirect()->route('profile')->with('error', 'No teacher selected.');
     }
-/*
-    public function showSummary()
+
+    return view('upload', ['teacher_id' => $teacherId]);
+    }
+
+
+    public function showSummary($teacherId)
 {
-    // Sum points for Productive Scholarship categories
-    $productiveScholarshipPoints = Certificate::whereIn('category', [
-        'seminar',
-        'honors_awards',
-        'membership',
-        'scholarship_activities'
-    ])->sum('points');
-
-    // Sum points for Community Extension Services categories
-    $communityExtensionPoints = Certificate::whereIn('category', [
-        'service_students',
-        'service_department',
-        'service_institution',
-        'participation_organizations',
-        'involvement_department'
-    ])->sum('points');
-
-    // Retrieve values for Performance and Experience from the Teacher model
-    $performance = Teacher::sum('performance'); // Sum all teachers' performance points
-    $experience = Teacher::sum('experience');   // Sum all teachers' experience points
-
-    // Calculate the Total
-    $totalPoints = $performance + $productiveScholarshipPoints + $experience + $communityExtensionPoints;
-
-    // Pass data to the view
-    return view('summary', [
-        'performance' => $performance,
-        'productiveScholarshipPoints' => $productiveScholarshipPoints,
-        'experience' => $experience,
-        'communityExtensionPoints' => $communityExtensionPoints,
-        'totalPoints' => $totalPoints,
-    ]);
-}
-*/
-/*
-public function showSummary($teacherId)
-{
-    // Retrieve the teacher's details
+    // Retrieve the selected teacher
     $teacher = Teacher::with('certificates')->findOrFail($teacherId);
 
     // Calculate points for Productive Scholarship categories
@@ -251,10 +328,12 @@ public function showSummary($teacherId)
         'totalPoints' => $totalPoints,
     ]);
 }
-*/
 
-public function showSummary($teacherId = null)
-{
+
+
+    /*
+    public function showSummary($teacherId = null)
+    {
     // Load all teachers for the dropdown
     $allTeachers = Teacher::all();
 
@@ -262,7 +341,7 @@ public function showSummary($teacherId = null)
     $teacher = $teacherId ? Teacher::with('certificates')->findOrFail($teacherId) : $allTeachers->first();
 
     if (!$teacher) {
-        return redirect()->route('home')->with('error', 'No teachers found.');
+        return redirect()->route('')->with('error', 'No teachers found.');
     }
 
     // Calculate points for Productive Scholarship categories
@@ -292,6 +371,6 @@ public function showSummary($teacherId = null)
         'communityExtensionPoints' => $communityExtensionPoints,
         'totalPoints' => $totalPoints,
     ]);
-}
-
+    }
+    */
 }

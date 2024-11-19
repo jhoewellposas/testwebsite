@@ -22,13 +22,6 @@ return new class extends Migration
         });
     }
 
-    //
-    public function certificates()
-    {
-    return $this->hasMany(Certificate::class);
-    }
-
-
     /**
      * Reverse the migrations.
      */

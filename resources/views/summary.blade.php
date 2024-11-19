@@ -8,7 +8,6 @@
 </head>
 <body>
 
-
     {{-- Logo Header Container --}}
     <div class="header">
         <header class="site-header">
@@ -16,7 +15,6 @@
             <h2 class="site-title">Father Saturnino Urios University</h2>
         </header>
     </div>
-
 
     <div class="sub-header">
         <h1>RANKING SUMMARY</h1> 
@@ -26,19 +24,10 @@
             <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
         </div>
 
-            <!-- Teacher Selection Dropdown -->
-        <form action="{{ route('summary') }}" method="GET">
-            <label for="teacher_id">Select Teacher:</label>
-            <select name="teacherId" id="teacher_id" onchange="this.form.submit()">
-                @foreach($allTeachers as $teacherOption)
-                    <option value="{{ $teacherOption->id }}" {{ $teacherOption->id == $teacher->id ? 'selected' : '' }}>
-                        {{ $teacherOption->name }}
-                    </option>
-                @endforeach
-            </select>
-        </form>
-    </div> 
-
+        <div class="mb-4 view-summary">
+            <a href="{{ route('profile', ['teacher_id' => $teacher->id]) }}" class="btn btn-secondary">Profile</a>
+        </div>
+        
 
     <!-- Display Selected Teacher's Information -->
     <div class="teacher-table-info">

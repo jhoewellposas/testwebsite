@@ -12,34 +12,26 @@ Route::get('/', function () {
 });
 */
 
+Route::get('/home', function () {
+    $allTeachers = \App\Models\Teacher::all();
+    return view('home', compact('allTeachers'));
+})->name('home');
+
+//create teacher
 Route::post('/teachers/create', [CertificateController::class, 'createTeacher'])->name('teachers.create');
 
-/*Route::get('/upload', function () {
-    return view('upload'); // This view contains your HTML form
-});*/
+//home
+Route::get('/profile', [CertificateController::class, 'showCertificates'])->name('profile');
 
+//upload
 Route::get('/upload', [CertificateController::class, 'showUploadForm'])->name('certificate.upload');
 
-
-// Route to handle form submission (POST request only)
-//Route::post('/extract', [CertificateController::class, 'extractCertificateData']);
+//extract
 Route::post('/extract', [CertificateController::class, 'extractCertificateData'])->name('extractCertificateData');
-//Route::post('/extract', [CertificateController::class, 'debugExtract'])->name('extractCertificateData');
-
 
 //edit and delete
 Route::post('/certificate/update/{id}', [CertificateController::class, 'updateCertificate'])->name('certificate.update');
 Route::delete('/certificate/delete/{id}', [CertificateController::class, 'deleteCertificate'])->name('certificate.delete');
 
-//index
-Route::get('/home', [CertificateController::class, 'showCertificates'])->name('home');
-
 //summary
-/*Route::get('/summary', function () {
-    return view('summary');
-});
-*/
-
-//Route::get('/summary', [CertificateController::class, 'showSummary'])->name('summary');
-//Route::get('/summary/{teacherId}', [CertificateController::class, 'showSummary'])->name('summary');
 Route::get('/summary/{teacherId?}', [CertificateController::class, 'showSummary'])->name('summary');

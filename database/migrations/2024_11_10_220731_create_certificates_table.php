@@ -30,13 +30,6 @@ return new class extends Migration
         });
     }
 
-    //
-    public function teacher()
-    {
-    return $this->belongsTo(Teacher::class);
-    }
-
-
     /**
      * Reverse the migrations.
      */
