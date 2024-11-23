@@ -18,6 +18,9 @@ return new class extends Migration
             $table->float('performance')->default(0);
             $table->float('experience')->default(0);
             $table->date('date')->default(now());
+            $table->string('office')->nullable();
+            $table->float('points')->default(0);
+            $table->string('rank')->default('Teacher 1');
             $table->timestamps();
         });
     }

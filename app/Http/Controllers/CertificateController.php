@@ -6,10 +6,96 @@ use Illuminate\Http\Request;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use App\Models\Certificate;
 use App\Models\Teacher;
-
+use Illuminate\Support\Facades\Http;
 
 class CertificateController extends Controller
 {
+/*
+    public function extractCertificateData(Request $request)
+    {
+        // Step 1: Validate and save the uploaded file
+        $request->validate([
+            'certificate' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'teacher_id' => 'required|exists:teachers,id' // Validate teacher_id
+        ]);
+
+        $image = $request->file('certificate');
+        $path = $image->store('certificates', 'public');
+        $processedImagePath = storage_path("app/public/{$path}");
+
+        // Step 2: Perform OCR on the processed image
+        $tesseract = new TesseractOCR($processedImagePath);
+        $text = $tesseract->run();
+
+        if (empty($text)) {
+            return back()->with('error', 'Failed to extract text from the certificate.');
+        }
+
+        // Step 3: Use OpenAI API to extract certificate details
+        $openaiApiKey = env('OPENAI_API_KEY'); // Add your API key to the .env file
+        if (!$openaiApiKey) {
+            return back()->with('error', 'OpenAI API key is missing.');
+        }
+
+        try {
+            $openaiResponse = Http::withHeaders([
+                'Authorization' => "Bearer {$openaiApiKey}",
+                'Content-Type' => 'application/json',
+            ])->post('https://api.openai.com/v1/completions', [
+                'model' => 'text-davinci-003',
+                'prompt' => "Extract the following details from this certificate text:\n\nText: {$text}\n\n1. Certificate Type\n2. Recipient Name\n3. Certificate Title\n4. Date\n\nReturn the data in JSON format with keys: type, name, title, and date.",
+                'max_tokens' => 200,
+                'temperature' => 0.2,
+            ]);
+
+            if ($openaiResponse->failed()) {
+                return back()->with('error', 'Failed to process the certificate using OpenAI.');
+            }
+
+            $responseData = $openaiResponse->json();
+            $openaiOutput = $responseData['choices'][0]['text'] ?? '';
+
+            // Step 4: Parse OpenAI response
+            $parsedData = json_decode($openaiOutput, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return back()->with('error', 'Failed to parse OpenAI response.');
+            }
+
+            // Step 5: Prepare data for saving
+            $data = [
+                'type' => $parsedData['type'] ?? 'Unknown',
+                'name' => $parsedData['name'] ?? 'Unknown',
+                'title' => $parsedData['title'] ?? 'Unknown',
+                'date' => $parsedData['date'] ?? 'Unknown',
+                'raw_text' => $text,
+                'teacher_id' => $request->input('teacher_id'),
+            ];
+
+            // Step 6: Save the extracted data
+            Certificate::create($data);
+
+            // Step 7: Redirect to the profile page with success message
+            return redirect()->route('profile', ['teacher_id' => $request->input('teacher_id')])
+                ->with('success', 'Certificate uploaded and processed successfully.');
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred while processing the certificate: ' . $e->getMessage());
+        }
+    }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
     public function extractCertificateData(Request $request)
     {
         // Step 1: Validate and save the uploaded file
@@ -26,7 +112,6 @@ class CertificateController extends Controller
         $tesseract = new TesseractOCR($processedImagePath);
         $text = $tesseract->run();
 
-       
         // Step 4: Extract relevant information using regex patterns
         $typePattern = "/certificate of (achievement|completion|attendance|participation|appreciation|recognition)/i";
         $namePattern = "/(?:to|that)\s+([A-Z\s]+?)\s+(?:has|for)/i";
@@ -55,8 +140,9 @@ class CertificateController extends Controller
         ->with('success', 'Certificate uploaded and processed successfully.');
     }
 
+
     public function showCertificates(Request $request)
-{
+    {
     $query = $request->input('query');
     $teacherId = $request->input('teacher_id');
 
@@ -100,144 +186,21 @@ class CertificateController extends Controller
         'query' => $query,
         'teacher_id' => $teacherId, // Pass teacher_id for default selection
     ]);
-}
-
-    /*
-    public function showCertificates(Request $request)
-{
-    $query = $request->input('query');
-    $teacherId = $request->input('teacher_id');
-
-    // Initialize the certificate query
-    $certificateQuery = Certificate::query();
-
-    // Filter by search query if provided
-    if ($query) {
-        $certificateQuery->where(function ($q) use ($query) {
-            $q->where('id', 'like', "%{$query}%")
-              ->orWhere('type', 'like', "%{$query}%")
-              ->orWhere('name', 'like', "%{$query}%")
-              ->orWhere('title', 'like', "%{$query}%")
-              ->orWhere('organization', 'like', "%{$query}%")
-              ->orWhere('designation', 'like', "%{$query}%")
-              ->orWhere('sponsor', 'like', "%{$query}%")
-              ->orWhere('date', 'like', "%{$query}%")
-              ->orWhere('raw_text', 'like', "%{$query}%")
-              ->orWhere('points', 'like', "%{$query}%");
-        });
     }
 
-    // Filter by teacher_id if a teacher is selected
-    if ($teacherId) {
-        $certificateQuery->where('teacher_id', $teacherId);
-    }
 
-    // Get certificates
-    $allCertificates = $certificateQuery->get();
-
-    // Retrieve all teachers for the dropdown
-    $allTeachers = Teacher::all();
-
-    return view('profile', [
-        'allCertificates' => $allCertificates,
-        'allTeachers' => $allTeachers,
-        'query' => $query,
-        'teacher_id' => $teacherId, // Pass teacher_id for default selection
-    ]);
-}
-    */
-
-
-
-/*
-    public function showCertificates(Request $request)
+    public function updateCertificate(Request $request, $id)
     {
-    $query = $request->input('query');
-    $teacherId = $request->input('teacher_id');
-
-    $allCertificates = Certificate::query();
-
-    // Filter by search query if provided
-    if ($query) {
-        $allCertificates->where(function ($q) use ($query) {
-            $q->where('id', 'like', "%{$query}%")
-              ->orWhere('type', 'like', "%{$query}%")
-              ->orWhere('name', 'like', "%{$query}%")
-              ->orWhere('title', 'like', "%{$query}%")
-              ->orWhere('organization', 'like', "%{$query}%")
-              ->orWhere('designation', 'like', "%{$query}%")
-              ->orWhere('sponsor', 'like', "%{$query}%")
-              ->orWhere('date', 'like', "%{$query}%")
-              ->orWhere('raw_text', 'like', "%{$query}%")
-              ->orWhere('points', 'like', "%{$query}%");
-        });
-    }
-/*
-    // Filter by teacher_id if a teacher is selected
-    if ($teacherId) {
-        $allCertificates->where('teacher_id', $teacherId);
-        $selectedTeacher = Teacher::find($teacherId);
-    } else {
-        $selectedTeacher = null;
-    } 
-    
-    $allCertificates = $allCertificates->get();
-
-    // Retrieve all teachers for the dropdown
-    $allTeachers = Teacher::all();
-
-    return view('profile', [
-        'allCertificates' => $allCertificates,
-        'allTeachers' => $allTeachers,
-        'selectedTeacher' => $selectedTeacher,
-        'query' => $query,
-        'teacher_id' => $teacherId,
-    ]);
-  
-
-//
-     // Filter by teacher_id if a teacher is selected
-     if ($teacherId) {
-        $allCertificates->where('teacher_id', $teacherId);
-    }
-
-    $allCertificates = $allCertificates->get();
-
-    // Retrieve all teachers for the dropdown
-    $allTeachers = Teacher::all();
-
-    return view('profile', [
-        'allCertificates' => $allCertificates,
-        'allTeachers' => $allTeachers,
-        'query' => $query,
-        'teacher_id' => $teacherId,
-    ]);
-    }
-
-*/
-public function updateCertificate(Request $request, $id)
-{
     $certificate = Certificate::findOrFail($id);
     $certificate->update($request->only('category', 'type', 'name', 'title', 'organization', 'designation', 'sponsor', 'date', 'points'));
 
     // Redirect back to the profile page with the teacher_id
     return redirect()->route('profile', ['teacher_id' => $certificate->teacher_id])
                      ->with('success', 'Certificate updated successfully.');
-}
-
-
-/*
-    public function updateCertificate(Request $request, $id)
-    {
-        $certificate = Certificate::findOrFail($id);
-        $certificate->update($request->only('category', 'type', 'name', 'title', 'organization', 'designation', 'sponsor', 'date', 'points'));
-
-        return redirect()->route('profile');
     }
-*/
 
-public function deleteCertificate($id)
-{
+    public function deleteCertificate($id)
+    {
     $certificate = Certificate::findOrFail($id);
     $teacherId = $certificate->teacher_id;
     $certificate->delete();
@@ -245,19 +208,7 @@ public function deleteCertificate($id)
     // Redirect back to the profile page with the teacher_id
     return redirect()->route('profile', ['teacher_id' => $teacherId])
                      ->with('success', 'Certificate deleted successfully.');
-}
-
-/*
-    public function deleteCertificate($id)
-    {
-        $certificate = Certificate::findOrFail($id);
-        $certificate->delete();
-
-        return redirect()->route('profile');
     }
-*/
-
-
 
     public function createTeacher(Request $request)
     {
@@ -278,11 +229,15 @@ public function deleteCertificate($id)
         return redirect()->route('home')->with('teacher', $teacher);
     }
 
-    /*public function showUploadForm()
+    public function updateTeacher(Request $request, $id)
     {
-    $allTeachers = Teacher::all(); // Retrieve all teachers for the dropdown
-    return view('upload', ['allTeachers' => $allTeachers]);
-    }*/
+    $teacher = Teacher::findOrFail($id);
+    $teacher->update($request->only('name', 'acad_attainment', 'performance', 'experience', 'rank'));
+
+    // Redirect back to the profile page with the teacher_id
+    return redirect()->route('profile', ['teacher_id' => $teacher->id])
+                     ->with('success', 'Teacher updated successfully.');
+    }
 
     public function showUploadForm(Request $request)
     {
@@ -297,7 +252,7 @@ public function deleteCertificate($id)
 
 
     public function showSummary($teacherId)
-{
+    {
     // Retrieve the selected teacher
     $teacher = Teacher::with('certificates')->findOrFail($teacherId);
 
@@ -327,50 +282,5 @@ public function deleteCertificate($id)
         'communityExtensionPoints' => $communityExtensionPoints,
         'totalPoints' => $totalPoints,
     ]);
-}
-
-
-
-    /*
-    public function showSummary($teacherId = null)
-    {
-    // Load all teachers for the dropdown
-    $allTeachers = Teacher::all();
-
-    // Retrieve the selected teacher or the first teacher if no ID is provided
-    $teacher = $teacherId ? Teacher::with('certificates')->findOrFail($teacherId) : $allTeachers->first();
-
-    if (!$teacher) {
-        return redirect()->route('')->with('error', 'No teachers found.');
     }
-
-    // Calculate points for Productive Scholarship categories
-    $productiveScholarshipPoints = $teacher->certificates
-        ->whereIn('category', ['seminar', 'honors_awards', 'membership', 'scholarship_activities'])
-        ->sum('points');
-
-    // Calculate points for Community Extension Services categories
-    $communityExtensionPoints = $teacher->certificates
-        ->whereIn('category', ['service_students', 'service_department', 'service_institution', 'participation_organizations', 'involvement_department'])
-        ->sum('points');
-
-    // Use teacher's individual performance and experience
-    $performance = $teacher->performance;
-    $experience = $teacher->experience;
-
-    // Calculate the total points
-    $totalPoints = $performance + $productiveScholarshipPoints + $experience + $communityExtensionPoints;
-
-    // Pass data to the view
-    return view('summary', [
-        'teacher' => $teacher,
-        'allTeachers' => $allTeachers,
-        'performance' => $performance,
-        'productiveScholarshipPoints' => $productiveScholarshipPoints,
-        'experience' => $experience,
-        'communityExtensionPoints' => $communityExtensionPoints,
-        'totalPoints' => $totalPoints,
-    ]);
-    }
-    */
 }

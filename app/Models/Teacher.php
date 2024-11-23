@@ -16,6 +16,10 @@ class Teacher extends Model
     'acad_attainment',
     'performance',
     'experience',
+    'date',
+    'office',
+    'points',
+    'rank',
     ];
 
     public function certificates()

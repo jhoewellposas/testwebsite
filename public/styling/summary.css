@@ -6,34 +6,53 @@
 }
 
 body {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr;
+    gap: 20px; /* Space between rows */
     font-family: Arial, sans-serif;
-    line-height: 1.6;
     background-color: #fff;
     color: #333;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
 }
 
 /* Header Styling */
-.header {
-    text-align: center;
-    background-color: #007bff;
-    padding: 20px;
+/* Logo Container */
+.fsuu-logo-container {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    display: flex;
+    align-items: center; /* Vertically centers items */
+    justify-content: center; /* Centers the content horizontally */
+    padding: 10px 0; /* Adjust padding for vertical alignment */
+    background-color: #007bff; /* Bright blue background */
     color: white;
+    width: 100%;
+}
+
+/* Logo Styling */
+ .logo {
+    width: 50px;
+    height: auto; /* Adjust logo height */
+    margin-right: 10px; /* Space between logo and title */
+    display: inline-block; /* Keeps logo and title on the same line */
+    vertical-align: middle; /* Aligns logo to middle of the text */
+}
+
+/* Title Styling */
+.fsuu-logo-container .site-title {
+    font-size: 2.0em; /* Adjust font size */
+    font-weight: bold;
+    margin: 0;
+    display: inline-block; /* Ensures the title aligns with logo */
+    vertical-align: middle; /* Aligns text to the middle of the logo */
 }
 
 .site-header {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.logo {
-    height: 50px;
-}
-
-.site-title {
-    font-size: 24px;
-    font-weight: bold;
 }
 
 /* Sub-Header Styling */
@@ -85,6 +104,8 @@ label, select {
     margin-bottom: 20px;
     font-size: 18px;
     line-height: 1.8;
+    text-align: left;
+    width: 60%;
 }
 
 .teacher-info p {
@@ -121,26 +142,58 @@ label, select {
     background-color: #e9ecef;
 }
 
+
 /* Signature Form Styling */
 .signature-form {
-    width: 80%;
-    margin: 40px auto;
-    font-size: 18px;
-    line-height: 2;
+    width: 100%;
+    border: 2px solid #000;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Grid Layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Three columns: narrow-wide-narrow */
+    grid-gap: 50px; /* Space between items */
+    row-gap: 40px; /* Vertical spacing */
+}
+
+.grid-item {
+    text-align: left;
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
+/* Approved Section */
+.grid-item:nth-child(17) {
+    grid-column: 1 / 2; /* Approved in the first column */
     text-align: left;
 }
 
-.signature-form h2,
-.signature-form h3 {
-    margin-bottom: 10px;
+/* President Beneath Approved */
+.president {
+    grid-column: 1 / 2; /* Place President in the first column */
+    margin-left: 100%; /* Slightly move "President" to the right */
+    text-align: left;
+    margin-top: -10px; /* Adjust spacing slightly upward to look closer to Approved */
 }
 
-.signature-form h2 {
-    font-weight: bold;
-    text-decoration: underline;
+/* Date in the Last Column */
+.grid-item:nth-child(19) {
+    grid-column: 3 / 4; /* Date in the right-most column */
+    text-align: right;
 }
 
-.approved-section {
-    margin-top: 20px;
+/* Centered Text */
+.centered {
+    text-align: center;
     font-weight: bold;
 }

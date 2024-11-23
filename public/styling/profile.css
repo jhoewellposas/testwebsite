@@ -1,0 +1,293 @@
+/* General Styles */
+body {
+    display: grid;
+    grid-template-rows: auto auto auto auto; /* Adjust rows for new container */
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* Logo Container */
+.fsuu-logo-container {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    display: flex;
+    align-items: center; /* Vertically centers items */
+    justify-content: center; /* Centers the content horizontally */
+    padding: 10px 0; /* Adjust padding for vertical alignment */
+    background-color: #007bff; /* Bright blue background */
+    color: white;
+    width: 100%;
+}
+
+/* Logo Styling */
+ .logo {
+    width: 70px;
+    height: auto; /* Adjust logo height */
+    margin-right: 10px; /* Space between logo and title */
+    display: inline-block; /* Keeps logo and title on the same line */
+    vertical-align: middle; /* Aligns logo to middle of the text */
+}
+
+/* Title Styling */
+.fsuu-logo-container .site-title {
+    font-size: 2.5em; /* Adjust font size */
+    font-weight: bold;
+    margin: 0;
+    display: inline-block; /* Ensures the title aligns with logo */
+    vertical-align: middle; /* Aligns text to the middle of the logo */
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+}
+
+/* Teacher Table Info Container */
+.teacher-table-info {
+    grid-column: 1 / -1; /* Spans the full width */
+    grid-row: 2; /* Positioned beneath the header */
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Align the content to the left */
+}
+
+/* Adjust teacher-info Content */
+.teacher-info {
+    margin: 0; /* Remove any auto centering */
+    max-width: 600px; /* Optional: Set a max-width */
+    padding: 10px 0;
+}
+
+.teacher-info p {
+    font-size: 1em;
+    color: #333;
+    margin: 5px 0; /* Space between lines */
+    line-height: 1.5; /* Improve readability */
+}
+
+.teacher-info p strong {
+    color: #007bff; /* Highlight labels with primary color */
+}
+
+/* Text, Upload, and Search Bar Container */
+.text-upload-search-container {
+    grid-column: 1 / -1; /* Spans the full width */
+    grid-row: 3; /* Positioned directly beneath the teacher-table-info container */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 0;
+    gap: 10px; /* Consistent spacing between elements */
+}
+
+/* General Button Styling for Home and Upload */
+.home-button .btn-success,
+.upload-button .btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0 15px; /* Consistent padding */
+    border-radius: 5px; /* Consistent border-radius */
+    height: 40px; /* Match the search bar height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px; /* Match the search button font size */
+}
+
+.home-button .btn-success:hover,
+.upload-button .btn-success:hover {
+    background-color: #218838;
+}
+
+/* Input Group for Search Bar */
+.input-group {
+    display: flex;
+    align-items: stretch; /* Ensure both input and button stretch to the same height */
+}
+
+/* Input Field */
+.input-group .form-control {
+    width: 200px; /* Fixed width for the input */
+    height: 40px; /* Set height to match the button */
+    border-radius: 5px 0 0 5px; /* Rounded corners on the left */
+    padding: 10px; /* Consistent padding */
+    box-sizing: border-box; /* Include padding and border in dimensions */
+    border: 1px solid #ced4da; /* Ensure consistent border styling */
+    font-size: 14px; /* Adjust font size for alignment */
+    margin: 0; /* Remove unnecessary margins */
+}
+
+/* Button */
+.input-group .btn-primary {
+    height: 40px; /* Match the input's height */
+    border-radius: 0 5px 5px 0; /* Rounded corners on the right */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Text color */
+    border: 1px solid #007bff; /* Ensure border matches the button's background */
+    padding: 0 15px; /* Consistent padding */
+    font-size: 14px; /* Match input's font size */
+    margin: 0; /* Remove unnecessary margins */
+    display: flex; /* Use flex to center text vertically */
+    align-items: center; /* Center-align text vertically */
+    justify-content: center; /* Center-align text horizontally */
+    box-sizing: border-box; /* Include padding and border in dimensions */
+}
+
+/* Hover Effect */
+.input-group .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+
+
+/* Table Container */
+.table-container {
+    grid-column: 1 / -1; /* Spans the full width */
+    grid-row: 4; /* Positioned below the text-upload-search-container */
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    width: 97.5%;
+    margin: auto;
+}
+
+/* Table Styles */
+.table {
+    min-width: 1200px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: center;
+}
+
+.table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Field-Sized Content Styles */
+.table select,
+.table input[type="text"],
+.table textarea {
+    width: auto;
+    min-width: 100px;
+    max-width: 100%;
+    padding: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.table select {
+    white-space: nowrap;
+}
+
+.table textarea {
+    resize: both;
+    overflow: auto;
+    height: auto;
+    min-height: 30px;
+}
+
+/* Points Column Styling */
+.table th:nth-child(13),
+.table td:nth-child(13) {
+    width: 60px; /* Explicitly set the column width */
+    text-align: center; /* Center-align the content */
+    padding: 5; /* Remove padding */
+    vertical-align: middle; /* Ensure vertical alignment */
+}
+
+/* Input Container */
+.table td:nth-child(13) div {
+    display: flex;
+    justify-content: center; /* Center-align the input horizontally */
+    align-items: center; /* Center-align the input vertically */
+    height: 100%; /* Make the container fill the cell */
+}
+
+/* Input Field */
+.table td:nth-child(13) input {
+    width: 90%; /* Allow the input to adjust within the cell */
+    max-width: 50px; /* Restrict the input width */
+    height: 30px; /* Set a standard height */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    text-align: center; /* Center-align the input text */
+    margin: 0; /* Remove default margins */
+    padding: 25px; /* Adjust padding as necessary */
+}
+
+
+#teacher_id, .form-control {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    border: none;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+a {
+    text-decoration: none;
+}
+
+a[href*="summary"] {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+a[href*="summary"]:hover {
+    background-color: #5a6268;
+}
+
+/* Button Styling */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}

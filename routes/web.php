@@ -20,7 +20,7 @@ Route::get('/home', function () {
 //create teacher
 Route::post('/teachers/create', [CertificateController::class, 'createTeacher'])->name('teachers.create');
 
-//home
+//profile
 Route::get('/profile', [CertificateController::class, 'showCertificates'])->name('profile');
 
 //upload
@@ -29,9 +29,12 @@ Route::get('/upload', [CertificateController::class, 'showUploadForm'])->name('c
 //extract
 Route::post('/extract', [CertificateController::class, 'extractCertificateData'])->name('extractCertificateData');
 
-//edit and delete
+//update and delete certificate
 Route::post('/certificate/update/{id}', [CertificateController::class, 'updateCertificate'])->name('certificate.update');
 Route::delete('/certificate/delete/{id}', [CertificateController::class, 'deleteCertificate'])->name('certificate.delete');
+
+//update teacher
+Route::post('/teacher/update/{id}', [CertificateController::class, 'updateTeacher'])->name('teachers.update');
 
 //summary
 Route::get('/summary/{teacherId?}', [CertificateController::class, 'showSummary'])->name('summary');

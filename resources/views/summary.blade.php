@@ -8,8 +8,8 @@
 </head>
 <body>
 
-    {{-- Logo Header Container --}}
-    <div class="header">
+     {{-- Logo Header Container --}}
+     <div class="fsuu-logo-container">
         <header class="site-header">
             <img src="{{ asset('FSUU Logo/fsuu2_1.png')}}" alt="University Logo" class="logo">
             <h2 class="site-title">Father Saturnino Urios University</h2>
@@ -35,6 +35,7 @@
             <p><strong>Name:</strong> {{ $teacher->name }}</p>
             <p><strong>Academic Attainment:</strong> {{ $teacher->acad_attainment }}</p>
             <p><strong>Experience:</strong> {{ $experience }}</p>
+            <p><strong>Rank:</strong> {{ $teacher->rank }}</p>
         </div>
 
             <!-- Table for Ranking Criteria and Points -->
@@ -74,20 +75,40 @@
 
 
     {{-- Signature Form --}}
-  <div class="signature-form">
-    <h2>Rank:</h2>
-    <h3>Prepared by:</h3>
-    <h3>Verified and Reviewed by Rank and Tenure COmmittee</h3>
-    <h3>Date:</h3>
-    <h3>Name & signiture of member</h3>
-    <h3>Name & signiture of chair</h3>
-
-        <div class="approved-section">
-            <h3>Approved</h3>
-            <h3>Date:</h3>
-            <h3>President</h3>
+    <div class="signature-form">
+        <h2 class="title">Signature Form</h2>
+        <div class="grid-container">
+            <!-- Row 1 -->
+            <div class="grid-item">Rank:</div>
+            <div class="grid-item"></div>
+            <div class="grid-item"></div>
+    
+            <!-- Row 2 -->
+            <div class="grid-item">Prepared by:</div>
+            <div class="grid-item"></div>
+            <div class="grid-item">Date:</div>
+    
+            <!-- Row 3 -->
+            <div class="grid-item"></div>
+            <div class="grid-item centered">Verified and Reviewed by Rank and Tenure Committee</div>
+            <div class="grid-item"></div>
+    
+            <!-- Row 4 -->
+            <div class="grid-item">Name & Signature of Member</div>
+            <div class="grid-item"></div>
+            <div class="grid-item">Name & Signature of Member</div>
+    
+            <!-- Row 5 -->
+            <div class="grid-item">Approved:</div>
+            <div class="grid-item"></div>
+            <div class="grid-item">Date:</div>
+    
+            <!-- Row 6 -->
+            <div class="grid-item president">President</div>
+            <div class="grid-item"></div>
+            <div class="grid-item"></div>
         </div>
-  </div>
+    </div>
 
 </body>
 </html>
