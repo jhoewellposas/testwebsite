@@ -10,15 +10,16 @@
 
      {{-- Logo Header Container --}}
      <div class="fsuu-logo-container">
-        <header class="site-header">
-            <img src="{{ asset('FSUU Logo/fsuu2_1.png')}}" alt="University Logo" class="logo">
-            <h2 class="site-title">Father Saturnino Urios University</h2>
-        </header>
+        <img src="{{ asset('FSUU Logo/fsuu2_1.png') }}" alt="University Logo" class="logo">
+        <div class="logo-title-container">
+            <h1 class="main-title">FSUU</h1>
+            <h2 class="subtitle">Father Saturnino Urios University</h2>
+        </div>
     </div>
 
-    <div class="sub-header">
-        <h1>RANKING SUMMARY</h1> 
 
+    {{-- Buttons --}}
+    <div class="button-container">
             {{-- Home Button --}}
         <div class="mb-4">
             <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
@@ -27,10 +28,11 @@
         <div class="mb-4 view-summary">
             <a href="{{ route('profile', ['teacher_id' => $teacher->id]) }}" class="btn btn-secondary">Profile</a>
         </div>
-        
+    </div>   
 
     <!-- Display Selected Teacher's Information -->
     <div class="teacher-table-info">
+        <h1 class="sub-header">RANKING SUMMARY</h1>
         <div class="teacher-info">
             <p><strong>Name:</strong> {{ $teacher->name }}</p>
             <p><strong>Academic Attainment:</strong> {{ $teacher->acad_attainment }}</p>
@@ -84,9 +86,9 @@
             <div class="grid-item"></div>
     
             <!-- Row 2 -->
-            <div class="grid-item">Prepared by:</div>
+            <div class="grid-item">Prepared by:  ________________________</div>
             <div class="grid-item"></div>
-            <div class="grid-item">Date:</div>
+            <div class="grid-item">Date: ________________________</div>
     
             <!-- Row 3 -->
             <div class="grid-item"></div>
@@ -94,14 +96,14 @@
             <div class="grid-item"></div>
     
             <!-- Row 4 -->
-            <div class="grid-item">Name & Signature of Member</div>
+            <div class="grid-item name-signature1">Name & Signature of Member</div>
             <div class="grid-item"></div>
-            <div class="grid-item">Name & Signature of Member</div>
+            <div class="grid-item name-signature2">Name & Signature of Member</div>
     
             <!-- Row 5 -->
-            <div class="grid-item">Approved:</div>
+            <div class="grid-item">Approved: ________________________</div>
             <div class="grid-item"></div>
-            <div class="grid-item">Date:</div>
+            <div class="grid-item">Date: ________________________</div>
     
             <!-- Row 6 -->
             <div class="grid-item president">President</div>

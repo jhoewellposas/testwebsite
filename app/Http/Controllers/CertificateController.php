@@ -6,11 +6,10 @@ use Illuminate\Http\Request;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use App\Models\Certificate;
 use App\Models\Teacher;
-use Illuminate\Support\Facades\Http;
+use OpenAI;
 
 class CertificateController extends Controller
 {
-/*
     public function extractCertificateData(Request $request)
     {
         // Step 1: Validate and save the uploaded file
@@ -31,59 +30,49 @@ class CertificateController extends Controller
             return back()->with('error', 'Failed to extract text from the certificate.');
         }
 
-        // Step 3: Use OpenAI API to extract certificate details
+        // Step 3: Use OpenAI API to extract details
         $openaiApiKey = env('OPENAI_API_KEY'); // Add your API key to the .env file
-        if (!$openaiApiKey) {
-            return back()->with('error', 'OpenAI API key is missing.');
+        $openai = OpenAI::client($openaiApiKey);
+
+
+        $response = $openai->chat()->create([
+            'model' => 'gpt-3.5-turbo',
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You are a helpful assistant that extracts structured data from certificate text.',
+                ],
+                [
+                    'role' => 'user',
+                    'content' => "Extract the following details from this certificate text:\n\nText: {$text}\n\n1. Certificate Type\n2. Recipient Name\n3. Certificate Title\n4. Date\n\nReturn the data in JSON format with keys: type, name, title, and date.",
+                ],
+            ],
+        ]);
+
+        $output = $response['choices'][0]['message']['content'] ?? '';
+
+        // Parse OpenAI response
+        $parsedData = json_decode($output, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return back()->with('error', 'Failed to parse OpenAI response.');
         }
 
-        try {
-            $openaiResponse = Http::withHeaders([
-                'Authorization' => "Bearer {$openaiApiKey}",
-                'Content-Type' => 'application/json',
-            ])->post('https://api.openai.com/v1/completions', [
-                'model' => 'text-davinci-003',
-                'prompt' => "Extract the following details from this certificate text:\n\nText: {$text}\n\n1. Certificate Type\n2. Recipient Name\n3. Certificate Title\n4. Date\n\nReturn the data in JSON format with keys: type, name, title, and date.",
-                'max_tokens' => 200,
-                'temperature' => 0.2,
-            ]);
+        // Step 4: Prepare and save the extracted data
+        $data = [
+            'type' => $parsedData['type'] ?? 'Unknown',
+            'name' => $parsedData['name'] ?? 'Unknown',
+            'title' => $parsedData['title'] ?? 'Unknown',
+            'date' => $parsedData['date'] ?? 'Unknown',
+            'raw_text' => $text,
+            'teacher_id' => $request->input('teacher_id'),
+        ];
 
-            if ($openaiResponse->failed()) {
-                return back()->with('error', 'Failed to process the certificate using OpenAI.');
-            }
+        Certificate::create($data);
 
-            $responseData = $openaiResponse->json();
-            $openaiOutput = $responseData['choices'][0]['text'] ?? '';
-
-            // Step 4: Parse OpenAI response
-            $parsedData = json_decode($openaiOutput, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                return back()->with('error', 'Failed to parse OpenAI response.');
-            }
-
-            // Step 5: Prepare data for saving
-            $data = [
-                'type' => $parsedData['type'] ?? 'Unknown',
-                'name' => $parsedData['name'] ?? 'Unknown',
-                'title' => $parsedData['title'] ?? 'Unknown',
-                'date' => $parsedData['date'] ?? 'Unknown',
-                'raw_text' => $text,
-                'teacher_id' => $request->input('teacher_id'),
-            ];
-
-            // Step 6: Save the extracted data
-            Certificate::create($data);
-
-            // Step 7: Redirect to the profile page with success message
-            return redirect()->route('profile', ['teacher_id' => $request->input('teacher_id')])
-                ->with('success', 'Certificate uploaded and processed successfully.');
-
-        } catch (\Exception $e) {
-            return back()->with('error', 'An error occurred while processing the certificate: ' . $e->getMessage());
-        }
+        // Step 5: Redirect to the profile page with success message
+        return redirect()->route('profile', ['teacher_id' => $request->input('teacher_id')])
+            ->with('success', 'Certificate uploaded and processed successfully.');
     }
-*/
 
 
 
@@ -95,7 +84,7 @@ class CertificateController extends Controller
 
 
 
-
+/*
     public function extractCertificateData(Request $request)
     {
         // Step 1: Validate and save the uploaded file
@@ -139,7 +128,7 @@ class CertificateController extends Controller
         return redirect()->route('profile', ['teacher_id' => $request->input('teacher_id')])
         ->with('success', 'Certificate uploaded and processed successfully.');
     }
-
+*/
 
     public function showCertificates(Request $request)
     {

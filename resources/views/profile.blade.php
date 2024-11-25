@@ -10,16 +10,17 @@
 </head>
 <body>
     <div class="fsuu-logo-container">
-        <header class="site-header">
-            <img src="{{ asset('FSUU Logo/fsuu2_1.png')}}" alt="University Logo" class="logo">
-            <h2 class="site-title">Father Saturnino Urios University</h2>
-        </header>
+        <img src="{{ asset('FSUU Logo/fsuu2_1.png') }}" alt="University Logo" class="logo">
+        <div class="logo-title-container">
+            <h1 class="main-title">FSUU</h1>
+            <h2 class="subtitle">Father Saturnino Urios University</h2>
+        </div>
     </div>
 
-    <h1>Teacher Profile</h1>
 
     <div class="teacher-table-info">
         <div class="teacher-info">
+            <h1>Teacher Profile</h1>
        <!-- Display Teacher's Information -->
        <form action="{{ route('teachers.update', ['id' => $selectedTeacher->id]) }}" method="post">
         @csrf
@@ -32,12 +33,35 @@
             <input type="text" name="acad_attainment" id="acad_attainment" value="{{ $selectedTeacher->acad_attainment }}" required>
         </div>
         <div>
+            <label for="date">Date Hired:</label>
+            <input type="date" name="date" id="date" value="{{ $selectedTeacher->date }}">
+        </div>
+        <div>
+            <label for="office">Office:</label>
+            <input type="text" name="office" id="office" value="{{ $selectedTeacher->office }}">
+        </div>
+        <div>
             <label for="performance">Performance:</label>
             <input type="number" step="0.01" name="performance" id="performance" value="{{ $selectedTeacher->performance }}">
         </div>
         <div>
             <label for="experience">Experience:</label>
             <input type="text" name="experience" id="experience" value="{{ $selectedTeacher->experience }}" required>
+            <select name="experience" id="experience">
+                <option value="">Select Experience</option>
+                <option value="0.83" {{ $selectedTeacher->experience == '0.83' ? 'selected' : '' }}>1 Year</option>
+                <option value="1.666" {{ $selectedTeacher->experience == '1.666' ? 'selected' : '' }}>2 Years</option>
+                <option value="2.499" {{ $selectedTeacher->experience == '2.499' ? 'selected' : '' }}>3 Years</option>
+                <option value="3.332" {{ $selectedTeacher->experience == '3.332' ? 'selected' : '' }}>4 Years</option>
+                <option value="4.165" {{ $selectedTeacher->experience == '4.165' ? 'selected' : '' }}>5 Years</option>
+                <option value="4.998" {{ $selectedTeacher->experience == '4.998' ? 'selected' : '' }}>6 Years</option>
+                <option value="5.831" {{ $selectedTeacher->experience == '5.831' ? 'selected' : '' }}>7 Years</option>
+                <option value="6.664" {{ $selectedTeacher->experience == '6.664' ? 'selected' : '' }}>8 Years</option>
+                <option value="7.497" {{ $selectedTeacher->experience == '7.497' ? 'selected' : '' }}>9 Years</option>
+                <option value="8.33" {{ $selectedTeacher->experience == '8.33' ? 'selected' : '' }}>10 Years</option>
+                <option value="9.163" {{ $selectedTeacher->experience == '9.163' ? 'selected' : '' }}>11 Years</option>
+                <option value="10.00" {{ $selectedTeacher->experience == '10.00' ? 'selected' : '' }}>12 Years</option>
+            </select>
         </div>
         <div>
             <label for="rank">Present Rank:</label>
@@ -58,6 +82,20 @@
                 <option value="Master Teacher 3" {{ $selectedTeacher->rank == 'Master Teacher 3' ? 'selected' : '' }}>Master Teacher 3</option>
                 <option value="Master Teacher 4" {{ $selectedTeacher->rank == 'Master Teacher 4' ? 'selected' : '' }}>Master Teacher 4</option>
                 <option value="Master Teacher 5" {{ $selectedTeacher->rank == 'Master Teacher 5' ? 'selected' : '' }}>Master Teacher 5</option>
+                <option value="Lecturer 1" {{ $selectedTeacher->rank == 'Lecturer 1' ? 'selected' : '' }}>Lecturer 1</option>
+                <option value="Lecturer 2" {{ $selectedTeacher->rank == 'Lecturer 2' ? 'selected' : '' }}>Lecturer 2</option>
+                <option value="Lecturer 3" {{ $selectedTeacher->rank == 'Lecturer 3' ? 'selected' : '' }}>Lecturer 3</option>
+                <option value="Assistant Instructor" {{ $selectedTeacher->rank == 'Assistant Instructor' ? 'selected' : '' }}>Assistant Instructor</option>
+                <option value="Instructor 1" {{ $selectedTeacher->rank == 'Instructor 1' ? 'selected' : '' }}>Instructor 1</option>
+                <option value="Instructor 2" {{ $selectedTeacher->rank == 'Instructor 2' ? 'selected' : '' }}>Instructor 2</option>
+                <option value="Instructor 3" {{ $selectedTeacher->rank == 'Instructor 3' ? 'selected' : '' }}>Instructor 3</option>
+                <option value="Assistant Professor 1" {{ $selectedTeacher->rank == 'Assistant Professor 1' ? 'selected' : '' }}>Assistant Professor 1</option>
+                <option value="Assistant Professor 2" {{ $selectedTeacher->rank == 'Assistant Professor 2' ? 'selected' : '' }}>Assistant Professor 2</option>
+                <option value="Associate Professor 1" {{ $selectedTeacher->rank == 'Associate Professor 1' ? 'selected' : '' }}>Associate Professor 1</option>
+                <option value="Associate Professor 2" {{ $selectedTeacher->rank == 'Associate Professor 2' ? 'selected' : '' }}>Associate Professor 2</option>
+                <option value="Full Professor 1" {{ $selectedTeacher->rank == 'Full Professor 1' ? 'selected' : '' }}>Full Professor 1</option>
+                <option value="Full Professor 2" {{ $selectedTeacher->rank == 'Full Professor 2' ? 'selected' : '' }}>Full Professor 2</option>
+                <option value="Full Professor 3" {{ $selectedTeacher->rank == 'Full Professor 3' ? 'selected' : '' }}>Full Professor 3</option>
             </select>
         </div>
         <button type="submit">Update</button>
@@ -81,8 +119,8 @@
         <!-- Search area -->
     <form action="{{ route('profile') }}" method="GET" class="mb-4">
         <div class="input-group">
+            <input type="hidden" name="teacher_id" value="{{ $teacher_id }}">
             <input type="text" name="query" class="form-control" placeholder="Search..." value="{{ request('query') }}">
-            <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>
 </div>

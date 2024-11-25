@@ -5,37 +5,51 @@ body {
     grid-template-columns: 2fr 1fr;
     gap: 20px;
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
     padding: 20px;
     margin: 0 auto;
 }
 
+
+
 /* Logo Container */
 .fsuu-logo-container {
     grid-column: 1 / -1;
+    text-align: left; /* Align to the left */
+    padding: 20px; /* Adjust padding for space */
+    background-color: #379EFF; /* White background */
+    color: black; /* Black text */
     display: flex;
-    align-items: center; /* Vertically centers items */
-    justify-content: center; /* Centers the content horizontally */
-    padding: 15px 0; /* Adjust padding for vertical alignment */
-    background-color: #007bff; /* Bright blue background */
-    color: white;
+    align-items: center; /* Vertically center all elements */
+    gap: 15px; /* Space between the logo and text */
+}
+
+/* Inner Container for Titles */
+.logo-title-container {
+    display: flex;
+    flex-direction: column; /* Stack the title and subtitle vertically */
+    align-items: flex-start; /* Align text to the left */
+    justify-content: center; /* Center content vertically */
 }
 
 /* Logo Styling */
 .fsuu-logo-container .logo {
-    height: 40px; /* Adjust logo height */
-    margin-right: 10px; /* Space between logo and title */
-    display: inline-block; /* Keeps logo and title on the same line */
-    vertical-align: middle; /* Aligns logo to middle of the text */
+    height: 80px; /* Adjust logo height */
 }
 
-/* Title Styling */
-.fsuu-logo-container .site-title {
-    font-size: 1.5em; /* Adjust font size */
+/* Main Title */
+.fsuu-logo-container .main-title {
+    font-size: 2em; /* Adjust font size */
     font-weight: bold;
-    margin: 0;
-    display: inline-block; /* Ensures the title aligns with logo */
-    vertical-align: middle; /* Aligns text to the middle of the logo */
+    margin: 0; /* Remove default margin */
+    color: white; /* Ensure black text */
+}
+
+/* Subtitle */
+.fsuu-logo-container .subtitle {
+    font-size: 1.2em; /* Adjust font size */
+    font-weight: normal; /* Normal weight for subtitle */
+    margin: 0; /* Remove default margin */
+    color: white; /* Slightly gray for contrast */
 }
 
 /* Create Teacher Form Container */

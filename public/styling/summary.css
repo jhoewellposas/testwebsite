@@ -18,59 +18,60 @@ body {
     width: 100%;
 }
 
-/* Header Styling */
 /* Logo Container */
 .fsuu-logo-container {
     grid-column: 1 / -1;
-    grid-row: 1;
+    text-align: left; /* Align to the left */
+    padding: 20px; /* Adjust padding for space */
+    background-color: #379EFF; /* White background */
+    color: black; /* Black text */
     display: flex;
-    align-items: center; /* Vertically centers items */
-    justify-content: center; /* Centers the content horizontally */
-    padding: 10px 0; /* Adjust padding for vertical alignment */
-    background-color: #007bff; /* Bright blue background */
-    color: white;
-    width: 100%;
+    align-items: center; /* Vertically center all elements */
+    gap: 15px; /* Space between the logo and text */
+}
+
+/* Inner Container for Titles */
+.logo-title-container {
+    display: flex;
+    flex-direction: column; /* Stack the title and subtitle vertically */
+    align-items: flex-start; /* Align text to the left */
+    justify-content: center; /* Center content vertically */
 }
 
 /* Logo Styling */
- .logo {
-    width: 50px;
-    height: auto; /* Adjust logo height */
-    margin-right: 10px; /* Space between logo and title */
-    display: inline-block; /* Keeps logo and title on the same line */
-    vertical-align: middle; /* Aligns logo to middle of the text */
+.fsuu-logo-container .logo {
+    height: 80px; /* Adjust logo height */
 }
 
-/* Title Styling */
-.fsuu-logo-container .site-title {
-    font-size: 2.0em; /* Adjust font size */
+/* Main Title */
+.fsuu-logo-container .main-title {
+    font-size: 2em; /* Adjust font size */
     font-weight: bold;
-    margin: 0;
-    display: inline-block; /* Ensures the title aligns with logo */
-    vertical-align: middle; /* Aligns text to the middle of the logo */
+    margin: 0; /* Remove default margin */
+    color: white; /* Ensure black text */
 }
 
-.site-header {
+/* Subtitle */
+.fsuu-logo-container .subtitle {
+    font-size: 1.2em; /* Adjust font size */
+    font-weight: normal; /* Normal weight for subtitle */
+    margin: 0; /* Remove default margin */
+    color: white; /* Slightly gray for contrast */
+}
+
+
+
+/* Button Container Styling */
+.button-container {
     display: flex;
-    align-items: center;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px; /* Add space between buttons */
+    margin-top: 20px; /* Optional: Add some margin at the top for spacing */
 }
 
-/* Sub-Header Styling */
-.sub-header {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.sub-header h1 {
-    font-size: 32px;
-    color: #333;
-    font-weight: bold;
-}
-
-/* Button and Dropdown Styling */
+/* Button Styling */
 .mb-4 {
-    margin: 20px auto;
-    text-align: center;
+    margin: 0; /* Remove center alignment */
 }
 
 .btn {
@@ -83,25 +84,31 @@ body {
     font-weight: bold;
 }
 
-form {
-    text-align: center;
-    margin: 20px 0;
+.btn-secondary {
+    background-color: #6c757d; /* Secondary button styling */
 }
 
-label, select {
-    font-size: 16px;
-}
+
 
 /* Teacher Information and Table Container */
+.sub-header {
+    text-align: center;
+    margin: 20px 0 20px 0;
+    font-size: 32px;
+    color: #333;
+    font-weight: bold;
+    padding: 20px 0 20px 0;
+}
+
 .teacher-table-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin: 20px 0 20px 0;
 }
 
 .teacher-info {
-    margin-bottom: 20px;
+    margin: 20px 0 20px 0;
     font-size: 18px;
     line-height: 1.8;
     text-align: left;
@@ -115,7 +122,7 @@ label, select {
 /* Table Styling */
 .table-content {
     width: 60%;
-    margin: 0 auto 20px;
+    margin: 20px 0 20px 0
 }
 
 .R-C-table {
@@ -181,9 +188,47 @@ label, select {
 /* President Beneath Approved */
 .president {
     grid-column: 1 / 2; /* Place President in the first column */
-    margin-left: 100%; /* Slightly move "President" to the right */
+    margin-left: 40%; /* Slightly move "President" to the right */
     text-align: left;
-    margin-top: -10px; /* Adjust spacing slightly upward to look closer to Approved */
+    margin-top: -20px; /* Adjust spacing slightly upward to look closer to Approved */
+}
+
+/* Name & Signature 1 Alignment */
+.name-signature1 {
+    grid-column: 1 / 2; /* Place Name & Signature in the first column */
+    margin-left: 40%; /* Move Name & Signature of Member to the right */
+    text-align: left;
+    margin-top: 0; /* No vertical adjustment required */
+    white-space: nowrap; /* Prevent text from breaking into new lines */
+    position: relative; /* For positioning the underline */
+    margin-bottom: 40px;
+}
+
+.name-signature1::before {
+    content: ''; /* Add a decorative line */
+    position: absolute;
+    top: -10px; /* Position the line above the text */
+    left: -40px;
+    width: 300px; /* Adjust line length */
+    border-top: 1px solid #000; /* Line styling */
+}
+
+/* Name & Signature 2 Alignment */
+.name-signature2 {
+    grid-column: 3 / 4; /* Place Name & Signature in the third column */
+    text-align: left;
+    white-space: nowrap; /* Prevent text from breaking into new lines */
+    position: relative; /* For positioning the underline */
+    margin-bottom: 40px;
+}
+
+.name-signature2::before {
+    content: ''; /* Add a decorative line */
+    position: absolute;
+    top: -10px; /* Position the line above the text */
+    left: -40px;
+    width: 300px; /* Adjust line length */
+    border-top: 1px solid #000; /* Line styling */
 }
 
 /* Date in the Last Column */
@@ -196,4 +241,5 @@ label, select {
 .centered {
     text-align: center;
     font-weight: bold;
+    margin: 40px 0 40px 0;
 }

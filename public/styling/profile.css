@@ -13,66 +13,147 @@ body {
 /* Logo Container */
 .fsuu-logo-container {
     grid-column: 1 / -1;
-    grid-row: 1;
+    text-align: left; /* Align to the left */
+    padding: 20px; /* Adjust padding for space */
+    background-color: #379EFF; /* White background */
+    color: black; /* Black text */
     display: flex;
-    align-items: center; /* Vertically centers items */
-    justify-content: center; /* Centers the content horizontally */
-    padding: 10px 0; /* Adjust padding for vertical alignment */
-    background-color: #007bff; /* Bright blue background */
-    color: white;
-    width: 100%;
+    align-items: center; /* Vertically center all elements */
+    gap: 15px; /* Space between the logo and text */
+}
+
+/* Inner Container for Titles */
+.logo-title-container {
+    display: flex;
+    flex-direction: column; /* Stack the title and subtitle vertically */
+    align-items: flex-start; /* Align text to the left */
+    justify-content: center; /* Center content vertically */
 }
 
 /* Logo Styling */
- .logo {
-    width: 70px;
-    height: auto; /* Adjust logo height */
-    margin-right: 10px; /* Space between logo and title */
-    display: inline-block; /* Keeps logo and title on the same line */
-    vertical-align: middle; /* Aligns logo to middle of the text */
+.fsuu-logo-container .logo {
+    height: 80px; /* Adjust logo height */
 }
 
-/* Title Styling */
-.fsuu-logo-container .site-title {
-    font-size: 2.5em; /* Adjust font size */
+/* Main Title */
+.fsuu-logo-container .main-title {
+    font-size: 2em; /* Adjust font size */
     font-weight: bold;
-    margin: 0;
-    display: inline-block; /* Ensures the title aligns with logo */
-    vertical-align: middle; /* Aligns text to the middle of the logo */
+    margin: 0; /* Remove default margin */
+    color: white; /* Ensure black text */
 }
 
-.site-header {
-    display: flex;
-    align-items: center;
+/* Subtitle */
+.fsuu-logo-container .subtitle {
+    font-size: 1.2em; /* Adjust font size */
+    font-weight: normal; /* Normal weight for subtitle */
+    margin: 0; /* Remove default margin */
+    color: white; /* Slightly gray for contrast */
 }
 
 /* Teacher Table Info Container */
 .teacher-table-info {
-    grid-column: 1 / -1; /* Spans the full width */
-    grid-row: 2; /* Positioned beneath the header */
-    padding: 15px 20px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    text-align: left; /* Align the content to the left */
+    grid-column: 1 / -1; /* Spans the full width of the grid */
+    padding: 20px; /* Adjusted padding for consistency */
+    background-color: #ffffff; /* White background for clarity */
+    border-radius: 8px; /* Rounded corners for a modern look */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: left; /* Align content to the left */
+    max-width: 1440px; /* Slightly increased width */
+    width: 100%; /* Ensure full width */
+    margin: 0 auto; /* Center the container horizontally */
+    display: flex; /* Use flex for layout */
+    flex-direction: column; /* Stack child elements vertically */
+    gap: 20px; /* Space between child elements */
 }
 
-/* Adjust teacher-info Content */
+
+/* Teacher Info Container */
 .teacher-info {
-    margin: 0; /* Remove any auto centering */
-    max-width: 600px; /* Optional: Set a max-width */
-    padding: 10px 0;
+    display: grid; /* Use grid layout */
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 20px 30px; /* Row and column gaps */
+    width: 100%; /* Full width to match the parent */
+    padding: 0; /* Remove unnecessary padding */
+    margin: 0 auto; /* Center-align */
 }
 
-.teacher-info p {
-    font-size: 1em;
-    color: #333;
-    margin: 5px 0; /* Space between lines */
-    line-height: 1.5; /* Improve readability */
+/* Heading Styling */
+.teacher-info h1 {
+    grid-column: 1 / -1; /* Span across both columns */
+    font-size: 2em; /* Larger font for emphasis */
+    font-weight: bold;
+    color: #007bff; /* Primary color for heading */
+    margin: 0 0 20px; /* Space below heading */
+    text-align: center; /* Center-align heading */
+    width: 100%; /* Full width to match parent container */
 }
 
-.teacher-info p strong {
-    color: #007bff; /* Highlight labels with primary color */
+/* Form Styling */
+.teacher-info form {
+    display: contents; /* Inherit grid layout from parent */
+    width: 100%; /* Full width to match the parent */
+}
+
+/* Label and Input Pair Styling */
+.teacher-info form div {
+    display: flex;
+    flex-direction: column; /* Stack label on top of input */
+    gap: 5px; /* Space between label and input */
+    width: 100%; /* Full width for form elements */
+}
+
+/* Label Styling */
+.teacher-info form label {
+    font-size: 1em; /* Standard font size */
+    font-weight: bold; /* Highlight labels */
+    color: #333; /* Dark text for better readability */
+    width: 100%; /* Full width for label alignment */
+}
+
+/* Input Field Styling */
+.teacher-info form input[type="text"],
+.teacher-info form input[type="number"],
+.teacher-info form select {
+    width: 100%; /* Full width of the grid cell */
+    padding: 10px; /* Add padding inside inputs */
+    font-size: 1em; /* Standard font size */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px; /* Rounded corners for consistency */
+    box-sizing: border-box; /* Include padding and border in width */
+    background-color: #f8f9fa; /* Subtle background */
+    color: #333; /* Text color */
+}
+
+/* Button Styling */
+.teacher-info form button[type="submit"] {
+    grid-column: 1 / -1; /* Span across both columns */
+    width: 25%; /* Full width for the button */
+    padding: 12px; /* Add padding inside the button */
+    font-size: 1em; /* Standard font size */
+    font-weight: bold; /* Highlight button text */
+    color: white; /* White text for contrast */
+    background-color: #007bff; /* Primary blue background */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.teacher-info form button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .teacher-info {
+        grid-template-columns: 1fr; /* Stack items in a single column */
+        gap: 15px; /* Reduce gap on smaller screens */
+    }
+
+    .teacher-info h1 {
+        font-size: 1.5em; /* Slightly smaller heading font size */
+    }
 }
 
 /* Text, Upload, and Search Bar Container */

@@ -9,13 +9,15 @@
 </head>
 <body>
 
-    <div class="header">
-        <header class="site-header">
-            <img src="{{ asset('FSUU Logo/fsuu2_1.png')}}" alt="University Logo" class="logo">
-            <h2 class="site-title">Father Saturnino Urios University</h2>
-        </header>
+    <div class="fsuu-logo-container">
+        <img src="{{ asset('FSUU Logo/fsuu2_1.png') }}" alt="University Logo" class="logo">
+        <div class="logo-title-container">
+            <h1 class="main-title">FSUU</h1>
+            <h2 class="subtitle">Father Saturnino Urios University</h2>
+        </div>
     </div>
 
+    <div class="upload-container">
     <h1>Upload Certificate for Text Extraction</h1>
 
     <form action="{{ route('extractCertificateData') }}" method="post" enctype="multipart/form-data">
@@ -28,5 +30,6 @@
 
         <button type="submit">Extract Data</button>
     </form>
+    </div>
 </body>
 </html>
