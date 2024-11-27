@@ -41,6 +41,7 @@
             </div>
             <div class="mb-3">
                 <label for="experience" class="form-label">Experience</label> 
+                
                 <select name="experience" id="experience">
                     <option value="">Select Experience</option>
                     <option value="0.83">1 Year</option>
@@ -56,7 +57,7 @@
                     <option value="9.163">11 Years</option>
                     <option value="10.00">12 Years</option>
                 </select>
-                <input type="number" step="0.1" class="form-control" id="experience" name="experience">
+                
             </div>
             <div class="submit-button">
                 <button type="submit" class="btn btn-primary">Add Teacher</button>

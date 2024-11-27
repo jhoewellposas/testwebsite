@@ -71,7 +71,7 @@
                 <option value="9.163" {{ $selectedTeacher->experience == '9.163' ? 'selected' : '' }}>11 Years</option>
                 <option value="10.00" {{ $selectedTeacher->experience == '10.00' ? 'selected' : '' }}>12 Years</option>
             </select>
-            <input type="text" name="experience" id="input-experience" value="{{ $selectedTeacher->experience }}" required>
+            
         </div>
 
         <div class="">
