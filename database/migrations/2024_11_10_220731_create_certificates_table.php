@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('title');
             $table->string('organization')->nullable();
             $table->string('designation')->nullable();
-            $table->string('sponsor')->nullable();
+            $table->integer('days')->nullable();
             $table->string('date');
             $table->text('raw_text');
-            $table->float('points')->default(0);
+            $table->float('points')->nullable();
             $table->timestamps();
             //
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');

@@ -44,7 +44,7 @@ class CertificateController extends Controller
                 ],
                 [
                     'role' => 'user',
-                    'content' => "Extract the following details from this certificate text:\n\nText: {$text}\n\n1. Certificate Type\n2. Recipient Name\n3. Certificate Title\n4. Date\n\nReturn the data in JSON format with keys: type, name, title, and date.",
+                    'content' => "Extract the following details from this certificate text:\n\nText: {$text}\n\n1. Certificate Type\n2. Recipient Name\n3. Certificate Title\n4. Certificate Organization or Sponsor\n5. Recipient Designation or Role\n6. Date\n\nReturn the data in JSON format with keys: type, name, title, organization, designation and date.",
                 ],
             ],
         ]);
@@ -62,6 +62,8 @@ class CertificateController extends Controller
             'type' => $parsedData['type'] ?? 'Unknown',
             'name' => $parsedData['name'] ?? 'Unknown',
             'title' => $parsedData['title'] ?? 'Unknown',
+            'organization' => $parsedData['organization'] ?? 'Unknown',
+            'designation' => $parsedData['designation'] ?? 'Unknown',
             'date' => $parsedData['date'] ?? 'Unknown',
             'raw_text' => $text,
             'teacher_id' => $request->input('teacher_id'),
@@ -147,7 +149,7 @@ class CertificateController extends Controller
               ->orWhere('title', 'like', "%{$query}%")
               ->orWhere('organization', 'like', "%{$query}%")
               ->orWhere('designation', 'like', "%{$query}%")
-              ->orWhere('sponsor', 'like', "%{$query}%")
+              ->orWhere('days', 'like', "%{$query}%")
               ->orWhere('date', 'like', "%{$query}%")
               ->orWhere('raw_text', 'like', "%{$query}%")
               ->orWhere('points', 'like', "%{$query}%");
@@ -181,7 +183,7 @@ class CertificateController extends Controller
     public function updateCertificate(Request $request, $id)
     {
     $certificate = Certificate::findOrFail($id);
-    $certificate->update($request->only('category', 'type', 'name', 'title', 'organization', 'designation', 'sponsor', 'date', 'points'));
+    $certificate->update($request->only('category', 'type', 'name', 'title', 'organization', 'designation', 'days', 'date', 'points'));
 
     // Redirect back to the profile page with the teacher_id
     return redirect()->route('profile', ['teacher_id' => $certificate->teacher_id])
@@ -204,6 +206,8 @@ class CertificateController extends Controller
         $request->validate([
             'name' => 'required|string',
             'acad_attainment' => 'required|string',
+            'date' => 'required|string',
+            'office' => 'required|string',
             'performance' => 'nullable|numeric',
             'experience' => 'required|string',
         ]);
@@ -211,6 +215,8 @@ class CertificateController extends Controller
         $teacher = Teacher::create([
             'name' => $request->input('name'),
             'acad_attainment' => $request->input('acad_attainment'),
+            'date' => $request->input('date'),
+            'office' => $request->input('office'),
             'performance' => $request->input('performance', 0),
             'experience' => $request->input('experience'),
         ]);

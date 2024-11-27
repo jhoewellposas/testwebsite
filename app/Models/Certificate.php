@@ -16,7 +16,7 @@ class Certificate extends Model
     'title',
     'organization',
     'designation',
-    'sponsor',
+    'days',
     'date',
     'raw_text',
     'points',

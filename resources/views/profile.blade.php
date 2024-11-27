@@ -17,6 +17,16 @@
         </div>
     </div>
 
+    <div class="home-summary-container">
+        {{-- Home Button --}}
+        <div class="home-button">
+            <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
+        </div>
+
+        <div class="mb-4 view-summary">
+            <a href="{{ route('summary', ['teacherId' => $teacher_id]) }}" class="btn btn-secondary">View Summary</a>
+        </div>
+    </div>
 
     <div class="teacher-table-info">
         <div class="teacher-info">
@@ -25,29 +35,28 @@
        <form action="{{ route('teachers.update', ['id' => $selectedTeacher->id]) }}" method="post">
         @csrf
         <div>
-            <label for="name">Name:</label>
+            <label for="name">Name</label>
             <input type="text" name="name" id="name" value="{{ $selectedTeacher->name }}" required>
         </div>
         <div>
-            <label for="acad_attainment">Academic Attainment:</label>
+            <label for="acad_attainment">Highest Academic Attainment</label>
             <input type="text" name="acad_attainment" id="acad_attainment" value="{{ $selectedTeacher->acad_attainment }}" required>
         </div>
         <div>
-            <label for="date">Date Hired:</label>
+            <label for="date">Date Hired</label>
             <input type="date" name="date" id="date" value="{{ $selectedTeacher->date }}">
         </div>
         <div>
-            <label for="office">Office:</label>
+            <label for="office">Office</label>
             <input type="text" name="office" id="office" value="{{ $selectedTeacher->office }}">
         </div>
         <div>
-            <label for="performance">Performance:</label>
+            <label for="performance">Performance</label>
             <input type="number" step="0.01" name="performance" id="performance" value="{{ $selectedTeacher->performance }}">
         </div>
-        <div>
-            <label for="experience">Experience:</label>
-            <input type="text" name="experience" id="experience" value="{{ $selectedTeacher->experience }}" required>
-            <select name="experience" id="experience">
+        <div class="side-to-side">
+            <label for="experience">Experience</label>
+            <select name="experience" id="select-experience">
                 <option value="">Select Experience</option>
                 <option value="0.83" {{ $selectedTeacher->experience == '0.83' ? 'selected' : '' }}>1 Year</option>
                 <option value="1.666" {{ $selectedTeacher->experience == '1.666' ? 'selected' : '' }}>2 Years</option>
@@ -62,9 +71,22 @@
                 <option value="9.163" {{ $selectedTeacher->experience == '9.163' ? 'selected' : '' }}>11 Years</option>
                 <option value="10.00" {{ $selectedTeacher->experience == '10.00' ? 'selected' : '' }}>12 Years</option>
             </select>
+            <input type="text" name="experience" id="input-experience" value="{{ $selectedTeacher->experience }}" required>
         </div>
-        <div>
-            <label for="rank">Present Rank:</label>
+
+        <div class="">
+            <table class="table" border="1">
+                <thead>
+                    <tr>
+                        <th>Present Rank</th>
+                        <th>Next Rank</th>
+                        <th>Next Rank Requirements</th>
+                    </tr>
+                    
+                </thead>
+            
+            <tr>
+            <td>
             <select name="rank" id="rank">
                 <option value="">Select Rank</option>
                 <option value="Teacher 1" {{ $selectedTeacher->rank == 'Teacher 1' ? 'selected' : '' }}>Teacher 1</option>
@@ -97,6 +119,15 @@
                 <option value="Full Professor 2" {{ $selectedTeacher->rank == 'Full Professor 2' ? 'selected' : '' }}>Full Professor 2</option>
                 <option value="Full Professor 3" {{ $selectedTeacher->rank == 'Full Professor 3' ? 'selected' : '' }}>Full Professor 3</option>
             </select>
+            </td>
+            <td>
+                NEXT RANK HERE
+            </td>
+            <td>
+                NEXT RANK REQUIREMENTS HERE
+            </td>
+            </tr>
+            </table>
         </div>
         <button type="submit">Update</button>
     </form>
@@ -104,11 +135,6 @@
 </div>
 
     <div class="text-upload-search-container">
-
-        {{-- Home Button --}}
-        <div class="home-button">
-            <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
-        </div>
 
         <!-- Upload -->
         <div class="upload-button">
@@ -133,16 +159,16 @@
             <tr>
                 <th>Certificate ID:</th>
                 <th>Category</th>
-                <th>Type:</th>
-                <th>Name:</th>
-                <th>Title:</th>
-                <th>Organization:</th>
-                <th>Designation:</th>
-                <th>Sponsor:</th>
-                <th>Date:</th>
-                <th>OCR Output:</th>
-                <th>Points:</th>
-                <th>Actions:</th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Organization/Sponsor</th>
+                <th>Designation</th>
+                <th>Number of Days</th>
+                <th>Inclusive Date</th>
+                <th>OCR Output</th>
+                <th>Points</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -152,7 +178,7 @@
                     @csrf
                     <td>{{ $certificate->id }}</td>
                     <td>
-                        <select name="category" id="category">
+                        <select name="category" id="category" required>
                             <option value="">Select a Category</option>
                             <option value="seminar" {{ $certificate->category == 'seminar' ? 'selected' : '' }}>Seminar</option>
                             <option value="honors_awards" {{ $certificate->category == 'honors_awards' ? 'selected' : '' }}>Honors and Awards</option>
@@ -165,22 +191,22 @@
                             <option value="involvement_department" {{ $certificate->category == 'involvement_department' ? 'selected' : '' }}>Active Involvement in Department/School Sponsored CES</option>
                         </select>
                     </td>
-                    <td><input type="text" name="type" value="{{ $certificate->type }}"></td>
-                    <td><input type="text" name="name" value="{{ $certificate->name }}"></td>
-                    <td><input type="text" name="title" value="{{ $certificate->title }}"></td>
-                    <td><input type="text" name="organization" value="{{ $certificate->organization }}"></td>
-                    <td><input type="text" name="designation" value="{{ $certificate->designation }}"></td>
-                    <td><input type="text" name="sponsor" value="{{ $certificate->sponsor }}"></td>
-                    <td><input type="text" name="date" value="{{ $certificate->date }}"></td>
+                    <td><input type="text" name="type" value="{{ $certificate->type }}" required></td>
+                    <td><input type="text" name="name" value="{{ $certificate->name }}" required></td>
+                    <td><input type="text" name="title" value="{{ $certificate->title }}" required></td>
+                    <td><input type="text" name="organization" value="{{ $certificate->organization }}" required></td>
+                    <td><input type="text" name="designation" value="{{ $certificate->designation }}" required></td>
+                    <td><input type="text" name="days" value="{{ $certificate->days }}" required></td>
+                    <td><input type="text" name="date" value="{{ $certificate->date }}" required></td>
                     <td><button type="button" class="btn btn-info ocr-result-btn" data-ocr="{{ $certificate->raw_text }}">View OCR Output</button></td>
-                    <td><input type="text" name="points" value="{{ $certificate->points }}"></td>
+                    <td><input type="text" name="points" value="{{ $certificate->points }}" required></td>
                     <td>
-                        <button type="submit">Update</button>
+                        <button type="submit-update">Update</button>
                 </form>
                 <form action="{{ route('certificate.delete', $certificate->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit">Delete</button>
+                    <button type="submit-delete">Delete</button>
                 </form>
                 </td>
             </tr>
@@ -193,9 +219,6 @@
     </table>
 </div>
 
-<div class="mb-4 view-summary">
-    <a href="{{ route('summary', ['teacherId' => $teacher_id]) }}" class="btn btn-secondary">View Summary</a>
-</div>
     <!-- JavaScript for Auto-Sizing Table Inputs -->
     <script src="{{ asset('javascript/autosizing.js') }}"></script>
     <script src="{{ asset('javascript/popupwindow.js') }}"></script>

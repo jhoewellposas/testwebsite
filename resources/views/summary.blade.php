@@ -97,7 +97,7 @@
     
             <!-- Row 4 -->
             <div class="grid-item name-signature1">Name & Signature of Member</div>
-            <div class="grid-item"></div>
+            <div class="grid-item name-signature3">Name & Signature of Chair</div>
             <div class="grid-item name-signature2">Name & Signature of Member</div>
     
             <!-- Row 5 -->
