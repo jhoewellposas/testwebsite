@@ -73,7 +73,7 @@ body {
     background-color: #28a745;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 20px;
     border-radius: 5px;
     height: 20px;
     display: flex;
@@ -89,7 +89,7 @@ body {
 .view-summary .btn-secondary {
     background-color: #6c757d;
     color: white;
-    padding: 10px 20px;
+    padding: 20px;
     border-radius: 5px;
     height: 20px;
     display: flex;
