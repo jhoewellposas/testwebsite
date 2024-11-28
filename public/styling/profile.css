@@ -7,13 +7,17 @@ body {
     background-color: #f8f9fa;
     padding: 20px;
     margin: 0 auto;
+    
+}
+
+* {
+    box-sizing: border-box;
 }
 
 .fsuu-logo-container, .home-summary-container, .teacher-table-info, .text-upload-search-container, .table-container {
     grid-column: 1 / -1;
     width: 100%;
     margin: 0 auto;
-    max-width: 1440px;
     border-radius: 5px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
