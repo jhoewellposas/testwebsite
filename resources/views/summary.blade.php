@@ -30,9 +30,10 @@
         </div>
     </div>   
 
+    <h1 class="sub-header">RANKING SUMMARY</h1>
+
     <!-- Display Selected Teacher's Information -->
     <div class="teacher-table-info">
-        <h1 class="sub-header">RANKING SUMMARY</h1>
         <div class="teacher-info">
             <p><strong>Name:</strong> {{ $teacher->name }}</p>
             <p><strong>Highest Academic Attainment:</strong> {{ $teacher->acad_attainment }}</p>

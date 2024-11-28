@@ -1,20 +1,25 @@
-/* General Styles */
 body {
     display: grid;
-    grid-template-rows: auto auto auto auto auto; /* Adjusted rows for new container */
+    grid-template-rows: auto auto auto auto auto;
     grid-template-columns: 2fr 1fr;
-    gap: 0; /* Removed gaps between rows, except where explicitly added */
+    gap: 0;
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     padding: 20px;
     margin: 0 auto;
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
-/* Logo Container */
-.fsuu-logo-container {
+.fsuu-logo-container, .home-summary-container, .teacher-table-info, .text-upload-search-container, .table-container {
     grid-column: 1 / -1;
-    grid-row: 1; /* Positioned in the first row */
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1440px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fsuu-logo-container {
+    grid-row: 1;
     text-align: left;
     padding: 20px;
     background-color: #379EFF;
@@ -22,82 +27,67 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 0; /* Remove gap between this and the next container */
 }
 
-/* Inner Container for Titles */
 .logo-title-container {
     display: flex;
-    flex-direction: column; /* Stack the title and subtitle vertically */
-    align-items: flex-start; /* Align text to the left */
-    justify-content: center; /* Center content vertically */
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 }
 
-/* Logo Styling */
 .fsuu-logo-container .logo {
-    height: 80px; /* Adjust logo height */
+    height: 80px;
 }
 
-/* Main Title */
+.fsuu-logo-container .main-title, .fsuu-logo-container .subtitle {
+    margin: 0;
+    color: white;
+}
+
 .fsuu-logo-container .main-title {
-    font-size: 2em; /* Adjust font size */
+    font-size: 2em;
     font-weight: bold;
-    margin: 0; /* Remove default margin */
-    color: white; /* Text color */
 }
 
-/* Subtitle */
 .fsuu-logo-container .subtitle {
-    font-size: 1.2em; /* Adjust font size */
-    font-weight: normal; /* Normal weight for subtitle */
-    margin: 0; /* Remove default margin */
-    color: white; /* Text color */
+    font-size: 1.2em;
+    font-weight: normal;
 }
 
-/* Home and Summary Container */
-.home-summary-container {
-    grid-column: 1 / -1; /* Spans across all columns */
-    grid-row: 2; /* Positioned directly beneath the logo container */
-    text-align: left; /* Align the content to the left */
-    padding: 20px; /* Adjust padding for uniformity */
-    background-color: #f1f1f1; /* Same background as fsuu-logo-container */
-    color: black; /* Consistent text color */
-    display: flex; /* Flex layout for alignment */
-    justify-content: space-between; /* Push Home to the left and Summary to the right */
-    align-items: center; /* Vertically center all elements */
-    gap: 15px; /* Space between buttons */
-    margin: 0 auto; /* Center horizontally */
-    max-width: 1440px; /* Match width with fsuu-logo-container */
-    width: 100%; /* Ensure full width */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Same shadow effect as fsuu-logo-container */
-    border-radius: 8px; /* Rounded corners for consistency */
+.home-summary-container, .text-upload-search-container {
+    text-align: left;
+    padding: 20px;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
 }
 
-/* Home Button */
-.home-button .btn-success {
+.home-button .btn-success, .upload-button .btn-success {
     background-color: #28a745;
     color: white;
     border: none;
-    padding: 10px 20px; /* Adjust padding for consistent size */
+    padding: 10px 20px;
     border-radius: 5px;
-    height: 20px; /* Ensure consistent height */
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
 }
 
-.home-button .btn-success:hover {
+.home-button .btn-success:hover, .upload-button .btn-success:hover {
     background-color: #218838;
 }
 
-/* Summary Button */
 .view-summary .btn-secondary {
     background-color: #6c757d;
     color: white;
-    padding: 10px 20px; /* Adjust padding for consistent size */
+    padding: 10px 20px;
     border-radius: 5px;
-    height: 20px; /* Ensure consistent height */
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -108,196 +98,128 @@ body {
     background-color: #5a6268;
 }
 
-/* Teacher Table Info Container */
 .teacher-table-info {
-    grid-column: 1 / -1; /* Spans the full width of the grid */
-    padding: 20px; /* Adjusted padding for consistency */
-    background-color: #ffffff; /* White background for clarity */
-    border-radius: 8px; /* Rounded corners for a modern look */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    text-align: left; /* Align content to the left */
-    max-width: 1440px; /* Match width with other containers */
-    width: 100%; /* Ensure full width */
-    margin: 0 auto 20px; /* Add bottom margin to create gap */
-    display: flex; /* Use flex for layout */
-    flex-direction: column; /* Stack child elements vertically */
-    gap: 20px; /* Space between child elements */
+    padding: 20px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Teacher Info Container */
 .teacher-info {
-    display: grid; /* Grid layout */
-    grid-template-columns: 1fr 1fr; /* Two columns */
-    gap: 20px 30px; /* Row and column gaps */
-    width: 100%; /* Full width */
-    padding: 0; /* Remove padding */
-    margin: 0 auto; /* Center align */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 30px;
+    width: 100%;
+    padding: 0;
 }
 
-/* Heading Styling */
 .teacher-info h1 {
-    grid-column: 1 / -1; /* Span across both columns */
-    font-size: 2em; /* Font size */
+    grid-column: 1 / -1;
+    font-size: 2em;
     font-weight: bold;
-    color: #007bff; /* Text color */
-    margin: 0 0 20px; /* Space below heading */
-    text-align: center; /* Center align */
-    width: 100%; /* Full width */
+    color: #007bff;
+    margin: 0 0 20px;
+    text-align: center;
+    width: 100%;
 }
 
-/* Form Styling */
 .teacher-info form {
-    display: contents; /* Inherit grid layout */
-    width: 100%; /* Full width */
+    display: contents;
+    width: 100%;
 }
 
-/* Label and Input Pair Styling */
 .teacher-info form div {
     display: flex;
-    gap: 5px; /* Space between label and input */
-    width: 100%; /* Full width */
-    align-items: center; /* Center align items vertically */
+    gap: 5px;
+    width: 100%;
+    align-items: center;
 }
 
-/* Label Styling */
 .teacher-info form label {
-    font-size: 1em; /* Font size */
-    font-weight: bold; /* Bold labels */
-    color: #333; /* Text color */
-    width: 20%; /* Label width */
-    text-align: left; /* Align text to the left */
-    margin-right: 10px; /* Space between label and input */
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    width: 20%;
+    text-align: left;
+    margin-right: 10px;
 }
 
-/* Input Field Styling */
-.teacher-info form #name, #acad_attainment, #date, #office, #performance, #rank {
-    width: 100%; /* Full width */
-    padding: 10px; /* Padding inside inputs */
-    font-size: 1em; /* Font size */
-    border: 1px solid #ccc; /* Border */
-    border-radius: 4px; /* Rounded corners */
-    box-sizing: border-box; /* Include padding and border */
-    background-color: #f8f9fa; /* Background color */
-    color: #333; /* Text color */
+.teacher-info form #name, #acad_attainment, #date, #office, #performance, #rank, #select-experience {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    color: #333;
 }
 
-#select-experience {
-    width: 100%; /* Full width to match input fields */
-    display: grid;
-    padding: 10px; /* Padding inside inputs */
-    font-size: 1em; /* Font size */
-    border: 1px solid #ccc; /* Border */
-    border-radius: 4px; /* Rounded corners */
-    box-sizing: border-box; /* Include padding and border */
-    background-color: #f8f9fa; /* Background color */
-    color: #333; /* Text color */
-}
-
-/* Specific styling for date input fields */
 input[type="text"][name="date"] {
-    width: fit-content; /* Minimize width to fit the date */
-    padding: 5px; /* Adjust padding for better appearance */
+    width: fit-content;
+    padding: 5px;
 }
 
-/* Submit Button Styling */
 .teacher-info form button[type="submit"] {
-    grid-column: 1 / -1; /* Span across both columns */
-    width: auto; /* Minimize the width */
-    padding: 12px 20px; /* Adjust padding for better appearance */
-    font-size: 1em; /* Font size */
-    font-weight: bold; /* Bold text */
-    color: white; /* Text color */
-    background-color: #007bff; /* Background color */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s ease; /* Hover effect */
-    justify-self: center; /* Center the button */
+    grid-column: 1 / -1;
+    width: auto;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-self: center;
 }
 
 .teacher-info form button[type="submit"]:hover {
-    background-color: #0056b3; /* Hover color */
+    background-color: #0056b3;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .teacher-info {
-        grid-template-columns: 1fr; /* Single column */
-        gap: 15px; /* Reduced gap */
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
 
     .teacher-info h1 {
-        font-size: 1.5em; /* Smaller heading */
+        font-size: 1.5em;
     }
 }
 
-/* Text, Upload, and Search Bar Container */
-.text-upload-search-container {
-    grid-column: 1 / -1; /* Spans the full width */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px; /* Adjust padding to match other containers */
-    background-color: #f1f1f1;
-    border-radius: 8px; /* Rounded corners for consistency */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Consistent shadow effect */
-    margin: 0 auto; /* Center the container horizontally */
-    max-width: 1440px; /* Match width with other containers */
-    width: 100%; /* Full width */
-    gap: 15px; /* Space between child elements */
-}
-
-/* General Button Styling for Home and Upload */
-.upload-button .btn-success {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 0 15px; /* Padding */
-    border-radius: 5px; /* Rounded corners */
-    height: 40px; /* Button height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px; /* Font size */
-}
-
-.home-button .btn-success:hover,
-.upload-button .btn-success:hover {
-    background-color: #218838;
-}
-
-/* Input Group for Search Bar */
 .input-group {
     display: flex;
-    align-items: stretch; /* Align input and button */
+    align-items: stretch;
 }
 
-/* Input Field */
 .input-group .form-control {
-    width: 300px; /* Input width */
-    height: 40px; /* Input height */
-    border-radius: 5px 0 0 5px; /* Rounded corners */
-    padding: 10px; /* Padding */
-    box-sizing: border-box; /* Include padding and border */
-    border: 1px solid #ced4da; /* Border */
-    font-size: 14px; /* Font size */
-    margin: 0; /* Remove margin */
+    width: 300px;
+    height: 40px;
+    border-radius: 5px 0 0 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    font-size: 14px;
+    margin: 0;
 }
 
-/* Search Button */
 .input-group .btn-primary {
-    height: 40px; /* Button height */
-    border-radius: 0 5px 5px 0; /* Rounded corners */
-    background-color: #007bff; /* Background color */
-    color: white; /* Text color */
-    border: 1px solid #007bff; /* Border */
-    padding: 0 15px; /* Padding */
-    font-size: 14px; /* Font size */
-    margin: 0; /* Remove margin */
-    display: flex; /* Center text */
+    height: 40px;
+    border-radius: 0 5px 5px 0;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    padding: 0 15px;
+    font-size: 14px;
+    margin: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box; /* Include padding and border */
+    box-sizing: border-box;
 }
 
 .input-group .btn-primary:hover {
@@ -305,43 +227,29 @@ input[type="text"][name="date"] {
     border-color: #0056b3;
 }
 
-/* Table Container */
 .table-container {
-    grid-column: 1 / -1; /* Spans the full width */
     overflow-x: auto;
-    padding: 20px; /* Adjust padding to match other containers */
+    padding: 20px;
     background-color: white;
-    border-radius: 8px; /* Rounded corners for consistency */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Consistent shadow effect */
-    margin: 0 auto; /* Center the container horizontally */
-    max-width: 1440px; /* Match width with other containers */
-    width: 100%; /* Full width */
 }
 
-/* Table Styles */
 .table {
     min-width: 1200px;
     width: 100%;
     border-collapse: collapse;
 }
 
-.table th,
-.table td {
+.table th, .table td {
     border: 1px solid #dee2e6;
     text-align: center;
-    width: auto; /* Adjust width to fit content */
+    width: auto;
 }
 
-/* Field-Sized Content Styles */
-.table select,
-.table input[type="text"],
-.table textarea {
+.table select, .table input[type="text"], .table textarea {
     width: auto;
     min-width: 100px;
     max-width: 100%;
-    padding: 15px 2px 15px 2px;
-    /* border: 1px solid #ced4da;
-    border-radius: 4px; */
+    padding: 15px 2px;
     text-align: center;
     font-size: 14px;
 }
@@ -357,16 +265,13 @@ input[type="text"][name="date"] {
     min-height: 30px;
 }
 
-/* Points Column Styling */
-.table th:nth-child(13),
-.table td:nth-child(13) {
-    width: 60px; /* Column width */
+.table th:nth-child(13), .table td:nth-child(13) {
+    width: 60px;
     text-align: center;
     padding: 5px;
     vertical-align: middle;
 }
 
-/* Input Container */
 .table td:nth-child(13) div {
     display: flex;
     justify-content: center;
@@ -374,7 +279,6 @@ input[type="text"][name="date"] {
     height: 100%;
 }
 
-/* Input Field */
 .table td:nth-child(13) input {
     width: 90%;
     max-width: 50px;
@@ -385,9 +289,7 @@ input[type="text"][name="date"] {
     padding: 25px;
 }
 
-/* Form Controls */
-#teacher_id,
-.form-control {
+#teacher_id, .form-control {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
@@ -395,14 +297,18 @@ input[type="text"][name="date"] {
     border-radius: 5px;
 }
 
-/* Submit Button */
-button[type="submit-update"] {
+button[type="submit-update"], button[type="submit-delete"] {
     border: none;
-    background-color: #007bff;
-    color: white;
     padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
+    width: auto;
+    margin: 0 auto;
+}
+
+button[type="submit-update"] {
+    background-color: #007bff;
+    color: white;
 }
 
 button[type="submit-update"]:hover {
@@ -410,32 +316,19 @@ button[type="submit-update"]:hover {
 }
 
 button[type="submit-delete"] {
-    border: none;
     background-color: #dc3545;
     color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 button[type="submit-delete"]:hover {
     background-color: #c82333;
 }
 
-button[type="submit-update"], button[type="submit-delete"] {
-    width: auto;
-    margin: 0 auto;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Links */
 a {
     text-decoration: none;
 }
 
-a[href*="summary"] {
+a[href*="summary"], .btn-secondary {
     display: inline-block;
     padding: 10px 15px;
     background-color: #6c757d;
@@ -444,92 +337,62 @@ a[href*="summary"] {
     text-align: center;
 }
 
-a[href*="summary"]:hover {
-    background-color: #5a6268;
-}
-
-/* Button Styling */
-.btn-secondary {
-    background-color: #6c757d;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    text-align: center;
-}
-
-.btn-secondary:hover {
+a[href*="summary"]:hover, .btn-secondary:hover {
     background-color: #5a6268;
 }
 
 .requirement-table.grid-item {
-    grid-column: span 2; /* Adjust this value based on your grid layout */
+    grid-column: span 2;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Requirement Table Styling */
 .requirement-table .table-rank {
-    width: 100%; /* Full width */
-    border-collapse: collapse; /* Remove gaps between cells */
-    margin: 20px 0; /* Space above and below the table */
-    font-size: 1em; /* Font size */
-    text-align: left; /* Align text to the left */
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    text-align: left;
 }
 
-.requirement-table .table-rank th,
-.requirement-table .table-rank td {
-    border: 1px solid #dee2e6; /* Border color */
-    padding: 12px 15px; /* Padding inside cells */
-    text-align: center; /* Center align text */
+.requirement-table .table-rank th, .requirement-table .table-rank td {
+    border: 1px solid #dee2e6;
+    padding: 12px 15px;
+    text-align: center;
 }
 
 .requirement-table .table-rank th {
-    background-color: #f8f9fa; /* Header background color */
-    font-weight: bold; /* Bold text */
+    background-color: #f8f9fa;
+    font-weight: bold;
 }
 
 .requirement-table .table-rank td {
-    background-color: #ffffff; /* Cell background color */
+    background-color: #ffffff;
 }
 
-/* Ensure consistent width with the table in table-container */
-.table-container .table,
-.requirement-table .table-rank {
-    min-width: 1200px; /* Minimum width */
-    width: 100%; /* Full width */
-    max-width: 100%;
-    overflow-x: auto; /* Allow horizontal scrolling within tables */
-}
-
-/* Ensure full display of content on any screen size */
-body {
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
-}
-
-.container {
+.table-container .table, .requirement-table .table-rank {
+    min-width: 1200px;
     width: 100%;
     max-width: 100%;
-    overflow-x: auto; /* Allow horizontal scrolling within containers */
+    overflow-x: auto;
 }
 
-/* Responsive Design */
 @media (max-width: 1440px) {
     body {
-        padding: 10px; /* Adjust padding for smaller screens */
+        padding: 10px;
     }
 
     .fsuu-logo-container, .home-summary-container, .teacher-table-info, .text-upload-search-container, .table-container {
-        max-width: 100%; /* Ensure containers do not exceed screen width */
+        max-width: 100%;
         width: 100%;
     }
 
     .teacher-info {
-        grid-template-columns: 1fr; /* Single column layout for smaller screens */
+        grid-template-columns: 1fr;
     }
 
     .teacher-info h1 {
-        font-size: 1.5em; /* Adjust font size for smaller screens */
+        font-size: 1.5em;
     }
 }

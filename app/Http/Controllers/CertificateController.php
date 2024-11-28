@@ -185,7 +185,7 @@ class CertificateController extends Controller
     if ($query) {
         $certificateQuery->where(function ($q) use ($query) {
             $q->where('id', 'like', "%{$query}%")
-              ->orWhere('category', 'like', "%{$query}%")    //
+              ->orWhere('category', 'like', "%{$query}%")
               ->orWhere('type', 'like', "%{$query}%")
               ->orWhere('name', 'like', "%{$query}%")
               ->orWhere('title', 'like', "%{$query}%")
@@ -205,6 +205,186 @@ class CertificateController extends Controller
         $selectedTeacher = null;
     }
 
+    // Requirements for ranks
+    $requirements = [
+        'Teacher 1' => [
+            'Must have earned 25% of MA academic requirements on his/her specialization',
+            'Must have a very good/very satisfactory efficiency rating',
+            'At least three (3) years of teaching experience',
+            'Must have met all the requirements of Teacher 1',
+        ],
+        'Teacher 2' => [
+            'Must have earned 25% of MA academic requirements on his/her specialization',
+            'Must have a very good/very satisfactory efficiency rating',
+            'At least three (3) years of teaching experience',
+            'Must have met all the requirements of Teacher 1',
+        ],
+        'Teacher 3' => [
+            'Must have earned 75% of MA academic requirements on his/her specialization',
+            'Must have a very good/very satisfactory efficiency rating',
+            'At least three (3) years teaching experience',
+            'Must have met all the requirements of Teacher 2',
+        ],
+        'Teacher 4' => [
+                'Must be a Masters Degree holder',
+                'Must have a very good/very satisfactory efficiency rating',
+                'At least three (3) years teaching experience',
+                'Must have met all the requirements of Teacher 3'
+        ],
+        'Teacher 5' => [
+                'Must have a very good/very satisfactory efficiency rating',
+                'Must have atleast 4 years teaching experience',
+                'Must have earned atleast one (1) point of productive scholarship',
+                'Must have met all the requirements of Teacher 4'
+        ],
+        'Senior Teacher 1' => [
+                'Must have a very good/very satisfactory efficiency rating',
+                'Must have atleast 5 years teaching experience',
+                'Must have earned atleast two (2) points of productive scholarship',
+                'Must have met all the requirements of Teacher 5'
+            ],
+        'Senior Teacher 2' => [
+                'Must have a very good/very satisfactory efficiency rating',
+                'Must have atleast 6 years teaching experience',
+                'Must have earned atleast three (3) points of productive scholarship',
+                'Must have met all the requirements of Senior Teacher 1'
+            ],
+        'Senior Teacher 3' => [
+                'Must have taken 25% of Doctoral academic requirements in his/her specialization',
+                'Must have a very good/very satisfactory efficiency rating',
+                'Must have atleast 7 years teaching experience',
+                'Must have conducted at least one research approved/recognized by the administration',
+                'Must have met all the requirements of Senior Teacher 2'
+        ],
+        'Senior Teacher 4' => [
+                'Must have taken 50% of Doctoral academic requirements in his/her specialization',
+                'Must have a very good/very satisfactory efficiency rating',
+                'Must have atleast 8 years teaching experience',
+                'Must have shown consistent interest in conducting & publishing research or articles relevant to his/her field of specialization',
+                'Must have met all the requirements of Senior Teacher 3'
+        ],
+        'Senior Teacher 5' => [
+                'Must have completed the academic requirements for Doctoral Degree',
+                'Must have a very good/very satisfactory efficiency rating',
+                'Must have atleast 9 years teaching experience',
+                'Must exhibit continued interest in the conduct of researches, innovative and creative efforts',
+                'Must have met all the requirements of Senior Teacher 4'
+        ],
+        'Master Teacher 1' => [
+                'Must be a Doctoral Degree holder',
+                'Must have a very good/very satisfactory efficiency rating',
+                'Must have atleast 10 years teaching experience',
+                'Must have conducted atleast one (1) research work outside dissertation work and other articles consistent to education or field of specialization in a refereed journal',
+                'Must have met all the requirements of Senior Teacher 5'
+        ],
+        'Master Teacher 2' => [
+                'Must have a very good/very satisfactory efficiency rating',
+                'Must have atleast 11 years teaching experience',
+                'Must have shown consistent interest in the conduct of researches, and other articles consistent to education or field of specialization in a refereed journal',
+                'Must have met all the requirements of Master Teacher 1'
+        ],
+        'Master Teacher 3' => [
+                'Must have a very good/very satisfactory efficiency rating',
+                'Must have atleast 12 years teaching experience',
+                'Must have earned general recognition among scholars and educators',
+                'Must have published books, articles in recognized journal or similar scholarships',
+                'Must have participated in the activities of the learned societies',
+                'Must have met all the requirements of Master Teacher 2'
+        ],
+        'Master Teacher 4' => [
+                'Must have a very good/very satisfactory efficiency rating',
+                'Must have atleast 13 years teaching experience',
+                'Must have met all the requirements of Master Teacher 3'
+        ],
+        'Lecturer 1' => [
+                'BS Degree Holder',
+                'Must have a Very Good/Very Satisfactory efficiency rating',
+                'Must have passed three years of probationary period'
+        ],
+        'Lecturer 2' => [
+                'Must have earned 25% MA units',
+                'Must have a Very Good/Very Satisfactory efficiency rating',
+                'Must have passed three years of probationary period'
+        ],
+        'Lecturer 3' => [
+                'Must have earned 75% MA units',
+                'Must have a Very Good/Very Satisfactory efficiency rating',
+                'Must have passed three years of probationary period'
+        ],
+        'Assistant Instructor' => [
+                'Must be a Masters Degree holder',
+                'Must have a Very Good/Very Satisfactory efficiency rating',
+                'Must have passed three years of probationary period'
+        ],
+        'Instructor 1' => [
+                'Must have a Very Good/ Very Satisfactory efficiency rating',
+                'Must have at least 4 years teaching experience',
+                'Must have earned at least one (1) point of productive scholarship',
+                'Must have met all the requirements of Assistant Instructor'
+        ],
+        'Instructor 2' => [
+                'Must have a Very Good/ Very Satisfactory efficiency rating',
+                'Must have at least 6 years teaching experience',
+                'Must have earned at least two (2) point of productive scholarship',
+                'Must have met all the requirements of Instructor 1'
+        ],
+        'Instructor 3' => [
+                'Must have a Very Good/ Very Satisfactory efficiency rating',
+                'Must have at least 6 years teaching experience',
+                'Must have earned at least three (3) point of productive scholarship',
+                'Must have met all the requirements of Instructor 2'
+        ],
+        'Assistant Professor 1' => [
+                'Must have taken 25% of Doctoral academic requirements in his or her specialization',
+                'Must have a Very Good/ Very Satisfactory efficiency rating',
+                'Must have at least 7 years teaching experience',
+                'Must have conducted at least one research',
+                'Must have met all the requirements of Instructor 3'
+        ],
+        'Assistant Professor 2' => [
+                'Must have taken 50% of Doctoral academic requirements in his or her specialization',
+                'Must have a Very Good/ Very Satisfactory efficiency rating',
+                'Must have at least 8 years teaching experience',
+                'Must have shown consistent interest in conducting & publishing research or articles relevant to his/her field of specialization',
+                'Must have met all the requirements of Assistant Professor 1'
+        ],
+        'Associate Professor 1' => [
+                'Must have completed the acedemic requirements for Doctoral Degree',
+                'Must have a Very Good/ Very Satisfactory efficiency rating',
+                'Must have at least 9 years teaching experience',
+                'Must exhibit continued interest in the conduct of researches, innovative and creative efforts',
+                'Must have met all the requirements of Assistant Professor 2'
+        ],
+        'Associate Professor 2' => [
+                'Must be a Doctoral Degree holder',
+                'Must have a Very Good/ Very Satisfactory efficiency rating',
+                'Must have at least 10 years teaching experience',
+                'Must have conducted atleast one (1) research work outside dissertation work and other articles consistent to education or field of specialization in a refereed journal',
+                'Must have met all the requirements of Associate Professor 1'
+        ],
+        'Full Professor 1' => [
+                'Must have a Very Good/ Very Satisfactory efficiency rating',
+                'Must have at least 12 years teaching experience',
+                'Must have shown consistent interest in the conduct of researches and other articles consistent to education or field of specialization in a refereed journal',
+                'Must have met all the requirements of Associate Professor 2'
+        ],
+        'Full Professor 2' => [
+                'Must have a Very Good/ Very Satisfactory efficiency rating',
+                'Must have at least 12 years teaching experience',
+                'Must have earned general recognition among scholars and educators',
+                'Must have published books, articles, researches in recognized journal or similar scholarships',
+                'Must have participated in the activities of the learned societies',
+                'Must have met all the requirements of Full Professor 1'
+        ],
+        'Full Professor 3' => [
+                'Must have a Very Good/ Very Satisfactory efficiency rating',
+                'Must have atleast 12 years of teaching experience',
+                'Must have published books, articles, researches in international journals',
+                'Must have met all the requirements of Full Professor 2'
+        ],
+    ];
+
+
     // Get certificates
     $allCertificates = $certificateQuery->get();
 
@@ -217,6 +397,7 @@ class CertificateController extends Controller
         'selectedTeacher' => $selectedTeacher, // Pass selected teacher's details
         'query' => $query,
         'teacher_id' => $teacherId, // Pass teacher_id for default selection
+        'requirements' => $requirements, // Pass rank requirements
     ]);
     }
 

@@ -103,7 +103,6 @@
                 <option value="Master Teacher 2" {{ $selectedTeacher->rank == 'Master Teacher 2' ? 'selected' : '' }}>Master Teacher 2</option>
                 <option value="Master Teacher 3" {{ $selectedTeacher->rank == 'Master Teacher 3' ? 'selected' : '' }}>Master Teacher 3</option>
                 <option value="Master Teacher 4" {{ $selectedTeacher->rank == 'Master Teacher 4' ? 'selected' : '' }}>Master Teacher 4</option>
-                <option value="Master Teacher 5" {{ $selectedTeacher->rank == 'Master Teacher 5' ? 'selected' : '' }}>Master Teacher 5</option>
                 <option value="Lecturer 1" {{ $selectedTeacher->rank == 'Lecturer 1' ? 'selected' : '' }}>Lecturer 1</option>
                 <option value="Lecturer 2" {{ $selectedTeacher->rank == 'Lecturer 2' ? 'selected' : '' }}>Lecturer 2</option>
                 <option value="Lecturer 3" {{ $selectedTeacher->rank == 'Lecturer 3' ? 'selected' : '' }}>Lecturer 3</option>
@@ -120,12 +119,8 @@
                 <option value="Full Professor 3" {{ $selectedTeacher->rank == 'Full Professor 3' ? 'selected' : '' }}>Full Professor 3</option>
             </select>
             </td>
-            <td>
-                NEXT RANK HERE
-            </td>
-            <td>
-                NEXT RANK REQUIREMENTS HERE
-            </td>
+            <td id="next-rank">Select a rank</td>
+            <td id="next-requirements">Select a rank</td>
             </tr>
             </table>
         </div>
@@ -133,6 +128,10 @@
     </form>
     </div>
 </div>
+
+
+
+
 
     <div class="text-upload-search-container">
 
@@ -222,5 +221,7 @@
     <!-- JavaScript for Auto-Sizing Table Inputs -->
     <script src="{{ asset('javascript/autosizing.js') }}"></script>
     <script src="{{ asset('javascript/popupwindow.js') }}"></script>
+    <script>window.rankRequirements = @json($requirements);</script>
+    <script src="{{ asset('javascript/rankRequirements.js') }}"></script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     display: grid;
     grid-template-rows: auto auto auto auto;
@@ -26,6 +25,7 @@ body {
     display: flex;
     align-items: center; /* Vertically center all elements */
     gap: 15px; /* Space between the logo and text */
+    border-radius: 5px; /* Rounded corners */
 }
 
 /* Inner Container for Titles */
