@@ -35,8 +35,9 @@
         <h1 class="sub-header">RANKING SUMMARY</h1>
         <div class="teacher-info">
             <p><strong>Name:</strong> {{ $teacher->name }}</p>
-            <p><strong>Academic Attainment:</strong> {{ $teacher->acad_attainment }}</p>
+            <p><strong>Highest Academic Attainment:</strong> {{ $teacher->acad_attainment }}</p>
             <p><strong>Experience:</strong> {{ $experience }}</p>
+            <p><strong>Office:</strong> {{ $teacher->office }}</p>
             <p><strong>Rank:</strong> {{ $teacher->rank }}</p>
         </div>
 
@@ -86,9 +87,15 @@
             <div class="grid-item"></div>
     
             <!-- Row 2 -->
-            <div class="grid-item">Prepared by:  ________________________</div>
+            <div class="grid-item prepared-by-container">
+                <span>Prepared by:</span>
+                <!-- Line will be added here by CSS -->
+            </div>
             <div class="grid-item"></div>
-            <div class="grid-item">Date: ________________________</div>
+            <div class="grid-item date-container">
+                <span>Date:</span>
+                <!-- Line will be added here by CSS -->
+            </div>
     
             <!-- Row 3 -->
             <div class="grid-item"></div>
@@ -101,10 +108,16 @@
             <div class="grid-item name-signature2">Name & Signature of Member</div>
     
             <!-- Row 5 -->
-            <div class="grid-item">Approved: ________________________</div>
+            <div class="grid-item approved-container">
+                <span>Approved by:</span>
+                <!-- Line will be added here by CSS -->
+            </div>
             <div class="grid-item"></div>
-            <div class="grid-item">Date: ________________________</div>
-    
+            <div class="grid-item approved-date-container">
+                <span>Date:</span>
+                <!-- Line will be added here by CSS -->
+            </div>
+
             <!-- Row 6 -->
             <div class="grid-item president">President</div>
             <div class="grid-item"></div>

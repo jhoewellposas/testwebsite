@@ -7,9 +7,14 @@ body {
     font-family: Arial, sans-serif;
     padding: 20px;
     margin: 0 auto;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
-
+.container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling within containers */
+}
 
 /* Logo Container */
 .fsuu-logo-container {
@@ -157,4 +162,24 @@ body {
     font-weight: bold;
     color: white;
     margin-right: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 1440px) {
+    body {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .fsuu-logo-container, .create-teacher-container, .teacher-choices-container {
+        max-width: 100%; /* Ensure containers do not exceed screen width */
+        width: 100%;
+    }
+
+    .create-teacher-container form {
+        grid-template-columns: 1fr; /* Single column layout for smaller screens */
+    }
+
+    .main-title, .subtitle {
+        font-size: 1.5em; /* Adjust font size for smaller screens */
+    }
 }

@@ -8,6 +8,7 @@ body {
     background-color: #f8f9fa;
     padding: 20px;
     margin: 0 auto;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
 /* Logo Container */
@@ -180,8 +181,8 @@ body {
     color: #333; /* Text color */
 }
 
-#select-experience, #input-experience {
-    width: 50%; /* Half width */
+#select-experience {
+    width: 100%; /* Full width to match input fields */
     display: grid;
     padding: 10px; /* Padding inside inputs */
     font-size: 1em; /* Font size */
@@ -459,4 +460,76 @@ a[href*="summary"]:hover {
 
 .btn-secondary:hover {
     background-color: #5a6268;
+}
+
+.requirement-table.grid-item {
+    grid-column: span 2; /* Adjust this value based on your grid layout */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Requirement Table Styling */
+.requirement-table .table-rank {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Remove gaps between cells */
+    margin: 20px 0; /* Space above and below the table */
+    font-size: 1em; /* Font size */
+    text-align: left; /* Align text to the left */
+}
+
+.requirement-table .table-rank th,
+.requirement-table .table-rank td {
+    border: 1px solid #dee2e6; /* Border color */
+    padding: 12px 15px; /* Padding inside cells */
+    text-align: center; /* Center align text */
+}
+
+.requirement-table .table-rank th {
+    background-color: #f8f9fa; /* Header background color */
+    font-weight: bold; /* Bold text */
+}
+
+.requirement-table .table-rank td {
+    background-color: #ffffff; /* Cell background color */
+}
+
+/* Ensure consistent width with the table in table-container */
+.table-container .table,
+.requirement-table .table-rank {
+    min-width: 1200px; /* Minimum width */
+    width: 100%; /* Full width */
+    max-width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling within tables */
+}
+
+/* Ensure full display of content on any screen size */
+body {
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling within containers */
+}
+
+/* Responsive Design */
+@media (max-width: 1440px) {
+    body {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .fsuu-logo-container, .home-summary-container, .teacher-table-info, .text-upload-search-container, .table-container {
+        max-width: 100%; /* Ensure containers do not exceed screen width */
+        width: 100%;
+    }
+
+    .teacher-info {
+        grid-template-columns: 1fr; /* Single column layout for smaller screens */
+    }
+
+    .teacher-info h1 {
+        font-size: 1.5em; /* Adjust font size for smaller screens */
+    }
 }

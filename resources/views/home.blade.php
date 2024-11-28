@@ -24,15 +24,15 @@
                 <input type="text" class="form-control" id="name" name="name" required>
             </div>
             <div class="mb-3">
-                <label for="acad_attainment" class="form-label">Academic Attainment</label>
+                <label for="acad_attainment" class="form-label">Highest Academic Attainment</label>
                 <input type="text" class="form-control" id="acad_attainment" name="acad_attainment">
             </div>
             <div class="mb-3">
-                <label for="date">Date Hired:</label>
+                <label for="date">Date Hired</label>
                 <input type="date" class="form-control" id="date" name="date">
             </div>
             <div class="mb-3">
-                <label for="office">Office:</label>
+                <label for="office">Office</label>
                 <input type="text" class="form-control" id="office" name="office">
             </div>
             <div class="mb-3">

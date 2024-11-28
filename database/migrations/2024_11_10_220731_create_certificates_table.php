@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('organization')->nullable();
             $table->string('designation')->nullable();
-            $table->integer('days')->nullable();
+            $table->float('days')->nullable();
             $table->string('date');
             $table->text('raw_text');
             $table->float('points')->nullable();

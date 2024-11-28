@@ -57,6 +57,9 @@ class CertificateController extends Controller
             return back()->with('error', 'Failed to parse OpenAI response.');
         }
 
+        //Cetgorize Certificates
+        $category = $this->categorizeCertificate($text);
+
         // Step 4: Prepare and save the extracted data
         $data = [
             'type' => $parsedData['type'] ?? 'Unknown',
@@ -65,6 +68,7 @@ class CertificateController extends Controller
             'organization' => $parsedData['organization'] ?? 'Unknown',
             'designation' => $parsedData['designation'] ?? 'Unknown',
             'date' => $parsedData['date'] ?? 'Unknown',
+            'category' => $category,
             'raw_text' => $text,
             'teacher_id' => $request->input('teacher_id'),
         ];
@@ -77,7 +81,44 @@ class CertificateController extends Controller
     }
 
 
+    private function categorizeCertificate($text)
+{
+    $text = strtolower($text);
 
+    if (preg_match('/attendance|completion|conferences|trainings|participation/', $text)) {
+        return 'seminar';
+    }
+
+    if (preg_match('/runners-up|placer/', $text)) {
+        return 'honors_awards';
+    }
+
+    if (preg_match('/author|judge|evaluator|coach|trainer|facilitator|researcher|speaker/', $text)) {
+        return 'scholarship_activities';
+    }
+
+    if (preg_match('/student service|service to students/', $text)) {
+        return 'service_students';
+    }
+
+    if (preg_match('/department service|service to department/', $text)) {
+        return 'service_department';
+    }
+
+    if (preg_match('/institutional service|service to institution|organized by|sponsored by/', $text)) {
+        return 'service_institution';
+    }
+
+    if (preg_match('/active participation|organizations/', $text)) {
+        return 'participation_organizations';
+    }
+
+    if (preg_match('/involvement in department|ces/', $text)) {
+        return 'involvement_department';
+    }
+
+    return 'unknown';
+}
 
 
 
@@ -144,12 +185,12 @@ class CertificateController extends Controller
     if ($query) {
         $certificateQuery->where(function ($q) use ($query) {
             $q->where('id', 'like', "%{$query}%")
+              ->orWhere('category', 'like', "%{$query}%")    //
               ->orWhere('type', 'like', "%{$query}%")
               ->orWhere('name', 'like', "%{$query}%")
               ->orWhere('title', 'like', "%{$query}%")
               ->orWhere('organization', 'like', "%{$query}%")
               ->orWhere('designation', 'like', "%{$query}%")
-              ->orWhere('days', 'like', "%{$query}%")
               ->orWhere('date', 'like', "%{$query}%")
               ->orWhere('raw_text', 'like', "%{$query}%")
               ->orWhere('points', 'like', "%{$query}%");
@@ -227,7 +268,7 @@ class CertificateController extends Controller
     public function updateTeacher(Request $request, $id)
     {
     $teacher = Teacher::findOrFail($id);
-    $teacher->update($request->only('name', 'acad_attainment', 'performance', 'experience', 'rank'));
+    $teacher->update($request->only('name', 'acad_attainment', 'performance', 'date', 'office', 'experience', 'rank'));
 
     // Redirect back to the profile page with the teacher_id
     return redirect()->route('profile', ['teacher_id' => $teacher->id])

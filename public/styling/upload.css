@@ -8,6 +8,7 @@ body {
     background-color: #f8f9fa;
     padding: 20px;
     margin: 0 auto;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
 /* Logo Container */
@@ -110,4 +111,26 @@ body {
 
 .upload-container form button[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling within containers */
+}
+
+/* Responsive Design */
+@media (max-width: 1440px) {
+    body {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .fsuu-logo-container, .upload-container {
+        max-width: 100%; /* Ensure containers do not exceed screen width */
+        width: 100%;
+    }
+
+    .main-title, .subtitle {
+        font-size: 1.5em; /* Adjust font size for smaller screens */
+    }
 }

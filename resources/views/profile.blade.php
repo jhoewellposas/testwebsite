@@ -74,8 +74,8 @@
             
         </div>
 
-        <div class="">
-            <table class="table" border="1">
+        <div class="requirement-table grid-item">
+            <table class="table-rank" border="1">
                 <thead>
                     <tr>
                         <th>Present Rank</th>
