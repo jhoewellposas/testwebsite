@@ -30,7 +30,7 @@
 
     <div class="teacher-table-info">
         <div class="teacher-info">
-            <h1>Teacher Profile</h1>
+            <h1>TEACHER PROFILE</h1>
        <!-- Display Teacher's Information -->
        <form action="{{ route('teachers.update', ['id' => $selectedTeacher->id]) }}" method="post">
         @csrf
@@ -124,7 +124,7 @@
             </tr>
             </table>
         </div>
-        <button type="submit">Update</button>
+        <button type="button" class="update-button">Update</button>
     </form>
     </div>
 </div>
@@ -205,7 +205,7 @@
                 <form action="{{ route('certificate.delete', $certificate->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit-delete">Delete</button>
+                    <button type="button" class="delete-button">Delete</button>
                 </form>
                 </td>
             </tr>
@@ -218,10 +218,11 @@
     </table>
 </div>
 
-    <!-- JavaScript for Auto-Sizing Table Inputs -->
+    <!-- JavaScript -->
     <script src="{{ asset('javascript/autosizing.js') }}"></script>
     <script src="{{ asset('javascript/popupwindow.js') }}"></script>
     <script>window.rankRequirements = @json($requirements);</script>
     <script src="{{ asset('javascript/rankRequirements.js') }}"></script>
+    <script src="{{ asset('javascript/buttonConfirmations.js') }}"></script>
 </body>
 </html>

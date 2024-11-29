@@ -7,11 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*Route::get('/home', function () {
-    return view('home');
-});
-*/
-
+//home
 Route::get('/home', function () {
     $allTeachers = \App\Models\Teacher::all();
     return view('home', compact('allTeachers'));
@@ -29,8 +25,10 @@ Route::get('/upload', [CertificateController::class, 'showUploadForm'])->name('c
 //extract
 Route::post('/extract', [CertificateController::class, 'extractCertificateData'])->name('extractCertificateData');
 
-//update and delete certificate
+//update certificate
 Route::post('/certificate/update/{id}', [CertificateController::class, 'updateCertificate'])->name('certificate.update');
+
+//delete certificate
 Route::delete('/certificate/delete/{id}', [CertificateController::class, 'deleteCertificate'])->name('certificate.delete');
 
 //update teacher
