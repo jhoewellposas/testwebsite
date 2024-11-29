@@ -219,7 +219,7 @@
 </div>
 
     <!-- JavaScript -->
-    <script src="{{ asset('javascript/autosizing.js') }}"></script>
+    <script src="{{ asset('javascript/autosizing.js') }}">
     <script src="{{ asset('javascript/popupwindow.js') }}"></script>
     <script>window.rankRequirements = @json($requirements);</script>
     <script src="{{ asset('javascript/rankRequirements.js') }}"></script>

@@ -468,7 +468,7 @@ class CertificateController extends Controller
     }
 
 
-    public function showSummary($teacherId)
+/*    public function showSummary($teacherId)
     {
     // Retrieve the selected teacher
     $teacher = Teacher::with('certificates')->findOrFail($teacherId);
@@ -500,4 +500,252 @@ class CertificateController extends Controller
         'totalPoints' => $totalPoints,
     ]);
     }
+    */
+
+/*
+    public function showSummary($teacherId)
+{
+    // Retrieve the selected teacher
+    $teacher = Teacher::with('certificates')->findOrFail($teacherId);
+
+    // Calculate points for Productive Scholarship categories
+    $productiveGroupAPoints = $teacher->certificates
+        ->whereIn('category', ['seminar', 'membership'])
+        ->sum('points');
+
+    $productiveGroupBPoints = $teacher->certificates
+        ->whereIn('category', ['honors_awards', 'scholarship_activities'])
+        ->sum('points');
+
+    // Scale Productive Scholarship Points to a maximum of 15.0
+    $productiveGroupAPercentage = 0.8; // 80%
+    $productiveGroupBPercentage = 0.2; // 20%
+    $productiveMaxPoints = 15.0;
+
+    $scaledProductiveGroupAPoints = $productiveGroupAPoints * $productiveGroupAPercentage;
+    $scaledProductiveGroupBPoints = $productiveGroupBPoints * $productiveGroupBPercentage;
+
+    $productiveScholarshipPoints = min(
+        $productiveMaxPoints,
+        $scaledProductiveGroupAPoints + $scaledProductiveGroupBPoints
+    );
+
+    // Calculate points for Community Extension Services categories
+    $communityGroupAPoints = $teacher->certificates
+        ->whereIn('category', ['service_students', 'service_department', 'service_institution'])
+        ->sum('points');
+
+    $communityGroupBPoints = $teacher->certificates
+        ->whereIn('category', ['participation_organizations', 'involvement_department'])
+        ->sum('points');
+
+    // Scale Community Extension Points to a maximum of 10.0
+    $communityGroupAPercentage = 0.7; // 70%
+    $communityGroupBPercentage = 0.3; // 30%
+    $communityMaxPoints = 10.0;
+
+    $scaledCommunityGroupAPoints = $communityGroupAPoints * $communityGroupAPercentage;
+    $scaledCommunityGroupBPoints = $communityGroupBPoints * $communityGroupBPercentage;
+
+    $communityExtensionPoints = min(
+        $communityMaxPoints,
+        $scaledCommunityGroupAPoints + $scaledCommunityGroupBPoints
+    );
+
+    // Use teacher's individual performance and experience
+    $performance = $teacher->performance;
+    $experience = $teacher->experience;
+
+    // Calculate the total points
+    $totalPoints = $performance + $productiveScholarshipPoints + $experience + $communityExtensionPoints;
+
+    // Pass data to the view
+    return view('summary', [
+        'teacher' => $teacher,
+        'performance' => $performance,
+        'productiveScholarshipPoints' => $productiveScholarshipPoints,
+        'productiveGroupAPoints' => $productiveGroupAPoints,
+        'productiveGroupBPoints' => $productiveGroupBPoints,
+        'scaledProductiveGroupAPoints' => $scaledProductiveGroupAPoints,
+        'scaledProductiveGroupBPoints' => $scaledProductiveGroupBPoints,
+        'experience' => $experience,
+        'communityExtensionPoints' => $communityExtensionPoints,
+        'communityGroupAPoints' => $communityGroupAPoints,
+        'communityGroupBPoints' => $communityGroupBPoints,
+        'scaledCommunityGroupAPoints' => $scaledCommunityGroupAPoints,
+        'scaledCommunityGroupBPoints' => $scaledCommunityGroupBPoints,
+        'totalPoints' => $totalPoints,
+    ]);
+}
+*/
+public function showSummary($teacherId)
+{
+    // Retrieve the selected teacher
+    $teacher = Teacher::with('certificates')->findOrFail($teacherId);
+
+    // Define percentage distributions for each rank
+    $rankDistributions = [
+        'Teacher 1' => [
+            'productiveGroupAPercentage' => 0.8, // 80%
+            'productiveGroupBPercentage' => 0.2, // 20%
+            'communityGroupAPercentage' => 0.7, // 70%
+            'communityGroupBPercentage' => 0.3, // 30%
+        ],
+        'Teacher 2' => [
+            'productiveGroupAPercentage' => 0.8,
+            'productiveGroupBPercentage' => 0.2,
+            'communityGroupAPercentage' => 0.7,
+            'communityGroupBPercentage' => 0.3,
+        ],
+        'Teacher 3' => [
+            'productiveGroupAPercentage' => 0.8,
+            'productiveGroupBPercentage' => 0.2,
+            'communityGroupAPercentage' => 0.7,
+            'communityGroupBPercentage' => 0.3,
+        ],
+        'Teacher 4' => [
+            'productiveGroupAPercentage' => 0.8,
+            'productiveGroupBPercentage' => 0.2,
+            'communityGroupAPercentage' => 0.7,
+            'communityGroupBPercentage' => 0.3,
+        ],
+        'Assistant Instructor' => [
+            'productiveGroupAPercentage' => 0.8,
+            'productiveGroupBPercentage' => 0.2,
+            'communityGroupAPercentage' => 0.7,
+            'communityGroupBPercentage' => 0.3,
+        ],
+        'Instructor 1' => [
+            'productiveGroupAPercentage' => 0.75,
+            'productiveGroupBPercentage' => 0.25,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Instructor 2' => [
+            'productiveGroupAPercentage' => 0.7,
+            'productiveGroupBPercentage' => 0.3,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Instructor 3' => [
+            'productiveGroupAPercentage' => 0.65,
+            'productiveGroupBPercentage' => 0.35,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Assistant Professor 1' => [
+            'productiveGroupAPercentage' => 0.6,
+            'productiveGroupBPercentage' => 0.4,
+            'communityGroupAPercentage' => 0.6,
+            'communityGroupBPercentage' => 0.4,
+        ],
+        'Assistant Professor 2' => [
+            'productiveGroupAPercentage' => 0.55,
+            'productiveGroupBPercentage' => 0.45,
+            'communityGroupAPercentage' => 0.6,
+            'communityGroupBPercentage' => 0.4,
+        ],
+        'Associate Professor 1' => [
+            'productiveGroupAPercentage' => 0.5,
+            'productiveGroupBPercentage' => 0.5,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Associate Professor 2' => [
+            'productiveGroupAPercentage' => 0.45,
+            'productiveGroupBPercentage' => 0.55,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Full Professor 1' => [
+            'productiveGroupAPercentage' => 0.4,
+            'productiveGroupBPercentage' => 0.6,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Full Professor 2' => [
+            'productiveGroupAPercentage' => 0.35,
+            'productiveGroupBPercentage' => 0.65,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Full Professor 3' => [
+            'productiveGroupAPercentage' => 0.3,
+            'productiveGroupBPercentage' => 0.7,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+    ];
+
+    // Get the current rank percentages (default to 0 if not set)
+    $rank = $teacher->rank ?? 'Unknown';
+    $distributions = $rankDistributions[$rank] ?? [
+        'productiveGroupAPercentage' => 0.8,
+        'productiveGroupBPercentage' => 0.2,
+        'communityGroupAPercentage' => 0.7,
+        'communityGroupBPercentage' => 0.3,
+    ];
+
+    // Calculate points for Productive Scholarship categories
+    $productiveGroupAPoints = $teacher->certificates
+        ->whereIn('category', ['seminar', 'membership'])
+        ->sum('points');
+
+    $productiveGroupBPoints = $teacher->certificates
+        ->whereIn('category', ['honors_awards', 'scholarship_activities'])
+        ->sum('points');
+
+    // Scale Productive Scholarship Points to a maximum of 15.0
+    $productiveMaxPoints = 15.0;
+    $scaledProductiveGroupAPoints = $productiveGroupAPoints * $distributions['productiveGroupAPercentage'];
+    $scaledProductiveGroupBPoints = $productiveGroupBPoints * $distributions['productiveGroupBPercentage'];
+    $productiveScholarshipPoints = min(
+        $productiveMaxPoints,
+        $scaledProductiveGroupAPoints + $scaledProductiveGroupBPoints
+    );
+
+    // Calculate points for Community Extension Services categories
+    $communityGroupAPoints = $teacher->certificates
+        ->whereIn('category', ['service_students', 'service_department', 'service_institution'])
+        ->sum('points');
+
+    $communityGroupBPoints = $teacher->certificates
+        ->whereIn('category', ['participation_organizations', 'involvement_department'])
+        ->sum('points');
+
+    // Scale Community Extension Points to a maximum of 10.0
+    $communityMaxPoints = 10.0;
+    $scaledCommunityGroupAPoints = $communityGroupAPoints * $distributions['communityGroupAPercentage'];
+    $scaledCommunityGroupBPoints = $communityGroupBPoints * $distributions['communityGroupBPercentage'];
+    $communityExtensionPoints = min(
+        $communityMaxPoints,
+        $scaledCommunityGroupAPoints + $scaledCommunityGroupBPoints
+    );
+
+    // Use teacher's individual performance and experience
+    $performance = $teacher->performance;
+    $experience = $teacher->experience;
+
+    // Calculate the total points
+    $totalPoints = $performance + $productiveScholarshipPoints + $experience + $communityExtensionPoints;
+
+    // Pass data to the view
+    return view('summary', [
+        'teacher' => $teacher,
+        'performance' => $performance,
+        'productiveScholarshipPoints' => $productiveScholarshipPoints,
+        'productiveGroupAPoints' => $productiveGroupAPoints,
+        'productiveGroupBPoints' => $productiveGroupBPoints,
+        'scaledProductiveGroupAPoints' => $scaledProductiveGroupAPoints,
+        'scaledProductiveGroupBPoints' => $scaledProductiveGroupBPoints,
+        'experience' => $experience,
+        'communityExtensionPoints' => $communityExtensionPoints,
+        'communityGroupAPoints' => $communityGroupAPoints,
+        'communityGroupBPoints' => $communityGroupBPoints,
+        'scaledCommunityGroupAPoints' => $scaledCommunityGroupAPoints,
+        'scaledCommunityGroupBPoints' => $scaledCommunityGroupBPoints,
+        'totalPoints' => $totalPoints,
+    ]);
+}
+
 }
