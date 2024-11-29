@@ -165,7 +165,7 @@ input[type="text"][name="date"] {
     padding: 5px;
 }
 
-.teacher-info form button[type="submit"] {
+.teacher-info form .update-button {
     grid-column: 1 / -1;
     width: auto;
     padding: 12px 20px;
@@ -180,7 +180,7 @@ input[type="text"][name="date"] {
     justify-self: center;
 }
 
-.teacher-info form button[type="submit"]:hover {
+.teacher-info form .update-button:hover {
     background-color: #0056b3;
 }
 
@@ -195,7 +195,7 @@ input[type="text"][name="date"] {
     }
 }
 
-.input-group {
+/* .input-group {
     display: flex;
     align-items: stretch;
 }
@@ -229,7 +229,7 @@ input[type="text"][name="date"] {
 .input-group .btn-primary:hover {
     background-color: #0056b3;
     border-color: #0056b3;
-}
+} */
 
 .table-container {
     overflow-x: auto;
@@ -301,7 +301,7 @@ input[type="text"][name="date"] {
     border-radius: 5px;
 }
 
-button[type="submit-update"], button[type="submit-delete"] {
+button[type="submit-update"], .delete-button {
     border: none;
     padding: 8px 12px;
     border-radius: 5px;
@@ -319,12 +319,12 @@ button[type="submit-update"]:hover {
     background-color: #0056b3;
 }
 
-button[type="submit-delete"] {
+.delete-button {
     background-color: #dc3545;
     color: white;
 }
 
-button[type="submit-delete"]:hover {
+.delete-button:hover {
     background-color: #c82333;
 }
 
