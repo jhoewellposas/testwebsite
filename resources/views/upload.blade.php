@@ -23,7 +23,7 @@
     <form action="{{ route('extractCertificateData') }}" method="post" enctype="multipart/form-data">
         @csrf
         <label for="certificate">Upload Certificate Image:</label>
-        <input type="file" name="certificate" id="certificate" accept="image/*" required>
+        <input type="file" name="certificates[]" id="certificates" accept="image/*" multiple required>
 
          <!-- Hidden input for teacher_id -->
         <input type="hidden" name="teacher_id" value="{{ $teacher_id }}">
@@ -31,5 +31,18 @@
         <button type="submit">Extract Data</button>
     </form>
     </div>
+
+    <!-- Display Success or Error Messages -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 </body>
 </html>

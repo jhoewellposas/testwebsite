@@ -12,6 +12,83 @@ class CertificateController extends Controller
 {
     public function extractCertificateData(Request $request)
     {
+        // Step 1: Validate and save the uploaded files
+        $request->validate([
+            'certificates.*' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validate multiple files
+            'teacher_id' => 'required|exists:teachers,id', // Validate teacher_id
+        ]);
+    
+        $certificates = $request->file('certificates');
+        $teacherId = $request->input('teacher_id');
+    
+        foreach ($certificates as $certificate) {
+            $path = $certificate->store('certificates', 'public');
+            $processedImagePath = storage_path("app/public/{$path}");
+    
+            // Step 2: Perform OCR on the processed image
+            $tesseract = new TesseractOCR($processedImagePath);
+            $text = $tesseract->run();
+    
+            if (empty($text)) {
+                return back()->with('error', "Failed to extract text from certificate: {$certificate->getClientOriginalName()}");
+            }
+    
+            // Step 3: Use OpenAI API to extract details
+            $openaiApiKey = env('OPENAI_API_KEY'); // Add your API key to the .env file
+            $openai = OpenAI::client($openaiApiKey);
+    
+            $response = $openai->chat()->create([
+                'model' => 'gpt-3.5-turbo',
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => 'You are a helpful assistant that extracts structured data from certificate text.',
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => "Extract the following details from this certificate text:\n\nText: {$text}\n\n1. Certificate Type\n2. Recipient Name\n3. Certificate Title\n4. Certificate Organization or Sponsor\n5. Recipient Designation or Role\n6. Date\n\nReturn the data in JSON format with keys: type, name, title, organization, designation, and date.",
+                    ],
+                ],
+            ]);
+    
+            $output = $response['choices'][0]['message']['content'] ?? '';
+    
+            // Parse OpenAI response
+            $parsedData = json_decode($output, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return back()->with('error', "Failed to parse OpenAI response for certificate: {$certificate->getClientOriginalName()}");
+            }
+    
+            // Categorize Certificates
+            $category = $this->categorizeCertificate($text);
+    
+            // Step 4: Prepare and save the extracted data
+            $data = [
+                'type' => $parsedData['type'] ?? 'Unknown',
+                'name' => $parsedData['name'] ?? 'Unknown',
+                'title' => $parsedData['title'] ?? 'Unknown',
+                'organization' => $parsedData['organization'] ?? 'Unknown',
+                'designation' => $parsedData['designation'] ?? 'Unknown',
+                'date' => $parsedData['date'] ?? 'Unknown',
+                'category' => $category,
+                'raw_text' => $text,
+                'teacher_id' => $teacherId,
+            ];
+    
+            Certificate::create($data);
+        }
+    
+        // Step 5: Redirect to the profile page with success message
+        return redirect()->route('profile', ['teacher_id' => $teacherId])
+            ->with('success', 'Certificates uploaded and processed successfully.');
+    }
+    
+
+
+/*
+    public function extractCertificateData(Request $request)
+    {
+
         // Step 1: Validate and save the uploaded file
         $request->validate([
             'certificate' => 'required|image|mimes:jpeg,png,jpg|max:2048',
@@ -79,21 +156,25 @@ class CertificateController extends Controller
         return redirect()->route('profile', ['teacher_id' => $request->input('teacher_id')])
             ->with('success', 'Certificate uploaded and processed successfully.');
     }
-
+*/
 
     private function categorizeCertificate($text)
 {
     $text = strtolower($text);
 
-    if (preg_match('/attendance|completion|conferences|trainings|participation/', $text)) {
+    if (preg_match('/attendance|completion|conferences|congress|trainings|participation/', $text)) {
         return 'seminar';
     }
 
-    if (preg_match('/runners-up|placer/', $text)) {
+    if (preg_match('/runner-up|placer/', $text)) {
         return 'honors_awards';
     }
 
-    if (preg_match('/author|judge|evaluator|coach|trainer|facilitator|researcher|speaker/', $text)) {
+    if (preg_match('/member|officer/', $text)) {
+        return 'membership';
+    }
+
+    if (preg_match('/author|judge|coach|consultant|trainer|facilitator|researcher|speaker/', $text)) {
         return 'scholarship_activities';
     }
 
@@ -384,7 +465,6 @@ class CertificateController extends Controller
         ],
     ];
 
-
     // Get certificates
     $allCertificates = $certificateQuery->get();
 
@@ -578,8 +658,8 @@ class CertificateController extends Controller
     ]);
 }
 */
-public function showSummary($teacherId)
-{
+    public function showSummary($teacherId)
+    {
     // Retrieve the selected teacher
     $teacher = Teacher::with('certificates')->findOrFail($teacherId);
 
@@ -746,6 +826,6 @@ public function showSummary($teacherId)
         'scaledCommunityGroupBPoints' => $scaledCommunityGroupBPoints,
         'totalPoints' => $totalPoints,
     ]);
-}
+    }
 
 }

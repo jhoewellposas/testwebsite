@@ -163,7 +163,7 @@
                 <th>Title</th>
                 <th>Organization/Sponsor</th>
                 <th>Designation</th>
-                <th>Number of Days</th>
+                <th>No. of Days</th>
                 <th>Inclusive Date</th>
                 <th>OCR Output</th>
                 <th>Points</th>
@@ -187,14 +187,14 @@
                             <option value="service_department" {{ $certificate->category == 'service_department' ? 'selected' : '' }}>Service to Department</option>
                             <option value="service_institution" {{ $certificate->category == 'service_institution' ? 'selected' : '' }}>Service to Institution</option>
                             <option value="participation_organizations" {{ $certificate->category == 'participation_organizations' ? 'selected' : '' }}>Active Participation in Different Organizations</option>
-                            <option value="involvement_department" {{ $certificate->category == 'involvement_department' ? 'selected' : '' }}>Active Involvement in Department/School Sponsored CES</option>
+                            <option value="involvement_department" {{ $certificate->category == 'involvement_department' ? 'selected' : '' }}>Active Involvement in Department</option>
                         </select>
                     </td>
                     <td><input type="text" name="type" value="{{ $certificate->type }}" required></td>
                     <td><input type="text" name="name" value="{{ $certificate->name }}" required></td>
-                    <td><input type="text" name="title" value="{{ $certificate->title }}" required></td>
-                    <td><input type="text" name="organization" value="{{ $certificate->organization }}" required></td>
-                    <td><input type="text" name="designation" value="{{ $certificate->designation }}" required></td>
+                    <td><textarea name="title">{{ $certificate->title }}</textarea></td>
+                    <td><textarea name="organization">{{ $certificate->organization }}</textarea></td>
+                    <td><textarea name="designation">{{ $certificate->designation }}</textarea></td>
                     <td><input type="text" name="days" value="{{ $certificate->days }}" required></td>
                     <td><input type="text" name="date" value="{{ $certificate->date }}" required></td>
                     <td><button type="button" class="btn btn-info ocr-result-btn" data-ocr="{{ $certificate->raw_text }}">View OCR Output</button></td>
@@ -218,8 +218,15 @@
     </table>
 </div>
 
+    <div class="mb-4 view-summary">
+            <a href="{{ route('summary', ['teacherId' => $teacher_id]) }}" class="btn btn-secondary">View Summary</a>
+        </div>
+    </div>
+
+
+
     <!-- JavaScript -->
-    <script src="{{ asset('javascript/autosizing.js') }}">
+    <!-- <script src="{{ asset('javascript/autosizing.js') }}"></script> -->
     <script src="{{ asset('javascript/popupwindow.js') }}"></script>
     <script>window.rankRequirements = @json($requirements);</script>
     <script src="{{ asset('javascript/rankRequirements.js') }}"></script>
