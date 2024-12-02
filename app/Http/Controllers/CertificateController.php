@@ -170,11 +170,11 @@ class CertificateController extends Controller
         return 'honors_awards';
     }
 
-    if (preg_match('/member|officer/', $text)) {
+    if (preg_match('/member|officer|panelist|workbook|adviser/', $text)) {
         return 'membership';
     }
 
-    if (preg_match('/author|judge|coach|consultant|trainer|facilitator|researcher|speaker/', $text)) {
+    if (preg_match('/book|judge|coach|consultant|trainer|facilitator|researcher|speaker/', $text)) {
         return 'scholarship_activities';
     }
 

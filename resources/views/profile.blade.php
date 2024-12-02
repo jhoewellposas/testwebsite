@@ -163,7 +163,7 @@
                 <th>Title</th>
                 <th>Organization/Sponsor</th>
                 <th>Designation</th>
-                <th>No. of Days</th>
+                <th>Number of Days</th>
                 <th>Inclusive Date</th>
                 <th>OCR Output</th>
                 <th>Points</th>
@@ -191,7 +191,7 @@
                         </select>
                     </td>
                     <td><input type="text" name="type" value="{{ $certificate->type }}" required></td>
-                    <td><input type="text" name="name" value="{{ $certificate->name }}" required></td>
+                    <td><textarea name="name">{{ $certificate->name }}</textarea></td>
                     <td><textarea name="title">{{ $certificate->title }}</textarea></td>
                     <td><textarea name="organization">{{ $certificate->organization }}</textarea></td>
                     <td><textarea name="designation">{{ $certificate->designation }}</textarea></td>
@@ -223,10 +223,8 @@
         </div>
     </div>
 
-
-
     <!-- JavaScript -->
-    <!-- <script src="{{ asset('javascript/autosizing.js') }}"></script> -->
+    <script src="{{ asset('javascript/autosizing.js') }}"></script>
     <script src="{{ asset('javascript/popupwindow.js') }}"></script>
     <script>window.rankRequirements = @json($requirements);</script>
     <script src="{{ asset('javascript/rankRequirements.js') }}"></script>

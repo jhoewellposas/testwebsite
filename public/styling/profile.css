@@ -199,6 +199,7 @@ input[type="text"][name="date"] {
     display: flex;
     align-items: stretch;
 }
+*/
 
 .input-group .form-control {
     width: 300px;
@@ -211,6 +212,7 @@ input[type="text"][name="date"] {
     margin: 0;
 }
 
+/*
 .input-group .btn-primary {
     height: 40px;
     border-radius: 0 5px 5px 0;
@@ -263,18 +265,27 @@ input[type="text"][name="date"] {
 }
 
 .table textarea {
-    resize: both;
+    resize: none;
     overflow: auto;
     height: auto;
     min-height: 30px;
 }
 
+/*
 .table th:nth-child(13), .table td:nth-child(13) {
     width: 60px;
     text-align: center;
     padding: 5px;
     vertical-align: middle;
 }
+
+ .table td:nth-child(10) {
+    width: 60px;
+    text-align: center;
+    padding: 5px;
+    vertical-align: middle;
+}
+*/
 
 .table td:nth-child(13) div {
     display: flex;
@@ -292,6 +303,17 @@ input[type="text"][name="date"] {
     margin: 0;
     padding: 25px;
 }
+
+.table td:nth-child(10) input {
+    width: 90%;
+    max-width: 50px;
+    height: 30px;
+    box-sizing: border-box;
+    text-align: center;
+    margin: 0;
+    padding: 25px;
+}
+
 
 #teacher_id, .form-control {
     width: 100%;
