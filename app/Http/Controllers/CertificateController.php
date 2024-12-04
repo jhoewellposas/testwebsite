@@ -46,7 +46,7 @@ class CertificateController extends Controller
                     ],
                     [
                         'role' => 'user',
-                        'content' => "Extract the following details from this certificate text:\n\nText: {$text}\n\n1. Certificate Type\n2. Recipient Name\n3. Certificate Title\n4. Certificate Organization or Sponsor\n5. Recipient Designation or Role\n6. Date\n\nReturn the data in JSON format with keys: type, name, title, organization, designation, and date.",
+                        'content' => "Extract the following details from this certificate text:\n\nText: {$text}\n\n1. Certificate Type\n2. Recipient Name\n3. Certificate Title\n4. Certificate Organization or Sponsor\n5. Recipient Designation or Role\n6. Count the number of days\n7. Date\n\nReturn the data in JSON format with keys: type, name, title, organization, designation, days and date.",
                     ],
                 ],
             ]);
@@ -61,7 +61,7 @@ class CertificateController extends Controller
     
             // Categorize Certificates
             $category = $this->categorizeCertificate($text);
-    
+
             // Step 4: Prepare and save the extracted data
             $data = [
                 'type' => $parsedData['type'] ?? 'Unknown',
@@ -69,6 +69,7 @@ class CertificateController extends Controller
                 'title' => $parsedData['title'] ?? 'Unknown',
                 'organization' => $parsedData['organization'] ?? 'Unknown',
                 'designation' => $parsedData['designation'] ?? 'Unknown',
+                'days' => is_numeric($parsedData['days']) ? $parsedData['days'] : 0,
                 'date' => $parsedData['date'] ?? 'Unknown',
                 'category' => $category,
                 'raw_text' => $text,
@@ -178,7 +179,7 @@ class CertificateController extends Controller
         return 'scholarship_activities';
     }
 
-    if (preg_match('/student service|service to students/', $text)) {
+    if (preg_match('/student service|service to students|organization/', $text)) {
         return 'service_students';
     }
 
@@ -194,7 +195,7 @@ class CertificateController extends Controller
         return 'participation_organizations';
     }
 
-    if (preg_match('/involvement in department|ces/', $text)) {
+    if (preg_match('/involvement in department|run and row|gk build|bike and plant/', $text)) {
         return 'involvement_department';
     }
 
