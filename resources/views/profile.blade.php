@@ -238,13 +238,12 @@
                     @endforelse
                 </tbody>
             </table>
-        </div>
-
-        <div class="mb-4 view-summary">
-                <a href="{{ route('summary', ['teacherId' => $teacher_id]) }}" class="btn btn-secondary">View Summary</a>
+            <div class="mb-4 view-summary-bottom">
+                <a href="{{ route('summary', ['teacherId' => $teacher_id]) }}" class="btn btn-secondary-bottom">View Summary</a>
             </div>
         </div>
-    </div>
+
+        
 
     <!-- JavaScript -->
     {{-- <script src="{{ asset('javascript/autosizing.js') }}"></script> --}}

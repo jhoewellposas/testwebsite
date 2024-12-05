@@ -260,15 +260,19 @@ input[type="text"][name="date"] {
     padding: 15px 2px;
     text-align: center;
     font-size: 16px;
+    resize: none;
+    overflow: auto;
+    height: auto;
+    min-height: 30px;
 }
 
 .table-container .table td input[type="text"] {
-    width: 100%;
-    min-width: 100px;
-    max-width: 100%;
+    width: fit-content;
     padding: 15px 2px;
     text-align: center;
     font-size: 16px;
+    height: auto;
+    min-height: 30px;
 }
 
 .table-container .table td input[type="text"][name="days"] {
@@ -278,6 +282,8 @@ input[type="text"][name="date"] {
     padding: 15px 2px;
     text-align: center;
     font-size: 16px;
+    height: auto;
+    min-height: 30px;
 }
 
 .table-container .table td input[type="text"][name="points"] {
@@ -287,6 +293,8 @@ input[type="text"][name="date"] {
     padding: 15px 2px;
     text-align: center;
     font-size: 16px;
+    height: auto;
+    min-height: 30px;
 }
 
 .table td:nth-child(8) {
@@ -305,13 +313,6 @@ input[type="text"][name="date"] {
     padding: 15px 2px;
     text-align: center;
     font-size: 16px;
-}
-
-.table textarea {
-    resize: none;
-    overflow: auto;
-    height: auto;
-    min-height: 30px;
 }
 
 .table td:nth-child(1) {
@@ -406,5 +407,10 @@ a[href*="summary"]:hover, .btn-secondary:hover {
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
+}
+
+.mb-4.view-summary-bottom {
+    display: flex;
+    justify-content: center;
 }
 
