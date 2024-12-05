@@ -85,8 +85,8 @@
                 <tr>
                 <td>
                 <select name="rank" id="rank">
-                    <option value="">Select Rank</option>
                     <option value="Unranked" {{ $selectedTeacher->rank == 'Unranked' ? 'selected' : '' }}>Unranked</option>
+                    <optgroup label="Basic Education Ranks">
                     <option value="Teacher 1" {{ $selectedTeacher->rank == 'Teacher 1' ? 'selected' : '' }}>Teacher 1</option>
                     <option value="Teacher 1 SQ" {{ $selectedTeacher->rank == 'Teacher 1 SQ' ? 'selected' : '' }}>Teacher 1 SQ</option>
                     <option value="Teacher 2" {{ $selectedTeacher->rank == 'Teacher 2' ? 'selected' : '' }}>Teacher 2</option>
@@ -115,6 +115,8 @@
                     <option value="Master Teacher 3 SQ" {{ $selectedTeacher->rank == 'Master Teacher 3 SQ' ? 'selected' : '' }}>Master Teacher 3 SQ</option>
                     <option value="Master Teacher 4" {{ $selectedTeacher->rank == 'Master Teacher 4' ? 'selected' : '' }}>Master Teacher 4</option>
                     <option value="Master Teacher 4 SQ" {{ $selectedTeacher->rank == 'Master Teacher 4 SQ' ? 'selected' : '' }}>Master Teacher 4 SQ</option>
+                    </optgroup>
+                    <optgroup label="Higher Education Ranks">
                     <option value="Lecturer 1" {{ $selectedTeacher->rank == 'Lecturer 1' ? 'selected' : '' }}>Lecturer 1</option>
                     <option value="Lecturer 1 SQ" {{ $selectedTeacher->rank == 'Lecturer 1 SQ' ? 'selected' : '' }}>Lecturer 1 SQ</option>
                     <option value="Lecturer 2" {{ $selectedTeacher->rank == 'Lecturer 2' ? 'selected' : '' }}>Lecturer 2</option>
@@ -122,7 +124,7 @@
                     <option value="Lecturer 3" {{ $selectedTeacher->rank == 'Lecturer 3' ? 'selected' : '' }}>Lecturer 3</option>
                     <option value="Lecturer 3 SQ" {{ $selectedTeacher->rank == 'Lecturer 3 SQ' ? 'selected' : '' }}>Lecturer 3 SQ</option>
                     <option value="Assistant Instructor" {{ $selectedTeacher->rank == 'Assistant Instructor' ? 'selected' : '' }}>Assistant Instructor</option>
-                    <option value="Assistant Instructor SQ" {{ $selectedTeacher->rank == 'Assistant Instructor' ? 'selected' : '' }}>Assistant Instructor</option>
+                    <option value="Assistant Instructor SQ" {{ $selectedTeacher->rank == 'Assistant Instructor SQ' ? 'selected' : '' }}>Assistant Instructor SQ</option>
                     <option value="Instructor 1" {{ $selectedTeacher->rank == 'Instructor 1' ? 'selected' : '' }}>Instructor 1</option>
                     <option value="Instructor 1 SQ" {{ $selectedTeacher->rank == 'Instructor 1 SQ' ? 'selected' : '' }}>Instructor 1 SQ</option>
                     <option value="Instructor 2" {{ $selectedTeacher->rank == 'Instructor 2' ? 'selected' : '' }}>Instructor 2</option>
@@ -143,6 +145,7 @@
                     <option value="Full Professor 2 SQ" {{ $selectedTeacher->rank == 'Full Professor 2 SQ' ? 'selected' : '' }}>Full Professor 2 SQ</option>
                     <option value="Full Professor 3" {{ $selectedTeacher->rank == 'Full Professor 3' ? 'selected' : '' }}>Full Professor 3</option>
                     <option value="Full Professor 3 SQ" {{ $selectedTeacher->rank == 'Full Professor 3 SQ' ? 'selected' : '' }}>Full Professor 3 SQ</option>
+                    </optgroup>
                 </select>
                 </td>
                 <td id="next-rank">Select a rank</td>
@@ -244,7 +247,6 @@
         </div>
 
         
-
     <!-- JavaScript -->
     {{-- <script src="{{ asset('javascript/autosizing.js') }}"></script> --}}
     <script src="{{ asset('javascript/popupwindow.js') }}"></script>

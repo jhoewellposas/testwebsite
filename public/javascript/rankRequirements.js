@@ -45,16 +45,34 @@ document.addEventListener('DOMContentLoaded', function () {
             currentRank = sqRankMapping[currentRank];
         }
 
-        // Get the next rank
+        // Define the rank orders for basic and higher requirements
+        const basicRankOrder = Object.keys(requirements).filter(rank =>
+            ['Teacher', 'Senior Teacher', 'Master Teacher'].some(prefix => rank.startsWith(prefix))
+        );
+        const higherRankOrder = Object.keys(requirements).filter(rank =>
+            ['Lecturer', 'Assistant Instructor', 'Instructor', 'Assistant Professor', 'Associate Professor', 'Full Professor'].some(prefix => rank.startsWith(prefix))
+        );
+
         let nextRank = null;
-        const rankOrder = Object.keys(requirements);
-        const currentIndex = rankOrder.indexOf(currentRank);
-        if (currentIndex !== -1 && currentIndex < rankOrder.length - 1) {
-            nextRank = rankOrder[currentIndex + 1];
+
+        if (basicRankOrder.includes(currentRank)) {
+            const currentIndex = basicRankOrder.indexOf(currentRank);
+            if (currentIndex !== -1 && currentIndex < basicRankOrder.length - 1) {
+                nextRank = basicRankOrder[currentIndex + 1];
+            }
+        } else if (higherRankOrder.includes(currentRank)) {
+            const currentIndex = higherRankOrder.indexOf(currentRank);
+            if (currentIndex !== -1 && currentIndex < higherRankOrder.length - 1) {
+                nextRank = higherRankOrder[currentIndex + 1];
+            }
         }
 
         // Update the table
-        if (nextRank) {
+        if (currentRank === 'Master Teacher 4') {
+            // Special case: Master Teacher 4 is the last rank in basicRequirements
+            nextRankCell.textContent = 'No further rank';
+            nextRequirementsCell.textContent = 'No further requirements';
+        } else if (nextRank) {
             nextRankCell.textContent = nextRank;
             nextRequirementsCell.innerHTML = requirements[nextRank]
                 .map(req => `<li>${req}</li>`)
