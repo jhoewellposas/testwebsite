@@ -288,7 +288,7 @@ class CertificateController extends Controller
     }
 
     // Requirements for ranks
-    $requirements = [
+    $basicRequirements = [
         'Teacher 1' => [
             'Must have earned 25% of MA academic requirements on his/her specialization',
             'Must have a very good/very satisfactory efficiency rating',
@@ -378,6 +378,9 @@ class CertificateController extends Controller
                 'Must have atleast 13 years teaching experience',
                 'Must have met all the requirements of Master Teacher 3'
         ],
+    ];
+
+    $higherRequirements = [
         'Lecturer 1' => [
                 'BS Degree Holder',
                 'Must have a Very Good/Very Satisfactory efficiency rating',
@@ -478,7 +481,8 @@ class CertificateController extends Controller
         'selectedTeacher' => $selectedTeacher, // Pass selected teacher's details
         'query' => $query,
         'teacher_id' => $teacherId, // Pass teacher_id for default selection
-        'requirements' => $requirements, // Pass rank requirements
+        'basicRequirements' => $basicRequirements, // Pass rank basic requirements
+        'higherRequirements' => $higherRequirements, // Pass rank higher requirements
     ]);
     }
 
@@ -547,41 +551,6 @@ class CertificateController extends Controller
 
     return view('upload', ['teacher_id' => $teacherId]);
     }
-
-
-/*    public function showSummary($teacherId)
-    {
-    // Retrieve the selected teacher
-    $teacher = Teacher::with('certificates')->findOrFail($teacherId);
-
-    // Calculate points for Productive Scholarship categories
-    $productiveScholarshipPoints = $teacher->certificates
-        ->whereIn('category', ['seminar', 'honors_awards', 'membership', 'scholarship_activities'])
-        ->sum('points');
-
-    // Calculate points for Community Extension Services categories
-    $communityExtensionPoints = $teacher->certificates
-        ->whereIn('category', ['service_students', 'service_department', 'service_institution', 'participation_organizations', 'involvement_department'])
-        ->sum('points');
-
-    // Use teacher's individual performance and experience
-    $performance = $teacher->performance;
-    $experience = $teacher->experience;
-
-    // Calculate the total points
-    $totalPoints = $performance + $productiveScholarshipPoints + $experience + $communityExtensionPoints;
-
-    // Pass data to the view
-    return view('summary', [
-        'teacher' => $teacher,
-        'performance' => $performance,
-        'productiveScholarshipPoints' => $productiveScholarshipPoints,
-        'experience' => $experience,
-        'communityExtensionPoints' => $communityExtensionPoints,
-        'totalPoints' => $totalPoints,
-    ]);
-    }
-    */
 
 /*
     public function showSummary($teacherId)
@@ -665,92 +634,280 @@ class CertificateController extends Controller
     $teacher = Teacher::with('certificates')->findOrFail($teacherId);
 
     // Define percentage distributions for each rank
+    $commonDistribution = [
+        'productiveGroupAPercentage' => 0.8, // 80%
+        'productiveGroupBPercentage' => 0.2, // 20%
+        'communityGroupAPercentage' => 0.7, // 70%
+        'communityGroupBPercentage' => 0.3, // 30%
+    ];
+    
     $rankDistributions = [
-        'Teacher 1' => [
-            'productiveGroupAPercentage' => 0.8, // 80%
-            'productiveGroupBPercentage' => 0.2, // 20%
-            'communityGroupAPercentage' => 0.7, // 70%
-            'communityGroupBPercentage' => 0.3, // 30%
-        ],
-        'Teacher 2' => [
-            'productiveGroupAPercentage' => 0.8,
-            'productiveGroupBPercentage' => 0.2,
-            'communityGroupAPercentage' => 0.7,
-            'communityGroupBPercentage' => 0.3,
-        ],
-        'Teacher 3' => [
-            'productiveGroupAPercentage' => 0.8,
-            'productiveGroupBPercentage' => 0.2,
-            'communityGroupAPercentage' => 0.7,
-            'communityGroupBPercentage' => 0.3,
-        ],
+        'Teacher 1' => $commonDistribution,
+        'Teacher 2' => $commonDistribution,
+        'Teacher 3' => $commonDistribution,
+        'Lecturer 1' => $commonDistribution,
+        'Lecturer 2' => $commonDistribution,
+        'Lecturer 3' => $commonDistribution,
+        
         'Teacher 4' => [
+            'productiveGroupAPercentage' => 0.75,
+            'productiveGroupBPercentage' => 0.25,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Teacher 4 SQ' => [
             'productiveGroupAPercentage' => 0.8,
             'productiveGroupBPercentage' => 0.2,
             'communityGroupAPercentage' => 0.7,
             'communityGroupBPercentage' => 0.3,
         ],
         'Assistant Instructor' => [
-            'productiveGroupAPercentage' => 0.8,
-            'productiveGroupBPercentage' => 0.2,
-            'communityGroupAPercentage' => 0.7,
-            'communityGroupBPercentage' => 0.3,
-        ],
-        'Instructor 1' => [
             'productiveGroupAPercentage' => 0.75,
             'productiveGroupBPercentage' => 0.25,
             'communityGroupAPercentage' => 0.65,
             'communityGroupBPercentage' => 0.35,
         ],
-        'Instructor 2' => [
+        'Assistant Instructor SQ' => [
+            'productiveGroupAPercentage' => 0.8,
+            'productiveGroupBPercentage' => 0.2,
+            'communityGroupAPercentage' => 0.7,
+            'communityGroupBPercentage' => 0.3,
+        ],
+        'Teacher 5' => [
             'productiveGroupAPercentage' => 0.7,
             'productiveGroupBPercentage' => 0.3,
             'communityGroupAPercentage' => 0.65,
             'communityGroupBPercentage' => 0.35,
         ],
-        'Instructor 3' => [
+        'Teacher 5 SQ' => [
+            'productiveGroupAPercentage' => 0.75,
+            'productiveGroupBPercentage' => 0.25,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Instructor 1' => [
+            'productiveGroupAPercentage' => 0.7,
+            'productiveGroupBPercentage' => 0.3,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Instructor 1 SQ' => [
+            'productiveGroupAPercentage' => 0.75,
+            'productiveGroupBPercentage' => 0.25,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Senior Teacher 1' => [
             'productiveGroupAPercentage' => 0.65,
             'productiveGroupBPercentage' => 0.35,
             'communityGroupAPercentage' => 0.65,
             'communityGroupBPercentage' => 0.35,
         ],
-        'Assistant Professor 1' => [
+        'Senior Teacher 1 SQ' => [
+            'productiveGroupAPercentage' => 0.7,
+            'productiveGroupBPercentage' => 0.3,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Instructor 2' => [
+            'productiveGroupAPercentage' => 0.65,
+            'productiveGroupBPercentage' => 0.35,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Instructor 2 SQ' => [
+            'productiveGroupAPercentage' => 0.7,
+            'productiveGroupBPercentage' => 0.3,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Senior Teacher 2' => [
             'productiveGroupAPercentage' => 0.6,
             'productiveGroupBPercentage' => 0.4,
             'communityGroupAPercentage' => 0.6,
             'communityGroupBPercentage' => 0.4,
         ],
-        'Assistant Professor 2' => [
+        'Senior Teacher 2 SQ' => [
+            'productiveGroupAPercentage' => 0.65,
+            'productiveGroupBPercentage' => 0.35,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Instructor 3' => [
+            'productiveGroupAPercentage' => 0.6,
+            'productiveGroupBPercentage' => 0.4,
+            'communityGroupAPercentage' => 0.6,
+            'communityGroupBPercentage' => 0.4,
+        ],
+        'Instructor 3 SQ' => [
+            'productiveGroupAPercentage' => 0.65,
+            'productiveGroupBPercentage' => 0.35,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
+        ],
+        'Senior Teacher 3' => [
             'productiveGroupAPercentage' => 0.55,
             'productiveGroupBPercentage' => 0.45,
             'communityGroupAPercentage' => 0.6,
             'communityGroupBPercentage' => 0.4,
         ],
-        'Associate Professor 1' => [
+        'Senior Teacher 3 SQ' => [
+            'productiveGroupAPercentage' => 0.6,
+            'productiveGroupBPercentage' => 0.4,
+            'communityGroupAPercentage' => 0.6,
+            'communityGroupBPercentage' => 0.4,
+        ],
+        'Assistant Professor 1' => [
+            'productiveGroupAPercentage' => 0.55,
+            'productiveGroupBPercentage' => 0.45,
+            'communityGroupAPercentage' => 0.6,
+            'communityGroupBPercentage' => 0.4,
+        ],
+        'Assistant Professor 1 SQ' => [
+            'productiveGroupAPercentage' => 0.6,
+            'productiveGroupBPercentage' => 0.4,
+            'communityGroupAPercentage' => 0.6,
+            'communityGroupBPercentage' => 0.4,
+        ],
+        'Senior Teacher 4' => [
             'productiveGroupAPercentage' => 0.5,
             'productiveGroupBPercentage' => 0.5,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
-        'Associate Professor 2' => [
+        'Senior Teacher 4 SQ' => [
+            'productiveGroupAPercentage' => 0.55,
+            'productiveGroupBPercentage' => 0.45,
+            'communityGroupAPercentage' => 0.6,
+            'communityGroupBPercentage' => 0.4,
+        ],
+        'Assistant Professor 2' => [
+            'productiveGroupAPercentage' => 0.5,
+            'productiveGroupBPercentage' => 0.5,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Assistant Professor 2 SQ' => [
+            'productiveGroupAPercentage' => 0.55,
+            'productiveGroupBPercentage' => 0.45,
+            'communityGroupAPercentage' => 0.6,
+            'communityGroupBPercentage' => 0.4,
+        ],
+        'Senior Teacher 5' => [
             'productiveGroupAPercentage' => 0.45,
             'productiveGroupBPercentage' => 0.55,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
-        'Full Professor 1' => [
+        'Senior Teacher 5 SQ' => [
+            'productiveGroupAPercentage' => 0.5,
+            'productiveGroupBPercentage' => 0.5,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Associate Professor 1' => [
+            'productiveGroupAPercentage' => 0.45,
+            'productiveGroupBPercentage' => 0.55,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Associate Professor 1 SQ' => [
+            'productiveGroupAPercentage' => 0.5,
+            'productiveGroupBPercentage' => 0.5,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Master Teacher 1' => [
             'productiveGroupAPercentage' => 0.4,
             'productiveGroupBPercentage' => 0.6,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
-        'Full Professor 2' => [
+        'Master Teacher 1 SQ' => [
+            'productiveGroupAPercentage' => 0.45,
+            'productiveGroupBPercentage' => 0.55,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Associate Professor 2' => [
+            'productiveGroupAPercentage' => 0.4,
+            'productiveGroupBPercentage' => 0.6,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Associate Professor 2 SQ' => [
+            'productiveGroupAPercentage' => 0.45,
+            'productiveGroupBPercentage' => 0.55,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Master Teacher 2' => [
             'productiveGroupAPercentage' => 0.35,
             'productiveGroupBPercentage' => 0.65,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
+        'Master Teacher 2 SQ' => [
+            'productiveGroupAPercentage' => 0.4,
+            'productiveGroupBPercentage' => 0.6,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Full Professor 1' => [
+            'productiveGroupAPercentage' => 0.35,
+            'productiveGroupBPercentage' => 0.65,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Full Professor 1 SQ' => [
+            'productiveGroupAPercentage' => 0.4,
+            'productiveGroupBPercentage' => 0.6,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Master Teacher 3' => [
+            'productiveGroupAPercentage' => 0.3,
+            'productiveGroupBPercentage' => 0.7,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Master Teacher 3 SQ' => [
+            'productiveGroupAPercentage' => 0.35,
+            'productiveGroupBPercentage' => 0.65,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Full Professor 2' => [
+            'productiveGroupAPercentage' => 0.3,
+            'productiveGroupBPercentage' => 0.7,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Full Professor 2 SQ' => [
+            'productiveGroupAPercentage' => 0.35,
+            'productiveGroupBPercentage' => 0.65,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Master Teacher 4' => [
+            'productiveGroupAPercentage' => 0.3,
+            'productiveGroupBPercentage' => 0.7,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Master Teacher 4 SQ' => [
+            'productiveGroupAPercentage' => 0.3,
+            'productiveGroupBPercentage' => 0.7,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
         'Full Professor 3' => [
+            'productiveGroupAPercentage' => 0.3,
+            'productiveGroupBPercentage' => 0.7,
+            'communityGroupAPercentage' => 0.5,
+            'communityGroupBPercentage' => 0.5,
+        ],
+        'Full Professor 3 SQ' => [
             'productiveGroupAPercentage' => 0.3,
             'productiveGroupBPercentage' => 0.7,
             'communityGroupAPercentage' => 0.5,
@@ -769,11 +926,11 @@ class CertificateController extends Controller
 
     // Calculate points for Productive Scholarship categories
     $productiveGroupAPoints = $teacher->certificates
-        ->whereIn('category', ['seminar', 'membership'])
+        ->whereIn('category', ['seminar', 'membership', 'scholarship_activities_a'])
         ->sum('points');
 
     $productiveGroupBPoints = $teacher->certificates
-        ->whereIn('category', ['honors_awards', 'scholarship_activities'])
+        ->whereIn('category', ['honors_awards', 'scholarship_activities_b'])
         ->sum('points');
 
     // Scale Productive Scholarship Points to a maximum of 15.0

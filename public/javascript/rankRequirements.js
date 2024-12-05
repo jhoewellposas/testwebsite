@@ -5,8 +5,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const requirements = window.rankRequirements || {};
 
+    // Create a mapping for SQ ranks to their corresponding base ranks
+    const sqRankMapping = {
+        'Teacher 1 SQ': 'Teacher 1',
+        'Teacher 2 SQ': 'Teacher 2',
+        'Teacher 3 SQ': 'Teacher 3',
+        'Teacher 4 SQ': 'Teacher 4',
+        'Teacher 5 SQ': 'Teacher 5',
+        'Senior Teacher 1 SQ': 'Senior Teacher 1',
+        'Senior Teacher 2 SQ': 'Senior Teacher 2',
+        'Senior Teacher 3 SQ': 'Senior Teacher 3',
+        'Senior Teacher 4 SQ': 'Senior Teacher 4',
+        'Senior Teacher 5 SQ': 'Senior Teacher 5',
+        'Master Teacher 1 SQ': 'Master Teacher 1',
+        'Master Teacher 2 SQ': 'Master Teacher 2',
+        'Master Teacher 3 SQ': 'Master Teacher 3',
+        'Master Teacher 4 SQ': 'Master Teacher 4',
+        'Lecturer 1 SQ': 'Lecturer 1',
+        'Lecturer 2 SQ': 'Lecturer 2',
+        'Lecturer 3 SQ': 'Lecturer 3',
+        'Assistant Instructor SQ': 'Assistant Instructor',
+        'Instructor 1 SQ': 'Instructor 1',
+        'Instructor 2 SQ': 'Instructor 2',
+        'Instructor 3 SQ': 'Instructor 3',
+        'Assistant Professor 1 SQ': 'Assistant Professor 1',
+        'Assistant Professor 2 SQ': 'Assistant Professor 2',
+        'Associate Professor 1 SQ': 'Associate Professor 1',
+        'Associate Professor 2 SQ': 'Associate Professor 2',
+        'Full Professor 1 SQ': 'Full Professor 1',
+        'Full Professor 2 SQ': 'Full Professor 2',
+        'Full Professor 3 SQ': 'Full Professor 3'
+    };
+
     rankSelect.addEventListener('change', function () {
-        const currentRank = rankSelect.value;
+        let currentRank = rankSelect.value;
+
+        // If the selected rank is an SQ rank, map it to the base rank
+        if (sqRankMapping[currentRank]) {
+            currentRank = sqRankMapping[currentRank];
+        }
 
         // Get the next rank
         let nextRank = null;
