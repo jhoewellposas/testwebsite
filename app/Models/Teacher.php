@@ -19,7 +19,8 @@ class Teacher extends Model
     'date',
     'office',
     'points',
-    'rank',
+    'present_rank',
+    'next_rank',
     ];
 
     public function certificates()

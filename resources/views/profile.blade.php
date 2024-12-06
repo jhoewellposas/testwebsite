@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="{{ asset('styling/profile.css') }}">
-
+    <link rel="icon" href="{{ asset('FSUU Logo/fsuu2_1.png') }}" type="image/png">
     <title>Profile</title>
 </head>
 <body>
@@ -73,82 +73,119 @@
                 </select> 
             </div>
 
+            <div>
+                <label for="present_rank">Present Rank</label>
+                <select name="present_rank" id="present_rank">
+                    <option value="Unranked" {{ $selectedTeacher->present_rank == 'Unranked' ? 'selected' : '' }}>Unranked</option>
+                    <optgroup label="Basic Education Ranks">
+                    <option value="Teacher 1" {{ $selectedTeacher->present_rank == 'Teacher 1' ? 'selected' : '' }}>Teacher 1</option>
+                    <option value="Teacher 2" {{ $selectedTeacher->present_rank == 'Teacher 2' ? 'selected' : '' }}>Teacher 2</option>
+                    <option value="Teacher 3" {{ $selectedTeacher->present_rank == 'Teacher 3' ? 'selected' : '' }}>Teacher 3</option>
+                    <option value="Teacher 4" {{ $selectedTeacher->present_rank == 'Teacher 4' ? 'selected' : '' }}>Teacher 4</option>
+                    <option value="Teacher 5" {{ $selectedTeacher->present_rank == 'Teacher 5' ? 'selected' : '' }}>Teacher 5</option>
+                    <option value="Senior Teacher 1" {{ $selectedTeacher->present_rank == 'Senior Teacher 1' ? 'selected' : '' }}>Senior Teacher 1</option>
+                    <option value="Senior Teacher 2" {{ $selectedTeacher->present_rank == 'Senior Teacher 2' ? 'selected' : '' }}>Senior Teacher 2</option>
+                    <option value="Senior Teacher 3" {{ $selectedTeacher->present_rank == 'Senior Teacher 3' ? 'selected' : '' }}>Senior Teacher 3</option>
+                    <option value="Senior Teacher 4" {{ $selectedTeacher->present_rank == 'Senior Teacher 4' ? 'selected' : '' }}>Senior Teacher 4</option>
+                    <option value="Senior Teacher 5" {{ $selectedTeacher->present_rank == 'Senior Teacher 5' ? 'selected' : '' }}>Senior Teacher 5</option>
+                    <option value="Master Teacher 1" {{ $selectedTeacher->present_rank == 'Master Teacher 1' ? 'selected' : '' }}>Master Teacher 1</option>
+                    <option value="Master Teacher 2" {{ $selectedTeacher->present_rank == 'Master Teacher 2' ? 'selected' : '' }}>Master Teacher 2</option>
+                    <option value="Master Teacher 3" {{ $selectedTeacher->present_rank == 'Master Teacher 3' ? 'selected' : '' }}>Master Teacher 3</option>
+                    <option value="Master Teacher 4" {{ $selectedTeacher->present_rank == 'Master Teacher 4' ? 'selected' : '' }}>Master Teacher 4</option>
+                    </optgroup>
+                    <optgroup label="Higher Education Ranks">
+                    <option value="Lecturer 1" {{ $selectedTeacher->present_rank == 'Lecturer 1' ? 'selected' : '' }}>Lecturer 1</option>
+                    <option value="Lecturer 2" {{ $selectedTeacher->present_rank == 'Lecturer 2' ? 'selected' : '' }}>Lecturer 2</option>
+                    <option value="Lecturer 3" {{ $selectedTeacher->present_rank == 'Lecturer 3' ? 'selected' : '' }}>Lecturer 3</option>
+                    <option value="Assistant Instructor" {{ $selectedTeacher->present_rank == 'Assistant Instructor' ? 'selected' : '' }}>Assistant Instructor</option>
+                    <option value="Instructor 1" {{ $selectedTeacher->present_rank == 'Instructor 1' ? 'selected' : '' }}>Instructor 1</option>
+                    <option value="Instructor 2" {{ $selectedTeacher->present_rank == 'Instructor 2' ? 'selected' : '' }}>Instructor 2</option>
+                    <option value="Instructor 3" {{ $selectedTeacher->present_rank == 'Instructor 3' ? 'selected' : '' }}>Instructor 3</option>
+                    <option value="Assistant Professor 1" {{ $selectedTeacher->present_rank == 'Assistant Professor 1' ? 'selected' : '' }}>Assistant Professor 1</option>
+                    <option value="Assistant Professor 2" {{ $selectedTeacher->present_rank == 'Assistant Professor 2' ? 'selected' : '' }}>Assistant Professor 2</option>
+                    <option value="Associate Professor 1" {{ $selectedTeacher->present_rank == 'Associate Professor 1' ? 'selected' : '' }}>Associate Professor 1</option>
+                    <option value="Associate Professor 2" {{ $selectedTeacher->present_rank == 'Associate Professor 2' ? 'selected' : '' }}>Associate Professor 2</option>
+                    <option value="Full Professor 1" {{ $selectedTeacher->present_rank == 'Full Professor 1' ? 'selected' : '' }}>Full Professor 1</option>
+                    <option value="Full Professor 2" {{ $selectedTeacher->present_rank == 'Full Professor 2' ? 'selected' : '' }}>Full Professor 2</option>
+                    <option value="Full Professor 3" {{ $selectedTeacher->present_rank == 'Full Professor 3' ? 'selected' : '' }}>Full Professor 3</option>
+                    </optgroup>
+                </select>
+            </div>
+
             <div class="requirement-table grid-item">
                 <table class="table-rank" border="1">
                     <thead>
                         <tr>
-                            <th>Present Rank</th>
                             <th>Next Rank</th>
                             <th>Next Rank Requirements</th>
                         </tr>
                     </thead>
                 <tr>
                 <td>
-                <select name="rank" id="rank">
-                    <option value="Unranked" {{ $selectedTeacher->rank == 'Unranked' ? 'selected' : '' }}>Unranked</option>
+                <select name="next_rank" id="next_rank">
+                    <option value="">Select Rank</option>
                     <optgroup label="Basic Education Ranks">
-                    <option value="Teacher 1" {{ $selectedTeacher->rank == 'Teacher 1' ? 'selected' : '' }}>Teacher 1</option>
-                    <option value="Teacher 1 SQ" {{ $selectedTeacher->rank == 'Teacher 1 SQ' ? 'selected' : '' }}>Teacher 1 SQ</option>
-                    <option value="Teacher 2" {{ $selectedTeacher->rank == 'Teacher 2' ? 'selected' : '' }}>Teacher 2</option>
-                    <option value="Teacher 2 SQ" {{ $selectedTeacher->rank == 'Teacher 2 SQ' ? 'selected' : '' }}>Teacher 2 SQ</option>
-                    <option value="Teacher 3" {{ $selectedTeacher->rank == 'Teacher 3' ? 'selected' : '' }}>Teacher 3</option>
-                    <option value="Teacher 3 SQ" {{ $selectedTeacher->rank == 'Teacher 3 SQ' ? 'selected' : '' }}>Teacher 3 SQ</option>
-                    <option value="Teacher 4" {{ $selectedTeacher->rank == 'Teacher 4' ? 'selected' : '' }}>Teacher 4</option>
-                    <option value="Teacher 4 SQ" {{ $selectedTeacher->rank == 'Teacher 4 SQ' ? 'selected' : '' }}>Teacher 4 SQ</option>
-                    <option value="Teacher 5" {{ $selectedTeacher->rank == 'Teacher 5' ? 'selected' : '' }}>Teacher 5</option>
-                    <option value="Teacher 5 SQ" {{ $selectedTeacher->rank == 'Teacher 5 SQ' ? 'selected' : '' }}>Teacher 5 SQ</option>
-                    <option value="Senior Teacher 1" {{ $selectedTeacher->rank == 'Senior Teacher 1' ? 'selected' : '' }}>Senior Teacher 1</option>
-                    <option value="Senior Teacher 1 SQ" {{ $selectedTeacher->rank == 'Senior Teacher 1 SQ' ? 'selected' : '' }}>Senior Teacher SQ</option>
-                    <option value="Senior Teacher 2" {{ $selectedTeacher->rank == 'Senior Teacher 2' ? 'selected' : '' }}>Senior Teacher 2</option>
-                    <option value="Senior Teacher 2 SQ" {{ $selectedTeacher->rank == 'Senior Teacher 2 SQ' ? 'selected' : '' }}>Senior Teacher 2 SQ</option>
-                    <option value="Senior Teacher 3" {{ $selectedTeacher->rank == 'Senior Teacher 3' ? 'selected' : '' }}>Senior Teacher 3</option>
-                    <option value="Senior Teacher 3 SQ" {{ $selectedTeacher->rank == 'Senior Teacher 3 SQ' ? 'selected' : '' }}>Senior Teacher 3 SQ</option>
-                    <option value="Senior Teacher 4" {{ $selectedTeacher->rank == 'Senior Teacher 4' ? 'selected' : '' }}>Senior Teacher 4</option>
-                    <option value="Senior Teacher 4 SQ" {{ $selectedTeacher->rank == 'Senior Teacher 4 SQ' ? 'selected' : '' }}>Senior Teacher 4 SQ</option>
-                    <option value="Senior Teacher 5" {{ $selectedTeacher->rank == 'Senior Teacher 5' ? 'selected' : '' }}>Senior Teacher 5</option>
-                    <option value="Senior Teacher 5 SQ" {{ $selectedTeacher->rank == 'Senior Teacher 5 SQ' ? 'selected' : '' }}>Senior Teacher 5 SQ</option>
-                    <option value="Master Teacher 1" {{ $selectedTeacher->rank == 'Master Teacher 1' ? 'selected' : '' }}>Master Teacher 1</option>
-                    <option value="Master Teacher 1 SQ" {{ $selectedTeacher->rank == 'Master Teacher 1 SQ' ? 'selected' : '' }}>Master Teacher 1 SQ</option>
-                    <option value="Master Teacher 2" {{ $selectedTeacher->rank == 'Master Teacher 2' ? 'selected' : '' }}>Master Teacher 2</option>
-                    <option value="Master Teacher 2 SQ" {{ $selectedTeacher->rank == 'Master Teacher 2 SQ' ? 'selected' : '' }}>Master Teacher 2 SQ</option>
-                    <option value="Master Teacher 3" {{ $selectedTeacher->rank == 'Master Teacher 3' ? 'selected' : '' }}>Master Teacher 3</option>
-                    <option value="Master Teacher 3 SQ" {{ $selectedTeacher->rank == 'Master Teacher 3 SQ' ? 'selected' : '' }}>Master Teacher 3 SQ</option>
-                    <option value="Master Teacher 4" {{ $selectedTeacher->rank == 'Master Teacher 4' ? 'selected' : '' }}>Master Teacher 4</option>
-                    <option value="Master Teacher 4 SQ" {{ $selectedTeacher->rank == 'Master Teacher 4 SQ' ? 'selected' : '' }}>Master Teacher 4 SQ</option>
+                    <option value="Teacher 1" {{ $selectedTeacher->next_rank == 'Teacher 1' ? 'selected' : '' }}>Teacher 1</option>
+                    <option value="Teacher 1 SQ" {{ $selectedTeacher->next_rank == 'Teacher 1 SQ' ? 'selected' : '' }}>Teacher 1 SQ</option>
+                    <option value="Teacher 2" {{ $selectedTeacher->next_rank == 'Teacher 2' ? 'selected' : '' }}>Teacher 2</option>
+                    <option value="Teacher 2 SQ" {{ $selectedTeacher->next_rank == 'Teacher 2 SQ' ? 'selected' : '' }}>Teacher 2 SQ</option>
+                    <option value="Teacher 3" {{ $selectedTeacher->next_rank == 'Teacher 3' ? 'selected' : '' }}>Teacher 3</option>
+                    <option value="Teacher 3 SQ" {{ $selectedTeacher->next_rank == 'Teacher 3 SQ' ? 'selected' : '' }}>Teacher 3 SQ</option>
+                    <option value="Teacher 4" {{ $selectedTeacher->next_rank == 'Teacher 4' ? 'selected' : '' }}>Teacher 4</option>
+                    <option value="Teacher 4 SQ" {{ $selectedTeacher->next_rank == 'Teacher 4 SQ' ? 'selected' : '' }}>Teacher 4 SQ</option>
+                    <option value="Teacher 5" {{ $selectedTeacher->next_rank == 'Teacher 5' ? 'selected' : '' }}>Teacher 5</option>
+                    <option value="Teacher 5 SQ" {{ $selectedTeacher->next_rank == 'Teacher 5 SQ' ? 'selected' : '' }}>Teacher 5 SQ</option>
+                    <option value="Senior Teacher 1" {{ $selectedTeacher->next_rank == 'Senior Teacher 1' ? 'selected' : '' }}>Senior Teacher 1</option>
+                    <option value="Senior Teacher 1 SQ" {{ $selectedTeacher->next_rank == 'Senior Teacher 1 SQ' ? 'selected' : '' }}>Senior Teacher SQ</option>
+                    <option value="Senior Teacher 2" {{ $selectedTeacher->next_rank == 'Senior Teacher 2' ? 'selected' : '' }}>Senior Teacher 2</option>
+                    <option value="Senior Teacher 2 SQ" {{ $selectedTeacher->next_rank == 'Senior Teacher 2 SQ' ? 'selected' : '' }}>Senior Teacher 2 SQ</option>
+                    <option value="Senior Teacher 3" {{ $selectedTeacher->next_rank == 'Senior Teacher 3' ? 'selected' : '' }}>Senior Teacher 3</option>
+                    <option value="Senior Teacher 3 SQ" {{ $selectedTeacher->next_rank == 'Senior Teacher 3 SQ' ? 'selected' : '' }}>Senior Teacher 3 SQ</option>
+                    <option value="Senior Teacher 4" {{ $selectedTeacher->next_rank == 'Senior Teacher 4' ? 'selected' : '' }}>Senior Teacher 4</option>
+                    <option value="Senior Teacher 4 SQ" {{ $selectedTeacher->next_rank == 'Senior Teacher 4 SQ' ? 'selected' : '' }}>Senior Teacher 4 SQ</option>
+                    <option value="Senior Teacher 5" {{ $selectedTeacher->next_rank == 'Senior Teacher 5' ? 'selected' : '' }}>Senior Teacher 5</option>
+                    <option value="Senior Teacher 5 SQ" {{ $selectedTeacher->next_rank == 'Senior Teacher 5 SQ' ? 'selected' : '' }}>Senior Teacher 5 SQ</option>
+                    <option value="Master Teacher 1" {{ $selectedTeacher->next_rank == 'Master Teacher 1' ? 'selected' : '' }}>Master Teacher 1</option>
+                    <option value="Master Teacher 1 SQ" {{ $selectedTeacher->next_rank == 'Master Teacher 1 SQ' ? 'selected' : '' }}>Master Teacher 1 SQ</option>
+                    <option value="Master Teacher 2" {{ $selectedTeacher->next_rank == 'Master Teacher 2' ? 'selected' : '' }}>Master Teacher 2</option>
+                    <option value="Master Teacher 2 SQ" {{ $selectedTeacher->next_rank == 'Master Teacher 2 SQ' ? 'selected' : '' }}>Master Teacher 2 SQ</option>
+                    <option value="Master Teacher 3" {{ $selectedTeacher->next_rank == 'Master Teacher 3' ? 'selected' : '' }}>Master Teacher 3</option>
+                    <option value="Master Teacher 3 SQ" {{ $selectedTeacher->next_rank == 'Master Teacher 3 SQ' ? 'selected' : '' }}>Master Teacher 3 SQ</option>
+                    <option value="Master Teacher 4" {{ $selectedTeacher->next_rank == 'Master Teacher 4' ? 'selected' : '' }}>Master Teacher 4</option>
+                    <option value="Master Teacher 4 SQ" {{ $selectedTeacher->next_rank == 'Master Teacher 4 SQ' ? 'selected' : '' }}>Master Teacher 4 SQ</option>
                     </optgroup>
                     <optgroup label="Higher Education Ranks">
-                    <option value="Lecturer 1" {{ $selectedTeacher->rank == 'Lecturer 1' ? 'selected' : '' }}>Lecturer 1</option>
-                    <option value="Lecturer 1 SQ" {{ $selectedTeacher->rank == 'Lecturer 1 SQ' ? 'selected' : '' }}>Lecturer 1 SQ</option>
-                    <option value="Lecturer 2" {{ $selectedTeacher->rank == 'Lecturer 2' ? 'selected' : '' }}>Lecturer 2</option>
-                    <option value="Lecturer 2 SQ" {{ $selectedTeacher->rank == 'Lecturer 2 SQ' ? 'selected' : '' }}>Lecturer 2 SQ</option>
-                    <option value="Lecturer 3" {{ $selectedTeacher->rank == 'Lecturer 3' ? 'selected' : '' }}>Lecturer 3</option>
-                    <option value="Lecturer 3 SQ" {{ $selectedTeacher->rank == 'Lecturer 3 SQ' ? 'selected' : '' }}>Lecturer 3 SQ</option>
-                    <option value="Assistant Instructor" {{ $selectedTeacher->rank == 'Assistant Instructor' ? 'selected' : '' }}>Assistant Instructor</option>
-                    <option value="Assistant Instructor SQ" {{ $selectedTeacher->rank == 'Assistant Instructor SQ' ? 'selected' : '' }}>Assistant Instructor SQ</option>
-                    <option value="Instructor 1" {{ $selectedTeacher->rank == 'Instructor 1' ? 'selected' : '' }}>Instructor 1</option>
-                    <option value="Instructor 1 SQ" {{ $selectedTeacher->rank == 'Instructor 1 SQ' ? 'selected' : '' }}>Instructor 1 SQ</option>
-                    <option value="Instructor 2" {{ $selectedTeacher->rank == 'Instructor 2' ? 'selected' : '' }}>Instructor 2</option>
-                    <option value="Instructor 2 SQ" {{ $selectedTeacher->rank == 'Instructor 2 SQ' ? 'selected' : '' }}>Instructor 2 SQ</option>
-                    <option value="Instructor 3" {{ $selectedTeacher->rank == 'Instructor 3' ? 'selected' : '' }}>Instructor 3</option>
-                    <option value="Instructor 3 SQ" {{ $selectedTeacher->rank == 'Instructor 3 SQ' ? 'selected' : '' }}>Instructor 3 SQ</option>
-                    <option value="Assistant Professor 1" {{ $selectedTeacher->rank == 'Assistant Professor 1' ? 'selected' : '' }}>Assistant Professor 1</option>
-                    <option value="Assistant Professor 1 SQ" {{ $selectedTeacher->rank == 'Assistant Professor 1 SQ' ? 'selected' : '' }}>Assistant Professor 1 SQ</option>
-                    <option value="Assistant Professor 2" {{ $selectedTeacher->rank == 'Assistant Professor 2' ? 'selected' : '' }}>Assistant Professor 2</option>
-                    <option value="Assistant Professor 2 SQ" {{ $selectedTeacher->rank == 'Assistant Professor 2 SQ' ? 'selected' : '' }}>Assistant Professor 2 SQ</option>
-                    <option value="Associate Professor 1" {{ $selectedTeacher->rank == 'Associate Professor 1' ? 'selected' : '' }}>Associate Professor 1</option>
-                    <option value="Associate Professor 1 SQ" {{ $selectedTeacher->rank == 'Associate Professor 1 SQ' ? 'selected' : '' }}>Associate Professor 1 SQ</option>
-                    <option value="Associate Professor 2" {{ $selectedTeacher->rank == 'Associate Professor 2' ? 'selected' : '' }}>Associate Professor 2</option>
-                    <option value="Associate Professor 2 SQ" {{ $selectedTeacher->rank == 'Associate Professor 2 SQ' ? 'selected' : '' }}>Associate Professor 2 SQ</option>
-                    <option value="Full Professor 1" {{ $selectedTeacher->rank == 'Full Professor 1' ? 'selected' : '' }}>Full Professor 1</option>
-                    <option value="Full Professor 1 SQ" {{ $selectedTeacher->rank == 'Full Professor 1 SQ' ? 'selected' : '' }}>Full Professor 1 SQ</option>
-                    <option value="Full Professor 2" {{ $selectedTeacher->rank == 'Full Professor 2' ? 'selected' : '' }}>Full Professor 2</option>
-                    <option value="Full Professor 2 SQ" {{ $selectedTeacher->rank == 'Full Professor 2 SQ' ? 'selected' : '' }}>Full Professor 2 SQ</option>
-                    <option value="Full Professor 3" {{ $selectedTeacher->rank == 'Full Professor 3' ? 'selected' : '' }}>Full Professor 3</option>
-                    <option value="Full Professor 3 SQ" {{ $selectedTeacher->rank == 'Full Professor 3 SQ' ? 'selected' : '' }}>Full Professor 3 SQ</option>
+                    <option value="Lecturer 1" {{ $selectedTeacher->next_rank == 'Lecturer 1' ? 'selected' : '' }}>Lecturer 1</option>
+                    <option value="Lecturer 1 SQ" {{ $selectedTeacher->next_rank == 'Lecturer 1 SQ' ? 'selected' : '' }}>Lecturer 1 SQ</option>
+                    <option value="Lecturer 2" {{ $selectedTeacher->next_rank == 'Lecturer 2' ? 'selected' : '' }}>Lecturer 2</option>
+                    <option value="Lecturer 2 SQ" {{ $selectedTeacher->next_rank == 'Lecturer 2 SQ' ? 'selected' : '' }}>Lecturer 2 SQ</option>
+                    <option value="Lecturer 3" {{ $selectedTeacher->next_rank == 'Lecturer 3' ? 'selected' : '' }}>Lecturer 3</option>
+                    <option value="Lecturer 3 SQ" {{ $selectedTeacher->next_rank == 'Lecturer 3 SQ' ? 'selected' : '' }}>Lecturer 3 SQ</option>
+                    <option value="Assistant Instructor" {{ $selectedTeacher->next_rank == 'Assistant Instructor' ? 'selected' : '' }}>Assistant Instructor</option>
+                    <option value="Assistant Instructor SQ" {{ $selectedTeacher->next_rank == 'Assistant Instructor SQ' ? 'selected' : '' }}>Assistant Instructor SQ</option>
+                    <option value="Instructor 1" {{ $selectedTeacher->next_rank == 'Instructor 1' ? 'selected' : '' }}>Instructor 1</option>
+                    <option value="Instructor 1 SQ" {{ $selectedTeacher->next_rank == 'Instructor 1 SQ' ? 'selected' : '' }}>Instructor 1 SQ</option>
+                    <option value="Instructor 2" {{ $selectedTeacher->next_rank == 'Instructor 2' ? 'selected' : '' }}>Instructor 2</option>
+                    <option value="Instructor 2 SQ" {{ $selectedTeacher->next_rank == 'Instructor 2 SQ' ? 'selected' : '' }}>Instructor 2 SQ</option>
+                    <option value="Instructor 3" {{ $selectedTeacher->next_rank == 'Instructor 3' ? 'selected' : '' }}>Instructor 3</option>
+                    <option value="Instructor 3 SQ" {{ $selectedTeacher->next_rank == 'Instructor 3 SQ' ? 'selected' : '' }}>Instructor 3 SQ</option>
+                    <option value="Assistant Professor 1" {{ $selectedTeacher->next_rank == 'Assistant Professor 1' ? 'selected' : '' }}>Assistant Professor 1</option>
+                    <option value="Assistant Professor 1 SQ" {{ $selectedTeacher->next_rank == 'Assistant Professor 1 SQ' ? 'selected' : '' }}>Assistant Professor 1 SQ</option>
+                    <option value="Assistant Professor 2" {{ $selectedTeacher->next_rank == 'Assistant Professor 2' ? 'selected' : '' }}>Assistant Professor 2</option>
+                    <option value="Assistant Professor 2 SQ" {{ $selectedTeacher->next_rank == 'Assistant Professor 2 SQ' ? 'selected' : '' }}>Assistant Professor 2 SQ</option>
+                    <option value="Associate Professor 1" {{ $selectedTeacher->next_rank == 'Associate Professor 1' ? 'selected' : '' }}>Associate Professor 1</option>
+                    <option value="Associate Professor 1 SQ" {{ $selectedTeacher->next_rank == 'Associate Professor 1 SQ' ? 'selected' : '' }}>Associate Professor 1 SQ</option>
+                    <option value="Associate Professor 2" {{ $selectedTeacher->next_rank == 'Associate Professor 2' ? 'selected' : '' }}>Associate Professor 2</option>
+                    <option value="Associate Professor 2 SQ" {{ $selectedTeacher->next_rank == 'Associate Professor 2 SQ' ? 'selected' : '' }}>Associate Professor 2 SQ</option>
+                    <option value="Full Professor 1" {{ $selectedTeacher->next_rank == 'Full Professor 1' ? 'selected' : '' }}>Full Professor 1</option>
+                    <option value="Full Professor 1 SQ" {{ $selectedTeacher->next_rank == 'Full Professor 1 SQ' ? 'selected' : '' }}>Full Professor 1 SQ</option>
+                    <option value="Full Professor 2" {{ $selectedTeacher->next_rank == 'Full Professor 2' ? 'selected' : '' }}>Full Professor 2</option>
+                    <option value="Full Professor 2 SQ" {{ $selectedTeacher->next_rank == 'Full Professor 2 SQ' ? 'selected' : '' }}>Full Professor 2 SQ</option>
+                    <option value="Full Professor 3" {{ $selectedTeacher->next_rank == 'Full Professor 3' ? 'selected' : '' }}>Full Professor 3</option>
+                    <option value="Full Professor 3 SQ" {{ $selectedTeacher->next_rank == 'Full Professor 3 SQ' ? 'selected' : '' }}>Full Professor 3 SQ</option>
                     </optgroup>
                 </select>
                 </td>
-                <td id="next-rank">Select a rank</td>
                 <td id="next-requirements">Select a rank</td>
                 </tr>
                 </table>
@@ -251,7 +288,8 @@
     {{-- <script src="{{ asset('javascript/autosizing.js') }}"></script> --}}
     <script src="{{ asset('javascript/popupwindow.js') }}"></script>
     <script>
-    window.rankRequirements = @json(array_merge($basicRequirements, $higherRequirements));
+    window.basicRequirements = @json($basicRequirements);
+    window.higherRequirements = @json($higherRequirements);
     </script>
     <script src="{{ asset('javascript/rankRequirements.js') }}"></script>
     <script src="{{ asset('javascript/buttonConfirmations.js') }}"></script>

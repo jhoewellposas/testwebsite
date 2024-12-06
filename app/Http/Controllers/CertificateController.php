@@ -84,8 +84,6 @@ class CertificateController extends Controller
             ->with('success', 'Certificates uploaded and processed successfully.');
     }
     
-
-
 /*
     public function extractCertificateData(Request $request)
     {
@@ -206,13 +204,6 @@ class CertificateController extends Controller
     return 'unknown';
 }
 
-
-
-
-
-
-
-
 /*
     public function extractCertificateData(Request $request)
     {
@@ -294,10 +285,9 @@ class CertificateController extends Controller
     // Requirements for ranks
     $basicRequirements = [
         'Teacher 1' => [
-            'Must have earned 25% of MA academic requirements on his/her specialization',
+            'Must be a BS degree holder, LET passer (for degree requiring license)',
             'Must have a very good/very satisfactory efficiency rating',
-            'At least three (3) years of teaching experience',
-            'Must have met all the requirements of Teacher 1',
+            'Must have passed the three years probationary period',
         ],
         'Teacher 2' => [
             'Must have earned 25% of MA academic requirements on his/her specialization',
@@ -521,6 +511,7 @@ class CertificateController extends Controller
             'office' => 'required|string',
             'performance' => 'nullable|numeric',
             'experience' => 'required|string',
+
         ]);
 
         $teacher = Teacher::create([
@@ -530,6 +521,7 @@ class CertificateController extends Controller
             'office' => $request->input('office'),
             'performance' => $request->input('performance', 0),
             'experience' => $request->input('experience'),
+            
         ]);
 
         return redirect()->route('home')->with('teacher', $teacher);
@@ -538,7 +530,7 @@ class CertificateController extends Controller
     public function updateTeacher(Request $request, $id)
     {
     $teacher = Teacher::findOrFail($id);
-    $teacher->update($request->only('name', 'acad_attainment', 'performance', 'date', 'office', 'experience', 'rank'));
+    $teacher->update($request->only('name', 'acad_attainment', 'performance', 'date', 'office', 'experience', 'present_rank', 'next_rank'));
 
     // Redirect back to the profile page with the teacher_id
     return redirect()->route('profile', ['teacher_id' => $teacher->id])
@@ -649,15 +641,17 @@ class CertificateController extends Controller
         'Teacher 1' => $commonDistribution,
         'Teacher 2' => $commonDistribution,
         'Teacher 3' => $commonDistribution,
+        'Teacher 4' => $commonDistribution,
         'Lecturer 1' => $commonDistribution,
         'Lecturer 2' => $commonDistribution,
         'Lecturer 3' => $commonDistribution,
+        'Assistant Instructor' => $commonDistribution,
         
         'Teacher 4' => [
-            'productiveGroupAPercentage' => 0.75,
-            'productiveGroupBPercentage' => 0.25,
-            'communityGroupAPercentage' => 0.65,
-            'communityGroupBPercentage' => 0.35,
+            'productiveGroupAPercentage' => 0.8,
+            'productiveGroupBPercentage' => 0.2,
+            'communityGroupAPercentage' => 0.7,
+            'communityGroupBPercentage' => 0.3,
         ],
         'Teacher 4 SQ' => [
             'productiveGroupAPercentage' => 0.8,
@@ -666,10 +660,10 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.3,
         ],
         'Assistant Instructor' => [
-            'productiveGroupAPercentage' => 0.75,
-            'productiveGroupBPercentage' => 0.25,
-            'communityGroupAPercentage' => 0.65,
-            'communityGroupBPercentage' => 0.35,
+            'productiveGroupAPercentage' => 0.8,
+            'productiveGroupBPercentage' => 0.2,
+            'communityGroupAPercentage' => 0.7,
+            'communityGroupBPercentage' => 0.3,
         ],
         'Assistant Instructor SQ' => [
             'productiveGroupAPercentage' => 0.8,
@@ -678,8 +672,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.3,
         ],
         'Teacher 5' => [
-            'productiveGroupAPercentage' => 0.7,
-            'productiveGroupBPercentage' => 0.3,
+            'productiveGroupAPercentage' => 0.75,
+            'productiveGroupBPercentage' => 0.25,
             'communityGroupAPercentage' => 0.65,
             'communityGroupBPercentage' => 0.35,
         ],
@@ -690,8 +684,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.35,
         ],
         'Instructor 1' => [
-            'productiveGroupAPercentage' => 0.7,
-            'productiveGroupBPercentage' => 0.3,
+            'productiveGroupAPercentage' => 0.75,
+            'productiveGroupBPercentage' => 0.25,
             'communityGroupAPercentage' => 0.65,
             'communityGroupBPercentage' => 0.35,
         ],
@@ -702,8 +696,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.35,
         ],
         'Senior Teacher 1' => [
-            'productiveGroupAPercentage' => 0.65,
-            'productiveGroupBPercentage' => 0.35,
+            'productiveGroupAPercentage' => 0.7,
+            'productiveGroupBPercentage' => 0.3,
             'communityGroupAPercentage' => 0.65,
             'communityGroupBPercentage' => 0.35,
         ],
@@ -714,8 +708,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.35,
         ],
         'Instructor 2' => [
-            'productiveGroupAPercentage' => 0.65,
-            'productiveGroupBPercentage' => 0.35,
+            'productiveGroupAPercentage' => 0.7,
+            'productiveGroupBPercentage' => 0.3,
             'communityGroupAPercentage' => 0.65,
             'communityGroupBPercentage' => 0.35,
         ],
@@ -726,10 +720,10 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.35,
         ],
         'Senior Teacher 2' => [
-            'productiveGroupAPercentage' => 0.6,
-            'productiveGroupBPercentage' => 0.4,
-            'communityGroupAPercentage' => 0.6,
-            'communityGroupBPercentage' => 0.4,
+            'productiveGroupAPercentage' => 0.65,
+            'productiveGroupBPercentage' => 0.35,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
         ],
         'Senior Teacher 2 SQ' => [
             'productiveGroupAPercentage' => 0.65,
@@ -738,10 +732,10 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.35,
         ],
         'Instructor 3' => [
-            'productiveGroupAPercentage' => 0.6,
-            'productiveGroupBPercentage' => 0.4,
-            'communityGroupAPercentage' => 0.6,
-            'communityGroupBPercentage' => 0.4,
+            'productiveGroupAPercentage' => 0.65,
+            'productiveGroupBPercentage' => 0.35,
+            'communityGroupAPercentage' => 0.65,
+            'communityGroupBPercentage' => 0.35,
         ],
         'Instructor 3 SQ' => [
             'productiveGroupAPercentage' => 0.65,
@@ -750,8 +744,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.35,
         ],
         'Senior Teacher 3' => [
-            'productiveGroupAPercentage' => 0.55,
-            'productiveGroupBPercentage' => 0.45,
+            'productiveGroupAPercentage' => 0.6,
+            'productiveGroupBPercentage' => 0.4,
             'communityGroupAPercentage' => 0.6,
             'communityGroupBPercentage' => 0.4,
         ],
@@ -762,8 +756,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.4,
         ],
         'Assistant Professor 1' => [
-            'productiveGroupAPercentage' => 0.55,
-            'productiveGroupBPercentage' => 0.45,
+            'productiveGroupAPercentage' => 0.6,
+            'productiveGroupBPercentage' => 0.4,
             'communityGroupAPercentage' => 0.6,
             'communityGroupBPercentage' => 0.4,
         ],
@@ -774,10 +768,10 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.4,
         ],
         'Senior Teacher 4' => [
-            'productiveGroupAPercentage' => 0.5,
-            'productiveGroupBPercentage' => 0.5,
-            'communityGroupAPercentage' => 0.5,
-            'communityGroupBPercentage' => 0.5,
+            'productiveGroupAPercentage' => 0.55,
+            'productiveGroupBPercentage' => 0.45,
+            'communityGroupAPercentage' => 0.6,
+            'communityGroupBPercentage' => 0.4,
         ],
         'Senior Teacher 4 SQ' => [
             'productiveGroupAPercentage' => 0.55,
@@ -786,10 +780,10 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.4,
         ],
         'Assistant Professor 2' => [
-            'productiveGroupAPercentage' => 0.5,
-            'productiveGroupBPercentage' => 0.5,
-            'communityGroupAPercentage' => 0.5,
-            'communityGroupBPercentage' => 0.5,
+            'productiveGroupAPercentage' => 0.55,
+            'productiveGroupBPercentage' => 0.45,
+            'communityGroupAPercentage' => 0.6,
+            'communityGroupBPercentage' => 0.4,
         ],
         'Assistant Professor 2 SQ' => [
             'productiveGroupAPercentage' => 0.55,
@@ -798,8 +792,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.4,
         ],
         'Senior Teacher 5' => [
-            'productiveGroupAPercentage' => 0.45,
-            'productiveGroupBPercentage' => 0.55,
+            'productiveGroupAPercentage' => 0.5,
+            'productiveGroupBPercentage' => 0.5,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
@@ -810,8 +804,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.5,
         ],
         'Associate Professor 1' => [
-            'productiveGroupAPercentage' => 0.45,
-            'productiveGroupBPercentage' => 0.55,
+            'productiveGroupAPercentage' => 0.5,
+            'productiveGroupBPercentage' => 0.5,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
@@ -822,8 +816,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.5,
         ],
         'Master Teacher 1' => [
-            'productiveGroupAPercentage' => 0.4,
-            'productiveGroupBPercentage' => 0.6,
+            'productiveGroupAPercentage' => 0.45,
+            'productiveGroupBPercentage' => 0.55,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
@@ -834,8 +828,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.5,
         ],
         'Associate Professor 2' => [
-            'productiveGroupAPercentage' => 0.4,
-            'productiveGroupBPercentage' => 0.6,
+            'productiveGroupAPercentage' => 0.45,
+            'productiveGroupBPercentage' => 0.55,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
@@ -846,8 +840,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.5,
         ],
         'Master Teacher 2' => [
-            'productiveGroupAPercentage' => 0.35,
-            'productiveGroupBPercentage' => 0.65,
+            'productiveGroupAPercentage' => 0.4,
+            'productiveGroupBPercentage' => 0.6,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
@@ -858,8 +852,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.5,
         ],
         'Full Professor 1' => [
-            'productiveGroupAPercentage' => 0.35,
-            'productiveGroupBPercentage' => 0.65,
+            'productiveGroupAPercentage' => 0.4,
+            'productiveGroupBPercentage' => 0.6,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
@@ -870,8 +864,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.5,
         ],
         'Master Teacher 3' => [
-            'productiveGroupAPercentage' => 0.3,
-            'productiveGroupBPercentage' => 0.7,
+            'productiveGroupAPercentage' => 0.35,
+            'productiveGroupBPercentage' => 0.65,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
@@ -882,8 +876,8 @@ class CertificateController extends Controller
             'communityGroupBPercentage' => 0.5,
         ],
         'Full Professor 2' => [
-            'productiveGroupAPercentage' => 0.3,
-            'productiveGroupBPercentage' => 0.7,
+            'productiveGroupAPercentage' => 0.35,
+            'productiveGroupBPercentage' => 0.65,
             'communityGroupAPercentage' => 0.5,
             'communityGroupBPercentage' => 0.5,
         ],
@@ -920,7 +914,7 @@ class CertificateController extends Controller
     ];
 
     // Get the current rank percentages (default to 0 if not set)
-    $rank = $teacher->rank ?? 'Unknown';
+    $rank = $teacher->next_rank ?? 'Unknown';
     $distributions = $rankDistributions[$rank] ?? [
         'productiveGroupAPercentage' => 0.8,
         'productiveGroupBPercentage' => 0.2,

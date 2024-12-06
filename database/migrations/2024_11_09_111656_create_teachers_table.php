@@ -20,7 +20,8 @@ return new class extends Migration
             $table->date('date')->default(now());
             $table->string('office')->nullable();
             $table->float('points')->default(0);
-            $table->string('rank')->default('Unranked');
+            $table->string('present_rank')->default('Unranked');
+            $table->string('next_rank')->nullable();
             $table->timestamps();
         });
     }

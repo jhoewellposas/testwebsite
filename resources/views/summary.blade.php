@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('styling/summary.css')}}">
+    <link rel="icon" href="{{ asset('FSUU Logo/fsuu2_1.png') }}" type="image/png">
     <title>Summary</title>
 </head>
 <body>
@@ -39,7 +40,7 @@
             <p><strong>Highest Academic Attainment:</strong> {{ $teacher->acad_attainment }}</p>
             <p><strong>Experience:</strong> {{ $experience }}</p>
             <p><strong>Office:</strong> {{ $teacher->office }}</p>
-            <p><strong>Rank:</strong> {{ $teacher->rank }}</p>
+            <p><strong>Rank:</strong> {{ $teacher->next_rank }}</p>
         </div>
 
             <!-- Table for Ranking Criteria and Points -->

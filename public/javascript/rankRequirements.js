@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const rankSelect = document.getElementById('rank');
-    const nextRankCell = document.getElementById('next-rank');
+    const rankSelect = document.getElementById('next_rank');
     const nextRequirementsCell = document.getElementById('next-requirements');
 
-    const requirements = window.rankRequirements || {};
+    // Define rank requirements (these will be dynamically added from the server-side)
+    const basicRequirements = window.basicRequirements || {};
+    const higherRequirements = window.higherRequirements || {};
 
     // Create a mapping for SQ ranks to their corresponding base ranks
     const sqRankMapping = {
@@ -34,52 +35,27 @@ document.addEventListener('DOMContentLoaded', function () {
         'Associate Professor 2 SQ': 'Associate Professor 2',
         'Full Professor 1 SQ': 'Full Professor 1',
         'Full Professor 2 SQ': 'Full Professor 2',
-        'Full Professor 3 SQ': 'Full Professor 3'
+        'Full Professor 3 SQ': 'Full Professor 3',
     };
 
     rankSelect.addEventListener('change', function () {
-        let currentRank = rankSelect.value;
+        let selectedRank = rankSelect.value;
 
-        // If the selected rank is an SQ rank, map it to the base rank
-        if (sqRankMapping[currentRank]) {
-            currentRank = sqRankMapping[currentRank];
+        // Map SQ rank to its corresponding base rank if applicable
+        if (sqRankMapping[selectedRank]) {
+            selectedRank = sqRankMapping[selectedRank];
         }
 
-        // Define the rank orders for basic and higher requirements
-        const basicRankOrder = Object.keys(requirements).filter(rank =>
-            ['Teacher', 'Senior Teacher', 'Master Teacher'].some(prefix => rank.startsWith(prefix))
-        );
-        const higherRankOrder = Object.keys(requirements).filter(rank =>
-            ['Lecturer', 'Assistant Instructor', 'Instructor', 'Assistant Professor', 'Associate Professor', 'Full Professor'].some(prefix => rank.startsWith(prefix))
-        );
+        // Get requirements based on rank type
+        let requirements = basicRequirements[selectedRank] || higherRequirements[selectedRank];
 
-        let nextRank = null;
-
-        if (basicRankOrder.includes(currentRank)) {
-            const currentIndex = basicRankOrder.indexOf(currentRank);
-            if (currentIndex !== -1 && currentIndex < basicRankOrder.length - 1) {
-                nextRank = basicRankOrder[currentIndex + 1];
-            }
-        } else if (higherRankOrder.includes(currentRank)) {
-            const currentIndex = higherRankOrder.indexOf(currentRank);
-            if (currentIndex !== -1 && currentIndex < higherRankOrder.length - 1) {
-                nextRank = higherRankOrder[currentIndex + 1];
-            }
-        }
-
-        // Update the table
-        if (currentRank === 'Master Teacher 4') {
-            // Special case: Master Teacher 4 is the last rank in basicRequirements
-            nextRankCell.textContent = 'No further rank';
-            nextRequirementsCell.textContent = 'No further requirements';
-        } else if (nextRank) {
-            nextRankCell.textContent = nextRank;
-            nextRequirementsCell.innerHTML = requirements[nextRank]
+        // Update the requirements in the DOM
+        if (requirements) {
+            nextRequirementsCell.innerHTML = requirements
                 .map(req => `<li>${req}</li>`)
                 .join('');
         } else {
-            nextRankCell.textContent = 'No further rank';
-            nextRequirementsCell.textContent = 'No further requirements';
+            nextRequirementsCell.textContent = 'No requirements available for the selected rank.';
         }
     });
 
