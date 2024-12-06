@@ -83,20 +83,18 @@
         <h2 class="title">Signature Form</h2>
         <div class="grid-container">
             <!-- Row 1 -->
-            <div class="grid-item">Rank:</div>
+            <div class="grid-item"></div>
             <div class="grid-item"></div>
             <div class="grid-item"></div>
     
             <!-- Row 2 -->
             <div class="grid-item prepared-by-container">
-                <span>Prepared by:</span>
+                <span>Prepared by</span>
                 <!-- Line will be added here by CSS -->
             </div>
             <div class="grid-item"></div>
-            <div class="grid-item date-container">
-                <span>Date:</span>
-                <!-- Line will be added here by CSS -->
-            </div>
+            <div class="grid-item"></div>
+            
     
             <!-- Row 3 -->
             <div class="grid-item"></div>
@@ -105,24 +103,29 @@
     
             <!-- Row 4 -->
             <div class="grid-item name-signature1">Name & Signature of Member</div>
-            <div class="grid-item name-signature3">Name & Signature of Chair</div>
+            <div class="grid-item"></div>
             <div class="grid-item name-signature2">Name & Signature of Member</div>
-    
+             
             <!-- Row 5 -->
+            <div class="grid-item"></div>
+            <div class="grid-item name-signature3">Name & Signature of Chair</div>
+            <div class="grid-item"></div>
+    
+            <!-- Row 6 -->
             <div class="grid-item approved-container">
-                <span>Approved by:</span>
+                <span>Approved by the President</span>
                 <!-- Line will be added here by CSS -->
             </div>
             <div class="grid-item"></div>
             <div class="grid-item approved-date-container">
-                <span>Date:</span>
+                <span>Date</span>
                 <!-- Line will be added here by CSS -->
             </div>
 
-            <!-- Row 6 -->
-            <div class="grid-item president">President</div>
+            <!-- Row 7 -->
+            {{-- <div class="grid-item president">President</div>
             <div class="grid-item"></div>
-            <div class="grid-item"></div>
+            <div class="grid-item"></div> --}}
         </div>
     </div>
 

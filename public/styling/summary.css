@@ -142,9 +142,7 @@ body {
 }
 
 .signature-form {
-    border: 2px solid #000;
     padding: 20px;
-    border-radius: 8px;
     background-color: #fff;
 }
 
@@ -169,24 +167,25 @@ body {
     page-break-inside: avoid;
 }
 
-.grid-item:nth-child(17), .president {
+/* .grid-item:nth-child(17), .president {
     grid-column: 1 / 2;
     text-align: left;
-}
+} */
 
-.president {
+/* .president {
     margin-left: 60%;
     margin-top: -20px;
-}
+} */
 
-.name-signature1, .name-signature2, .name-signature3 {
+
+.name-signature1, .name-signature2, .name-signature3, .approved-container, .approved-date-container, .prepared-by-container {
     position: relative;
     margin-bottom: 40px;
     text-align: center;
     white-space: nowrap;
 }
 
-.name-signature1::before, .name-signature2::before, .name-signature3::before {
+.name-signature1::before, .name-signature2::before, .name-signature3::before, .approved-container::before, .approved-date-container::before, .prepared-by-container::before {
     content: '';
     position: absolute;
     top: -10px;
@@ -196,10 +195,10 @@ body {
     transform: translateX(-50%);
 }
 
-.grid-item:nth-child(19) {
+/* .grid-item:nth-child(19) {
     grid-column: 3 / 4;
     text-align: right;
-}
+} */
 
 .centered {
     text-align: center;
@@ -213,41 +212,18 @@ body {
     overflow-x: auto;
 }
 
-.prepared-by-container, .date-container, .approved-container, .approved-date-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-    position: relative;
-}
 
-.prepared-by-container::after, .date-container::after, .approved-container::after, .approved-date-container::after {
-    content: '';
-    height: 1px;
-    background-color: #000;
-    position: absolute;
-    top: 20px;
-}
-
-.prepared-by-container::after, .approved-container::after {
-    width: 100%;
-    left: 120px;
-}
-
-.date-container::after, .approved-date-container::after {
-    width: 50%;
-    left: 80px;
-}
 
 @media print {
     body {
         width: 100%;
         height: 100%;
         overflow: hidden;
-        page-break-inside: avoid;
-        font-size: 12px;
+        font-size: 10px; /* Scale font size down for printing */
         margin: 0;
-        padding: 10px;
+        padding: 0;
+        transform: scale(0.95); /* Slightly scale down content */
+        transform-origin: top left;
     }
 
     .fsuu-logo-container, .button-container, .teacher-table-info, .signature-form {
@@ -255,7 +231,7 @@ body {
         width: 100%;
         page-break-inside: avoid;
         margin: 0;
-        padding: 10px;
+        padding: 5px;
     }
 
     .teacher-info, .table-content {
@@ -270,7 +246,7 @@ body {
 
     .table-content {
         grid-column: 1 / -1;
-        margin-top: 10px;
+        margin-top: 5px;
     }
 
     .R-C-table {
@@ -278,7 +254,7 @@ body {
         max-width: 100%;
         overflow: hidden;
         page-break-inside: avoid;
-        font-size: 12px;
+        font-size: 10px; /* Reduce font size for table content */
     }
 
     .grid-container {
@@ -291,48 +267,51 @@ body {
     }
 
     .main-title, .subtitle {
-        font-size: 1.2em;
+        font-size: 1em; /* Scale down logo text */
     }
 
     .btn, .btn-secondary {
-        display: none;
+        display: none; /* Hide buttons during printing */
     }
 
-    .prepared-by-container::after, .date-container::after, .approved-container::after, .approved-date-container::after {
-        content: '';
-        width: 100%;
-        height: 1px;
-        background-color: #000;
+    .name-signature1::before, .name-signature2::before, .name-signature3::before, 
+    .approved-container::before, .approved-date-container::before, .prepared-by-container::before {
+        content: "";
+        width: 90%; /* Reduce width to stay within the container */
+        max-width: 240px; /* Optional: Limit maximum width for smaller screens */
         position: absolute;
-        left: 80px;
-        top: 20px;
+        top: -10px;
+        border-top: 1px solid #000;
+        left: 5%; /* Center the line within the container */
+        transform: translateX(0);
     }
 
-    .name-signature1::before, .name-signature2::before, .name-signature3::before {
-        content: none;
-    }
-
-    .name-signature1, .name-signature2, .name-signature3 {
-        margin-bottom: 40px;
+    .name-signature1, .name-signature2, .name-signature3, 
+    .approved-container, .approved-date-container, .prepared-by-container {
+        position: relative;
+        margin-bottom: 30px;
+        text-align: center;
+        white-space: nowrap;
     }
 
     .name-signature1 {
-        margin-right: 20px;
+        margin-right: 15px;
+        margin-left: 15px;
     }
 
     @page {
-        size: A4;
-        margin: 0 12mm 0 10mm;
+        size: A4; /* Set the page size to A4 */
+        margin: 10mm; /* Add minimal margins for printing */
     }
 
     html, body {
-        width: 200mm;
-        height: 300mm;
-        margin: 10mm; /* Set even margins */
+        width: 210mm; /* Full A4 width */
+        height: 297mm; /* Full A4 height */
+        margin: 0; /* Remove all extra margins */
     }
 
     .container {
-        transform: scale(0.95);
+        transform: scale(0.95); /* Adjust content scale */
         transform-origin: top left;
     }
 }
