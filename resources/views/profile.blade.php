@@ -117,7 +117,7 @@
                     <thead>
                         <tr>
                             <th>Next Rank</th>
-                            <th>Next Rank Requirements</th>
+                            <th>Requirements</th>
                         </tr>
                     </thead>
                 <tr>

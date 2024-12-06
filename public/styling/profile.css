@@ -149,7 +149,7 @@ body {
     margin-right: 10px;
 }
 
-.teacher-info form #name, #acad_attainment, #date, #office, #performance, #rank, #select-experience {
+.teacher-info form #name, #acad_attainment, #date, #office, #performance, #select-experience, #present_rank {
     width: 100%;
     padding: 10px;
     font-size: 1em;
@@ -437,6 +437,18 @@ a[href*="summary"]:hover, .btn-secondary:hover {
     width: 100%;
     max-width: 100%;
     overflow-x: auto;
+}
+
+.table-rank #next_rank {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #333;
+    text-align: center;
+    border: none;
+    outline: none;
 }
 
 .mb-4.view-summary-bottom {
