@@ -10,6 +10,10 @@ body {
     
 }
 
+body::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
+}
+
 * {
     box-sizing: border-box;
 }
@@ -418,13 +422,13 @@ a[href*="summary"]:hover, .btn-secondary:hover {
 }
 
 .requirement-table .table-rank th, .requirement-table .table-rank td {
-    border: 1px solid #dee2e6;
+    border: 1px solid #cccccc;
     padding: 12px 15px;
     text-align: center;
 }
 
 .requirement-table .table-rank th {
-    background-color: #f8f9fa;
+    background-color: #e0e0e0;
     font-weight: bold;
 }
 

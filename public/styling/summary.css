@@ -18,6 +18,10 @@ body {
     overflow-x: auto;
 }
 
+body::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
+}
+
 .fsuu-logo-container, .button-container, .teacher-table-info, .signature-form {
     grid-column: 1 / -1;
     width: 100%;
@@ -301,13 +305,13 @@ body {
 
     @page {
         size: A4; /* Set the page size to A4 */
-        margin: 10mm; /* Add minimal margins for printing */
+        margin: none; /* Add minimal margins for printing */
     }
 
     html, body {
         width: 210mm; /* Full A4 width */
         height: 297mm; /* Full A4 height */
-        margin: 0; /* Remove all extra margins */
+        margin: none; /* Remove all extra margins */
     }
 
     .container {
