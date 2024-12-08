@@ -283,6 +283,10 @@
             </div>
         </div>
 
+        <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit">Logout</button>
+        </form>
         
     <!-- JavaScript -->
     {{-- <script src="{{ asset('javascript/autosizing.js') }}"></script> --}}

@@ -84,6 +84,53 @@ class CertificateController extends Controller
             ->with('success', 'Certificates uploaded and processed successfully.');
     }
     
+    private function categorizeCertificate($text)
+    {
+    $text = strtolower($text);
+
+    if (preg_match('/attendance|completion|conferences|congress|trainings|participation/', $text)) {
+        return 'seminar';
+    }
+
+    if (preg_match('/runner-up|placer/', $text)) {
+        return 'honors_awards';
+    }
+
+    if (preg_match('/member|officer/', $text)) {
+        return 'membership';
+    }
+
+    if (preg_match('/adviser|panelist|workbook/', $text)) {
+        return 'scholarship_activities_a';
+    }
+
+    if (preg_match('/book|judge|coach|consultant|trainer|facilitator|researcher|speaker/', $text)) {
+        return 'scholarship_activities_b';
+    }
+
+    if (preg_match('/student service|service to students|organization/', $text)) {
+        return 'service_students';
+    }
+
+    if (preg_match('/department service|service to department/', $text)) {
+        return 'service_department';
+    }
+
+    if (preg_match('/institutional service|service to institution|organized by|sponsored by/', $text)) {
+        return 'service_institution';
+    }
+
+    if (preg_match('/active participation|organizations/', $text)) {
+        return 'participation_organizations';
+    }
+
+    if (preg_match('/involvement in department|run and row|gk build|bike and plant/', $text)) {
+        return 'involvement_department';
+    }
+
+    return 'unknown';
+}
+
 /*
     public function extractCertificateData(Request $request)
     {
@@ -156,53 +203,6 @@ class CertificateController extends Controller
             ->with('success', 'Certificate uploaded and processed successfully.');
     }
 */
-
-    private function categorizeCertificate($text)
-{
-    $text = strtolower($text);
-
-    if (preg_match('/attendance|completion|conferences|congress|trainings|participation/', $text)) {
-        return 'seminar';
-    }
-
-    if (preg_match('/runner-up|placer/', $text)) {
-        return 'honors_awards';
-    }
-
-    if (preg_match('/member|officer/', $text)) {
-        return 'membership';
-    }
-
-    if (preg_match('/adviser|panelist|workbook/', $text)) {
-        return 'scholarship_activities_a';
-    }
-
-    if (preg_match('/book|judge|coach|consultant|trainer|facilitator|researcher|speaker/', $text)) {
-        return 'scholarship_activities_b';
-    }
-
-    if (preg_match('/student service|service to students|organization/', $text)) {
-        return 'service_students';
-    }
-
-    if (preg_match('/department service|service to department/', $text)) {
-        return 'service_department';
-    }
-
-    if (preg_match('/institutional service|service to institution|organized by|sponsored by/', $text)) {
-        return 'service_institution';
-    }
-
-    if (preg_match('/active participation|organizations/', $text)) {
-        return 'participation_organizations';
-    }
-
-    if (preg_match('/involvement in department|run and row|gk build|bike and plant/', $text)) {
-        return 'involvement_department';
-    }
-
-    return 'unknown';
-}
 
 /*
     public function extractCertificateData(Request $request)
