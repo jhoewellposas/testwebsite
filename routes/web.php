@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RankDistributionController;
 use App\Http\Controllers\CertificateController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +23,7 @@ Route::middleware('auth')->group(function () {
         return view('home', compact('allTeachers'));
     })->name('home');
     
+    //user profile
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::post('/user', [UserController::class, 'update'])->name('user.update');
     Route::post('/user/delete', [UserController::class, 'destroy'])->name('user.delete');
@@ -46,6 +49,26 @@ Route::middleware('auth')->group(function () {
     //update teacher
     Route::post('/teacher/update/{id}', [CertificateController::class, 'updateTeacher'])->name('teachers.update');
 
+    //rank distribution
+    Route::get('/rank-distributions', [RankDistributionController::class, 'index'])->name('rankDistributions.index');
+    Route::post('/rank-distributions', [RankDistributionController::class, 'update'])->name('rankDistributions.update');
+
     //summary
     Route::get('/summary/{teacherId?}', [CertificateController::class, 'showSummary'])->name('summary');
 });
+
+Route::get('user/home', function () {
+    $allTeachers = \App\Models\Teacher::all();
+    return view('user/home', compact('allTeachers'));
+})->name('user/home');
+
+/*
+  //profile
+  Route::get('user/profile', [CertificateController::class, 'showCertificates'])->name('user/profile');
+
+  //upload
+  Route::get('user/upload', [CertificateController::class, 'showUploadForm'])->name('user/certificate.upload');
+
+  //extract
+  Route::post('user/extract', [CertificateController::class, 'extractCertificateData'])->name('user/extractCertificateData');
+  */

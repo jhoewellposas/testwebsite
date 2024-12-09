@@ -18,6 +18,15 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->integer('school_id')->default(0);
+            $table->string('acad_attainment')->nullable();
+            $table->float('performance')->nullable();
+            $table->float('experience')->nullable();
+            $table->date('date')->default(now());
+            $table->string('office')->nullable();
+            $table->float('points')->default(0);
+            $table->string('present_rank')->default('Unranked');
+            $table->string('next_rank')->nullable();
             $table->timestamps();
         });
 

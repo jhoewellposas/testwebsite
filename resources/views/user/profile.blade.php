@@ -19,26 +19,18 @@
 
         <div class="home-summary-container">
             {{-- Home Button --}}
-            <div class="home-summary">
-                <div class="home-button">
-                    <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
-                </div>
-
-                <div class="mb-4 view-summary">
-                    <a href="{{ route('summary', ['teacherId' => $teacher_id]) }}" class="btn btn-secondary">View Summary</a>
-                </div>
+            <div class="home-button">
+                <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
             </div>
-            <div class="log-out-button">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="third-btn">Logout</button>
-                </form>
+
+            <div class="mb-4 view-summary">
+                <a href="{{ route('summary', ['teacherId' => $teacher_id]) }}" class="btn btn-secondary">View Summary</a>
             </div>
         </div>
 
         <div class="teacher-table-info">
             <div class="teacher-info">
-                <h1>TEACHER PROFILE</h1>
+                <h1>PROFILE</h1>
         <!-- Display Teacher's Information -->
         <form action="{{ route('teachers.update', ['id' => $selectedTeacher->id]) }}" method="post">
             @csrf
@@ -290,6 +282,11 @@
                 <a href="{{ route('summary', ['teacherId' => $teacher_id]) }}" class="btn btn-secondary-bottom">View Summary</a>
             </div>
         </div>
+
+        <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit">Logout</button>
+        </form>
         
     <!-- JavaScript -->
     {{-- <script src="{{ asset('javascript/autosizing.js') }}"></script> --}}

@@ -23,6 +23,18 @@
                     <input type="email" name="email" id="email" required>
                 </div>
                 <div>
+                    <label for="school_id">School ID</label>
+                    <input type="text" name="school_id" id="school_id" required>
+                </div>
+                <div>
+                <label for="date">Date Hired</label>
+                <input type="date" id="date" name="date">
+                </div>
+                <div>
+                    <label for="office">Office</label>
+                    <input type="text" name="office" id="office" required>
+                </div>
+                <div>
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" required>
                 </div>

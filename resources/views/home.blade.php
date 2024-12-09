@@ -68,9 +68,9 @@
 
     <div class="teacher-choices-container">
         <form action="{{ route('profile') }}" method="GET">
-            <label for="teacher_id">Select Teacher:</label>
+            <label for="teahcer_id">Select User:</label>
             <select name="teacher_id" id="teacher_id" class="form-control" onchange="this.form.submit()">
-                <option value="">Select a Teacher</option>
+                <option value="">Select a User</option>
                 @foreach($allTeachers as $teacher)
                     <option value="{{ $teacher->id }}" {{ request('teacher_id') == $teacher->id ? 'selected' : '' }}>
                         {{ $teacher->name }}
@@ -91,6 +91,8 @@
             </form>
         </div>
     </div>
+
+    <a href="{{ route('rankDistributions.index') }}">Rank Distributions</a>
 
         <!-- JavaScript for Auto-Sizing Table Inputs -->
         <script src="{{ asset('js/autosizing.js') }}"></script>

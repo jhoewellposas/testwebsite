@@ -45,12 +45,21 @@ class AuthController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:6|confirmed',
+                'school_id' => 'nullable|numeric',
+                'date' => 'required|string',
+                'office' => 'required|string',
             ]);
     
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'school_id' => $request->input('performance', 0),
+                'acad_attainment' => $request->input('acad_attainment'),
+                'date' => $request->input('date'),
+                'office' => $request->input('office'),
+                'performance' => $request->input('performance', 0),
+                'experience' => $request->input('experience'),
             ]);
     
             Auth::login($user);
