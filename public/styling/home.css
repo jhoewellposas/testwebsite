@@ -57,6 +57,55 @@ body {
     color: white; /* Slightly gray for contrast */
 }
 
+/* User Info and Logout Container */
+.user-logout-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    text-align: left;
+    align-items: center;
+    padding: 20px;
+}
+
+/* User Info Styling */
+.user-logout {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+}
+
+/* User Info Text Styling */
+.user-info .btn-success {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #28a745;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.user-info .btn-success:hover {
+    background-color: #218838;
+}
+
+/* Logout Button Styling */
+.third-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: red;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.third-btn:hover {
+    background-color: darkred;
+}
+
 /* Create Teacher Form Container */
 .create-teacher-container {
     grid-column: 1 / 2;

@@ -73,6 +73,12 @@ body::-webkit-scrollbar {
     gap: 15px;
 }
 
+.home-summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
 .home-button .btn-success, .upload-button .btn-success {
     background-color: #28a745;
     color: white;
@@ -104,6 +110,22 @@ body::-webkit-scrollbar {
 
 .view-summary .btn-secondary:hover {
     background-color: #5a6268;
+}
+
+.third-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: red;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.third-btn:hover {
+    background-color: darkred;
 }
 
 .teacher-table-info {

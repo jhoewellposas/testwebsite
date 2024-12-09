@@ -80,11 +80,17 @@
         </form>
     </div>
 
-    <a href="{{ route('user') }}">User Profile</a>
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
+    <div class="user-logout-container">
+        <div class="user-logout">
+            <div class="user-info">
+                <a href="{{ route('user') }}" class="btn btn-success">User Profile</a>
+            </div>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="third-btn">Logout</button>
+            </form>
+        </div>
+    </div>
 
         <!-- JavaScript for Auto-Sizing Table Inputs -->
         <script src="{{ asset('js/autosizing.js') }}"></script>

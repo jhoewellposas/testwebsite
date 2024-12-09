@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.update-button {
+    display: flex;
+    justify-content: center;
+}
+
+.update {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.update:hover {
+    background-color: #0056b3;
+}
+
+/* .delete-home-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.delete-home {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+} */
+
+.back-home {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-success {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.delete-button {
+    display: flex;
+    justify-content: center;
+}
+
+.delete {
+    padding: 10px 20px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-color: darkred;
+}
+
+p {
+    text-align: center;
+}

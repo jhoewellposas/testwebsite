@@ -22,12 +22,21 @@
     {{-- Buttons --}}
     <div class="button-container">
             {{-- Home Button --}}
-        <div class="mb-4">
-            <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
+        <div class="home-profile">
+            <div class="mb-4">
+                <a href="{{ url('/home') }}" class="btn btn-success">Home</a>
+            </div>
+
+            <div class="mb-4 view-summary">
+                <a href="{{ route('profile', ['teacher_id' => $teacher->id]) }}" class="btn btn-secondary">Profile</a>
+            </div>
         </div>
 
-        <div class="mb-4 view-summary">
-            <a href="{{ route('profile', ['teacher_id' => $teacher->id]) }}" class="btn btn-secondary">Profile</a>
+        <div class="log-out-button">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="third-btn">Logout</button>
+            </form>
         </div>
     </div>   
 
@@ -130,9 +139,6 @@
         </div>
     </div>
 
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
+    
 </body>
 </html>
