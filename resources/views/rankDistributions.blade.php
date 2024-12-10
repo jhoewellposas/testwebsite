@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('styling/rank.css') }}">
+    <link rel="icon" href="{{ asset('FSUU Logo/fsuu2_1.png') }}" type="image/png">
+    <title>Distribution Points</title>
 </head>
 <body>
 
-    <a href="{{ route('home') }}">Home</a>
+    <div class="upper-container">
+        <a href="{{ route('home') }}" class="btn btn-home">Home</a>
+    </div>
 
 <div class="container">
     <h1>Rank Distributions</h1>

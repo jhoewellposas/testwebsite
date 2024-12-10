@@ -82,6 +82,9 @@
 
     <div class="user-logout-container">
         <div class="user-logout">
+            <div class="rank-distribution">
+                <a href="{{ route('rankDistributions.index') }}" class="btn-success-2">Rank Distributions</a>
+            </div>
             <div class="user-info">
                 <a href="{{ route('user') }}" class="btn btn-success">User Profile</a>
             </div>
@@ -91,8 +94,6 @@
             </form>
         </div>
     </div>
-
-    <a href="{{ route('rankDistributions.index') }}">Rank Distributions</a>
 
         <!-- JavaScript for Auto-Sizing Table Inputs -->
         <script src="{{ asset('js/autosizing.js') }}"></script>

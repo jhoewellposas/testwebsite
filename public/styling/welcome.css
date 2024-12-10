@@ -1,9 +1,13 @@
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #e9ecef;
     margin: 0;
     padding: 0;
-    color: #212529;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevents scrolling */
+    background-image: url('/FSUU Logo/FSUU.jpg');
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
 }
 
 .container {
@@ -12,30 +16,68 @@ body {
     align-items: center;
     height: 100vh;
     padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Add a pseudo-element for the blurred background */
+body::before {
+    content: '';
+    position: fixed; /* Fixed positioning for full-page coverage */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/FSUU Logo/FSUU.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(2px); /* Apply blur effect */
+    z-index: -1; /* Ensure it's behind all content */
 }
 
 .box {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent box background */
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add some shadow for better visibility */
 }
+
+/* Style for the image inside the .box div */
+.box img {
+    max-width: 100%; /* Ensures the image doesn't overflow the container */
+    max-height: 100px; /* Set a maximum height for the image */
+    width: auto; /* Maintain aspect ratio */
+    height: auto; /* Maintain aspect ratio */
+}
+
 
 h1 {
-    color: #343a40;
+    color: white;
     margin-bottom: 30px;
     font-size: 2rem;
+    line-height: 1.5;
 }
 
+/* .typing-animation {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid white;
+    animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
+} */
+
 p {
-    color: #6c757d;
+    color: white;
     margin-bottom: 30px;
     font-size: 1rem;
     line-height: 1.5;
 }
+
 
 a {
     display: inline-block;

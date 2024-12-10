@@ -10,6 +10,10 @@
 </head>
 <body>
     <div class="login-container">
+        <div class="head-logo">
+            <img src="{{ asset('FSUU Logo/fsuu2_1.png') }}" alt="FSUU Logo">
+            <h1>FSUU Ranking System</h1>
+        </div>
         <div class="login-box">
             <h1>Login</h1>
             <form action="{{ route('login') }}" method="POST">

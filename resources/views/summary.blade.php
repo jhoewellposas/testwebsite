@@ -123,7 +123,7 @@
     
             <!-- Row 6 -->
             <div class="grid-item approved-container">
-                <span>Approved by the President</span>
+                <span>President</span>
                 <!-- Line will be added here by CSS -->
             </div>
             <div class="grid-item"></div>

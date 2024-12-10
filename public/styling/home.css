@@ -91,6 +91,20 @@ body {
     background-color: #218838;
 }
 
+.rank-distribution .btn-success-2 {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.rank-distribution .btn-success-2:hover {
+    background-color: #0056b3;
+}
+
 /* Logout Button Styling */
 .third-btn {
     display: inline-block;

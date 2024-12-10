@@ -12,8 +12,11 @@
     <body>
         <div class="container">
             <div class="box">
+                <img src="{{ asset('FSUU Logo/fsuu2_1.png') }}" alt="FSUU Logo">
                 <h1>Welcome to FSUU Ranking System</h1>
-                <p>FSUU Ranking System is a web application that allows the faculty members of Father Saturnino Urios University to rank their students based on their performance in the class.</p>
+                <p>
+                    Ranking System for Father Saturnino Urios University Faculty
+                </p>
                 <a href="{{ route('login') }}">Login</a>
                 <a href="{{ route('register') }}">Register</a>
             </div>

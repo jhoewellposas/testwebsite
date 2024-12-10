@@ -11,6 +11,10 @@
 <body>
     <div class="container">
         <div class="box">
+            <div class="head-logo">
+                <img src="{{ asset('FSUU Logo/fsuu2_1.png') }}" alt="FSUU Logo">
+                <h1>FSUU Ranking System</h1>
+            </div>
             <h1>Register</h1>
             <form action="{{ route('register') }}" method="POST">
                 @csrf
