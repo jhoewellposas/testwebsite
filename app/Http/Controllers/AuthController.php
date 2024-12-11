@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Teacher;
 
 class AuthController extends Controller
 {
@@ -26,7 +27,7 @@ class AuthController extends Controller
             if (Auth::attempt($request->only('email', 'password'))) {
                 return redirect()->route('home')->with('success', 'You are logged in!');
             }
-    
+            
             return back()->withErrors([
                 'email' => 'Invalid credentials.',
             ]);

@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('role')->default('user');
+            $table->integer('school_id')->default(0);
             $table->string('acad_attainment')->nullable();
             $table->float('performance')->default(0);
             $table->float('experience')->default(0);

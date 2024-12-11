@@ -65,7 +65,7 @@
             <div class="side-to-side">
                 <label for="experience">Experience</label>
                 <select name="experience" id="select-experience">
-                    <option value="">Select Experience</option>
+                    <option>Select Experience</option>
                     <option value="0.83" {{ $selectedTeacher->experience == '0.83' ? 'selected' : '' }}>1 Year</option>
                     <option value="1.666" {{ $selectedTeacher->experience == '1.666' ? 'selected' : '' }}>2 Years</option>
                     <option value="2.499" {{ $selectedTeacher->experience == '2.499' ? 'selected' : '' }}>3 Years</option>
@@ -248,16 +248,20 @@
                             <td>
                                 <select name="category" id="category" required>
                                     <option value="">Select a Category</option>
+                                    <optgroup label="Productive Scholarship">
                                     <option value="seminar" {{ $certificate->category == 'seminar' ? 'selected' : '' }}>Seminar</option>
                                     <option value="honors_awards" {{ $certificate->category == 'honors_awards' ? 'selected' : '' }}>Honors and Awards</option>
                                     <option value="membership" {{ $certificate->category == 'membership' ? 'selected' : '' }}>Membership</option>
                                     <option value="scholarship_activities_a" {{ $certificate->category == 'scholarship_activities_a' ? 'selected' : '' }}>Scholarship Activities & Creative Efforts_A</option>
                                     <option value="scholarship_activities_b" {{ $certificate->category == 'scholarship_activities_b' ? 'selected' : '' }}>Scholarship Activities & Creative Efforts_B</option>
+                                    </optgroup>
+                                    <optgroup label="Community Extension Service">
                                     <option value="service_students" {{ $certificate->category == 'service_students' ? 'selected' : '' }}>Service to Students</option>
                                     <option value="service_department" {{ $certificate->category == 'service_department' ? 'selected' : '' }}>Service to Department</option>
                                     <option value="service_institution" {{ $certificate->category == 'service_institution' ? 'selected' : '' }}>Service to Institution</option>
                                     <option value="participation_organizations" {{ $certificate->category == 'participation_organizations' ? 'selected' : '' }}>Active Participation in Different Organizations</option>
                                     <option value="involvement_department" {{ $certificate->category == 'involvement_department' ? 'selected' : '' }}>Active Involvement in Department</option>
+                                    </optgroup>
                                 </select>
                             </td>
                             <td><textarea name="type">{{ $certificate->type }}</textarea> </td>

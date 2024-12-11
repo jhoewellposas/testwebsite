@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('styling/rank.css') }}">
     <link rel="icon" href="{{ asset('FSUU Logo/fsuu2_1.png') }}" type="image/png">
-    <title>Distribution Points</title>
+    <title>Rank Distribution Table</title>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
     </div>
 
 <div class="container">
-    <h1>Rank Distributions</h1>
+    <h1>Rank Distribution Table</h1>
     <form action="{{ route('rankDistributions.update') }}" method="POST">
         @csrf
         <table class="table">
@@ -24,7 +24,7 @@
                     <th>Productive Scholarship_A (%)</th>
                     <th>Productive Scholarship_B (%)</th>
                     <th>Community Extension Services_A (%)</th>
-                    <th>Community Extension Services_A (%)</th>
+                    <th>Community Extension Services_B (%)</th>
                 </tr>
             </thead>
             <tbody>

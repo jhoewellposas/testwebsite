@@ -57,18 +57,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/summary/{teacherId?}', [CertificateController::class, 'showSummary'])->name('summary');
 });
 
-Route::get('user/home', function () {
-    $allTeachers = \App\Models\Teacher::all();
-    return view('user/home', compact('allTeachers'));
-})->name('user/home');
 
-/*
-  //profile
-  Route::get('user/profile', [CertificateController::class, 'showCertificates'])->name('user/profile');
-
-  //upload
-  Route::get('user/upload', [CertificateController::class, 'showUploadForm'])->name('user/certificate.upload');
-
-  //extract
-  Route::post('user/extract', [CertificateController::class, 'extractCertificateData'])->name('user/extractCertificateData');
-  */
