@@ -297,7 +297,7 @@
             <form action="{{ route('certificate.deleteAll', ['teacher_id' => $teacher_id]) }}" method="POST" style="margin-top: 20px;">
                 @csrf
                 @method('DELETE')
-                <button type="button" class="delete-all-button">Delete All</button>
+                <button type="button" class="delete-all-button">Clear Data</button>
             </form>
         </div>        
         

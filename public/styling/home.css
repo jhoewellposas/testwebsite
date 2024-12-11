@@ -120,6 +120,24 @@ body {
     background-color: darkred;
 }
 
+/* User Logout Button Styling */
+.user-logout-button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.user-logout-button:hover {
+    background-color: #0056b3;
+}
+
 /* Create Teacher Form Container */
 .create-teacher-container {
     grid-column: 1 / 2;
@@ -225,6 +243,53 @@ body {
     font-weight: bold;
     color: white;
     margin-right: 10px;
+}
+
+/* Popup Window Styling */
+.popup-window {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    top: 90%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Centering transformation */
+    background-color: white; /* Background color */
+    padding: 20px; /* Padding inside the popup */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    border-radius: 5px; /* Rounded corners */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+.popup-window .popup-content {
+    display: flex;
+    flex-direction: row; /* Arrange buttons horizontally */
+    gap: 15px; /* Space between buttons */
+}
+
+.popup-window .popup-content a,
+.popup-window .popup-content form button {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Close Button Styling */
+.popup-window .close-btn {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+/* Show Popup */
+.show-popup {
+    display: inline-block; /* Display the popup */
 }
 
 /* Responsive Design */

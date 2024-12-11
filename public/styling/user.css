@@ -10,25 +10,26 @@ h1 {
     color: #333;
 }
 
-form {
+.user-profile-container form:nth-child(1){
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
-    border: 1px solid #ddd;
     border-radius: 5px;
 }
 
-form div {
+.user-profile-container form:nth-child(1) div {
     margin-bottom: 15px;
 }
 
-label {
+.user-profile-container form:nth-child(1) label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    font-size: 18px;
 }
 
+.user-profile-container form:nth-child(1)
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -37,6 +38,7 @@ input[type="password"] {
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 .update-button {
@@ -51,6 +53,7 @@ input[type="password"] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .update:hover {
@@ -64,17 +67,25 @@ input[type="password"] {
     display: flex;
     justify-content: center;
     gap: 15px;
-}
+    max-width: 600px;
+    margin: 20px auto;
+} */
 
 .delete-home {
     display: flex;
     justify-content: space-between;
-    gap: 15px;
-} */
+    align-items: center;
+    border: 1px solid #ddd;
+}
+
+form .delete-button,
+form .back-home {
+    display: inline-block;
+    margin-right: 10px;
+}
 
 .back-home {
     display: flex;
-    justify-content: center;
 }
 
 .btn-success {
@@ -93,7 +104,6 @@ input[type="password"] {
 
 .delete-button {
     display: flex;
-    justify-content: center;
 }
 
 .delete {
@@ -103,6 +113,7 @@ input[type="password"] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .delete:hover {
@@ -111,4 +122,15 @@ input[type="password"] {
 
 p {
     text-align: center;
+    color: green; /* Style for success message */
 }
+
+.user-profile-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+

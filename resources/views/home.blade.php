@@ -26,19 +26,19 @@
             </div>
             <div class="mb-3">
                 <label for="acad_attainment" class="form-label">Highest Academic Attainment</label>
-                <input type="text" class="form-control" id="acad_attainment" name="acad_attainment">
+                <input type="text" class="form-control" id="acad_attainment" name="acad_attainment" required>
             </div>
             <div class="mb-3">
                 <label for="date">Date Hired</label>
-                <input type="date" class="form-control" id="date" name="date">
+                <input type="date" class="form-control" id="date" name="date" required>
             </div>
             <div class="mb-3">
                 <label for="office">Office</label>
-                <input type="text" class="form-control" id="office" name="office">
+                <input type="text" class="form-control" id="office" name="office" required>
             </div>
             <div class="mb-3">
                 <label for="performance" class="form-label">Performance</label>
-                <input type="number" step="0.1" class="form-control" id="performance" name="performance">
+                <input type="number" step="0.1" class="form-control" id="performance" name="performance" required>
             </div>
             <div class="mb-3">
                 <label for="experience" class="form-label">Experience</label> 
@@ -68,9 +68,9 @@
 
     <div class="teacher-choices-container">
         <form action="{{ route('profile') }}" method="GET">
-            <label for="teahcer_id">Select User:</label>
+            <label for="teahcer_id">Select Teacher:</label>
             <select name="teacher_id" id="teacher_id" class="form-control" onchange="this.form.submit()">
-                <option value="">Select a User</option>
+                <option value="">Select a Teacher</option>
                 @foreach($allTeachers as $teacher)
                     <option value="{{ $teacher->id }}" {{ request('teacher_id') == $teacher->id ? 'selected' : '' }}>
                         {{ $teacher->name }}
@@ -81,12 +81,17 @@
     </div>
 
     <div class="user-logout-container">
-        <div class="user-logout">
+        <button class="user-logout-button">Admin Options</button>
+    </div>
+
+    <div class="popup-window">
+        <button class="close-btn">&times;</button>
+        <div class="popup-content">
             <div class="rank-distribution">
                 <a href="{{ route('rankDistributions.index') }}" class="btn-success-2">Rank Distributions</a>
             </div>
             <div class="user-info">
-                <a href="{{ route('user') }}" class="btn btn-success">User Profile</a>
+                <a href="{{ route('user') }}" class="btn btn-success">Admin Profile</a>
             </div>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
@@ -96,7 +101,8 @@
     </div>
 
         <!-- JavaScript for Auto-Sizing Table Inputs -->
-        <script src="{{ asset('js/autosizing.js') }}"></script>
+        {{-- <script src="{{ asset('js/autosizing.js') }}"></script> --}}
+        <script src="{{ asset('javascript/option.js') }}"></script>
             
         
 </body>
