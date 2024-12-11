@@ -47,7 +47,7 @@
         <div class="teacher-info">
             <p><strong>Name:</strong> {{ $teacher->name }}</p>
             <p><strong>Highest Academic Attainment:</strong> {{ $teacher->acad_attainment }}</p>
-            <p><strong>Experience:</strong> {{ $experience }}</p>
+            <p><strong>Experience:</strong> {{ $teacher->experienceLabel }}</p>
             <p><strong>Office:</strong> {{ $teacher->office }}</p>
             <p><strong>Rank:</strong> {{ $teacher->next_rank }}</p>
         </div>

@@ -48,7 +48,7 @@ class CertificateController extends Controller
                     ],
                     [
                         'role' => 'user',
-                        'content' => "Extract the following details from this certificate text:\n\nText: {$text}\n\n1. Certificate Type\n2. Recipient Name\n3. Certificate Title\n4. Certificate Organization or Sponsor\n5. Recipient Designation or Role\n6. Count the number of days\n7. Date\n\nReturn the data in JSON format with keys: type, name, title, organization, designation, days and date.",
+                        'content' => "Extract the following details from this certificate text:\n\nText: {$text}\n\n1. Type of certificate\n2. Name of recipient\n3. Title of event\n4. Name of organization or sponsor\n5. Designation or role of recipient\n6. Count the number of days of the event\n7. Date of the event\n\nReturn the data in JSON format with keys: type, name, title, organization, designation, days and date.",
                     ],
                 ],
             ]);
@@ -64,6 +64,9 @@ class CertificateController extends Controller
             // Categorize Certificates
             $category = $this->categorizeCertificate($text);
 
+            // Give Points
+            $points = $this->scoreCertificate($category);
+
             // Step 4: Prepare and save the extracted data
             $data = [
                 'type' => $parsedData['type'] ?? 'Unknown',
@@ -74,6 +77,7 @@ class CertificateController extends Controller
                 'days' => is_numeric($parsedData['days']) ? $parsedData['days'] : 0,
                 'date' => $parsedData['date'] ?? 'Unknown',
                 'category' => $category,
+                'points' => $points, 
                 'raw_text' => $text,
                 'teacher_id' => $teacherId,
             ];
@@ -131,8 +135,28 @@ class CertificateController extends Controller
     }
 
     return 'unknown';
-}
+    }
 
+    private function scoreCertificate($category)
+    {
+        $scores = [
+            'seminar' => 5.0,
+            'honors_awards' => 1.0,
+            'membership' => 2.0,
+            'scholarship_activities_a' => 2.0,
+            'scholarship_activities_b' => 2.0,
+            'service_students' => 1.5,
+            'service_department' => 2.5,
+            'service_institution' => 1.0,
+            'participation_organizations' => 2.5,
+            'involvement_department' => 2.5,
+        ];
+
+        return $scores[$category] ?? 0.0; // Default to 0.0 if the category doesn't match
+    }
+
+
+    
 /*
     public function extractCertificateData(Request $request)
     {
@@ -482,7 +506,7 @@ class CertificateController extends Controller
     ]);
     }
 
-
+/*
     public function updateCertificate(Request $request, $id)
     {
     $certificate = Certificate::findOrFail($id);
@@ -492,10 +516,10 @@ class CertificateController extends Controller
     return redirect()->route('profile', ['teacher_id' => $certificate->teacher_id])
                      ->with('success', 'Certificate updated successfully.');
     }
-
+*/
 
     public function updateCertificatesAll(Request $request, $teacherId)
-{
+    {
     $validatedData = $request->validate([
         'certificates' => 'required|array',
         'certificates.*.id' => 'required|exists:certificates,id',
@@ -516,7 +540,7 @@ class CertificateController extends Controller
 
     return redirect()->route('profile', ['teacher_id' => $teacherId])
                      ->with('success', 'All certificates updated successfully.');
-}
+    }
 
     public function deleteCertificate($id)
     {
@@ -732,6 +756,25 @@ class CertificateController extends Controller
 
     // Calculate the total points
     $totalPoints = $performance + $productiveScholarshipPoints + $experience + $communityExtensionPoints;
+
+    // Map experience to descriptive labels
+    $experienceLabels = [
+        '0.83' => '1 Year',
+        '1.666' => '2 Years',
+        '2.499' => '3 Years',
+        '3.332' => '4 Years',
+        '4.165' => '5 Years',
+        '4.998' => '6 Years',
+        '5.831' => '7 Years',
+        '6.664' => '8 Years',
+        '7.497' => '9 Years',
+        '8.33' => '10 Years',
+        '9.163' => '11 Years',
+        '10.00' => '12 Years',
+
+        // Add more mappings as needed
+    ];
+    $teacher->experienceLabel = $experienceLabels[(string)$teacher->experience] ?? 'Unknown';
 
     // Pass data to the view
     return view('summary', [
