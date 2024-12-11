@@ -493,6 +493,31 @@ class CertificateController extends Controller
                      ->with('success', 'Certificate updated successfully.');
     }
 
+
+    public function updateCertificatesAll(Request $request, $teacherId)
+{
+    $validatedData = $request->validate([
+        'certificates' => 'required|array',
+        'certificates.*.id' => 'required|exists:certificates,id',
+        'certificates.*.category' => 'required|string',
+        'certificates.*.type' => 'nullable|string',
+        'certificates.*.title' => 'nullable|string',
+        'certificates.*.organization' => 'nullable|string',
+        'certificates.*.designation' => 'nullable|string',
+        'certificates.*.days' => 'nullable|integer',
+        'certificates.*.date' => 'nullable|date',
+        'certificates.*.points' => 'nullable|numeric',
+    ]);
+
+    foreach ($validatedData['certificates'] as $certificateData) {
+        $certificate = Certificate::findOrFail($certificateData['id']);
+        $certificate->update($certificateData);
+    }
+
+    return redirect()->route('profile', ['teacher_id' => $teacherId])
+                     ->with('success', 'All certificates updated successfully.');
+}
+
     public function deleteCertificate($id)
     {
     $certificate = Certificate::findOrFail($id);
@@ -503,6 +528,26 @@ class CertificateController extends Controller
     return redirect()->route('profile', ['teacher_id' => $teacherId])
                      ->with('success', 'Certificate deleted successfully.');
     }
+
+    public function deleteCertificatesAll($teacherId)
+{
+    // Retrieve all certificates for the specified teacher
+    $certificates = Certificate::where('teacher_id', $teacherId)->get();
+
+    if ($certificates->isEmpty()) {
+        return redirect()->route('profile', ['teacher_id' => $teacherId])
+                         ->with('error', 'No certificates found to delete.');
+    }
+
+    // Delete all certificates
+    Certificate::where('teacher_id', $teacherId)->delete();
+
+    // Redirect back to the profile page with the teacher_id
+    return redirect()->route('profile', ['teacher_id' => $teacherId])
+                     ->with('success', 'All certificates deleted successfully.');
+}
+
+
 
     public function createTeacher(Request $request)
     {

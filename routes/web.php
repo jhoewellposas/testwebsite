@@ -43,8 +43,16 @@ Route::middleware('auth')->group(function () {
     //update certificate
     Route::post('/certificate/update/{id}', [CertificateController::class, 'updateCertificate'])->name('certificate.update');
 
+    //update all cert
+    Route::post('/certificate/updateAll/{teacher_id}', [CertificateController::class, 'updateCertificatesAll'])->name('certificate.updateAll');
+
+
     //delete certificate
     Route::delete('/certificate/delete/{id}', [CertificateController::class, 'deleteCertificate'])->name('certificate.delete');
+
+    //delete all certificates
+    Route::delete('/certificate/deleteAll/{teacher_id}', [CertificateController::class, 'deleteCertificatesAll'])->name('certificate.deleteAll');
+
 
     //update teacher
     Route::post('/teacher/update/{id}', [CertificateController::class, 'updateTeacher'])->name('teachers.update');
