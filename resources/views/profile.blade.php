@@ -222,9 +222,6 @@
 
         <!-- Certificates Table Container with Scroll -->
         <div class="table-container">
-        <form action="{{ route('certificate.updateAll', ['teacher_id' => $teacher_id]) }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-primary">Update All</button>
             <table class="table" border="1">
                 <thead>
                     <tr>
@@ -245,10 +242,10 @@
                 <tbody>
                     @forelse ($allCertificates as $certificate)
                     <tr>
-                    <input type="hidden" name="certificates[{{ $loop->index }}][id]" value="{{ $certificate->id }}">
-                            {{-- <td>{{ $certificate->id }}</td> --}}
+                    <form action="{{ route('certificate.update', $certificate->id) }}" method="POST">
+                            @csrf
                             <td>
-                                <select name="certificates[{{ $loop->index }}][category]" id="category" required>
+                                <select name="category" id="category" required>
                                     <option value="">Select a Category</option>
                                     <optgroup label="Productive Scholarship">
                                     <option value="seminar" {{ $certificate->category == 'seminar' ? 'selected' : '' }}>Seminar</option>
@@ -266,16 +263,17 @@
                                     </optgroup>
                                 </select>
                             </td>
-                            <td><textarea name="certificates[{{ $loop->index }}][type]">{{ $certificate->type }}</textarea> </td>
+                            <td><textarea name="type">{{ $certificate->type }}</textarea> </td>
                             {{-- <td><textarea name="name">{{ $certificate->name }}</textarea></td> --}}
-                            <td><textarea name="certificates[{{ $loop->index }}][title]">{{ $certificate->title }}</textarea></td>
-                            <td><textarea name="certificates[{{ $loop->index }}][organization]">{{ $certificate->organization }}</textarea></td>
-                            <td><textarea name="certificates[{{ $loop->index }}][designation]">{{ $certificate->designation }}</textarea></td>
-                            <td><input type="text" name="certificates[{{ $loop->index }}][days]" value="{{ $certificate->days }}" required></td>
-                            <td><input type="text" name="certificates[{{ $loop->index }}][date]" value="{{ $certificate->date }}" required></td>
-                            <td><button type="button" name="certificates[{{ $loop->index }}][raw_text]" class="btn btn-info ocr-result-btn" data-ocr="{{ $certificate->raw_text }}">View OCR Output</button></td>
-                            <td><input type="text" name="certificates[{{ $loop->index }}][points]" value="{{ $certificate->points }}" required></td>
+                            <td><textarea name="title">{{ $certificate->title }}</textarea></td>
+                            <td><textarea name="organization">{{ $certificate->organization }}</textarea></td>
+                            <td><textarea name="designation">{{ $certificate->designation }}</textarea></td>
+                            <td><input type="text" name="days" value="{{ $certificate->days }}" required></td>
+                            <td><input type="text" name="date" value="{{ $certificate->date }}" required></td>
+                            <td><button type="button" class="btn btn-info ocr-result-btn" data-ocr="{{ $certificate->raw_text }}">View OCR Output</button></td>
+                            <td><input type="text" name="points" value="{{ $certificate->points }}" required></td>
                             <td>
+                            <button type="submit-update">Update</button>
                         </form>
                         <form action="{{ route('certificate.delete', $certificate->id) }}" method="POST" style="display:inline;">
                             @csrf

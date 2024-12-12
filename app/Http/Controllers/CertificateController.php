@@ -506,7 +506,7 @@ class CertificateController extends Controller
     ]);
     }
 
-/*
+
     public function updateCertificate(Request $request, $id)
     {
     $certificate = Certificate::findOrFail($id);
@@ -516,7 +516,7 @@ class CertificateController extends Controller
     return redirect()->route('profile', ['teacher_id' => $certificate->teacher_id])
                      ->with('success', 'Certificate updated successfully.');
     }
-*/
+
 
     public function updateCertificatesAll(Request $request, $teacherId)
     {
